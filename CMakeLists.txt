@@ -11,7 +11,7 @@ set(SOURCES
     src/main.cpp
     src/glad.c
 )
-
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # Add executable
 add_executable(Blackhole ${SOURCES})
 
