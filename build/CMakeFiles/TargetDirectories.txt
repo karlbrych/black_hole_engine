@@ -1,3 +1,0 @@
-/mnt/c/Users/Admin/Desktop/OpenGL/black_hole_engine/build/CMakeFiles/Blackhole.dir
-/mnt/c/Users/Admin/Desktop/OpenGL/black_hole_engine/build/CMakeFiles/edit_cache.dir
-/mnt/c/Users/Admin/Desktop/OpenGL/black_hole_engine/build/CMakeFiles/rebuild_cache.dir
