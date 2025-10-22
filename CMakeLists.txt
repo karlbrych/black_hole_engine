@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
-project(Blackhole)  # jen název projektu, žádné find_package
+project(Blackhole)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -11,7 +11,15 @@ set(SOURCES
     src/main.cpp
     src/glad.c
 )
+
+# Add all .cpp files from src/shader
+file(GLOB SHADER_SOURCES "src/shader/*.cpp")
+
+# Append them to SOURCES
+list(APPEND SOURCES ${SHADER_SOURCES})
+
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # Add executable
 add_executable(Blackhole ${SOURCES})
 

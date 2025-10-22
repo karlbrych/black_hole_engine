@@ -6,7 +6,7 @@
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
     glViewport(0, 0, width, height);
 }
-
+unsigned int VBO,VAO,EBO;
 int main() {
     if (!glfwInit()) {
         std::cerr << "Failed to initialize GLFW\n";
@@ -32,9 +32,8 @@ int main() {
 
     glViewport(0, 0, 800, 600);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-
     while (!glfwWindowShouldClose(window)) {
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         glfwSwapBuffers(window);
