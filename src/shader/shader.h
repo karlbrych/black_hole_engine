@@ -1,6 +1,7 @@
 #pragma once 
 #include <glad/glad.h>
 #include <string>
+#include <glm/glm.hpp>
 class shader
 {
 public:
@@ -11,6 +12,5 @@ public:
 	void setFloat(const std::string& name, float value)const;
 	void setInt(const std::string& name, int value)const;
 private:
-	void checkCompileErrors(GLuint shader,const std::string& type);
-	
+	void checkCompileErrors(GLuint shader,const std::string& type) const;	
 };
