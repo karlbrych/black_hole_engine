@@ -2,6 +2,7 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <iostream>
+#include "models/shader.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
     glViewport(0, 0, width, height);
@@ -31,20 +32,33 @@ int main() {
         std::cerr << "Failed to initialize GLAD\n";
         return -1;
     }
-    shader shader("vertex.glsl","fragment.glsl");
-    glViewport(0, 0, 800, 600);
+    
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    //uziti nasi krasne shader class
+    shader shader("../src/shaders/vertex.glsl","../src/shaders/fragment.glsl");
+    glViewport(0, 0, 800, 600);
+    int vertexCount;
+    GLuint circleVAO = createCircleVAO(0.5, 128, &vertexCount);
+
     while (!glfwWindowShouldClose(window)) {
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        int w,h;
+        glfwPollEvents();
+        glfwGetFramebufferSize(window,&w,&h);
+        glViewport(0,0,w,h);
+        glClearColor(1.0f,1.0f,1.0f,1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glfwSwapBuffers(window);
-        glfwPollEvents();
-    }
+        shader.use();
+        glBindVertexArray(circleVAO);
+        glDrawArrays(GL_TRIANGLE_FAN, 0, vertexCount);
 
+        glfwSwapBuffers(window);
+    }
+    glDeleteVertexArrays(1,&circleVAO);
     glfwTerminate();
     return 0;
 }
+//generovani Vertices pro nas vymrdany circle 
 float* generateCircleVertices(float radius, int segments, int *vertexCountOut) {
     if (segments < 3) segments = 3;
     int vertexCount = segments + 2; // center + segments + repeat first
@@ -67,6 +81,7 @@ float* generateCircleVertices(float radius, int segments, int *vertexCountOut) {
 
     return verts;
 }
+//generovani VAO pro nas circle 
 GLuint createCircleVAO(float radius, int segments, int *vertexCountOut) {
     int vertexCount;
     float *vertices = generateCircleVertices(radius, segments, &vertexCount);

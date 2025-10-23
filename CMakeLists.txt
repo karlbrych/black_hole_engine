@@ -10,6 +10,7 @@ include_directories(include)
 set(SOURCES
     src/main.cpp
     src/glad.c
+    src/models/shader.cpp
 )
 
 # Add all .cpp files from src/shader
