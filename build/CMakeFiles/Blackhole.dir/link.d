@@ -5,6 +5,8 @@ Blackhole: \
   CMakeFiles/Blackhole.dir/src/main.cpp.o \
   CMakeFiles/Blackhole.dir/src/glad.c.o \
   CMakeFiles/Blackhole.dir/src/models/shader.cpp.o \
+  CMakeFiles/Blackhole.dir/src/models/particle.cpp.o \
+  CMakeFiles/Blackhole.dir/src/models/sphere.cpp.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libglfw.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libdl.a \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libpthread.a \
@@ -47,6 +49,10 @@ CMakeFiles/Blackhole.dir/src/main.cpp.o:
 CMakeFiles/Blackhole.dir/src/glad.c.o:
 
 CMakeFiles/Blackhole.dir/src/models/shader.cpp.o:
+
+CMakeFiles/Blackhole.dir/src/models/particle.cpp.o:
+
+CMakeFiles/Blackhole.dir/src/models/sphere.cpp.o:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libglfw.so:
 

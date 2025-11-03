@@ -177,6 +177,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Blackhole.dir/build.make CMakeFiles/Blackhole.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/models/particle.o: src/models/particle.cpp.o
+.PHONY : src/models/particle.o
+
+# target to build an object file
+src/models/particle.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Blackhole.dir/build.make CMakeFiles/Blackhole.dir/src/models/particle.cpp.o
+.PHONY : src/models/particle.cpp.o
+
+src/models/particle.i: src/models/particle.cpp.i
+.PHONY : src/models/particle.i
+
+# target to preprocess a source file
+src/models/particle.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Blackhole.dir/build.make CMakeFiles/Blackhole.dir/src/models/particle.cpp.i
+.PHONY : src/models/particle.cpp.i
+
+src/models/particle.s: src/models/particle.cpp.s
+.PHONY : src/models/particle.s
+
+# target to generate assembly for a file
+src/models/particle.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Blackhole.dir/build.make CMakeFiles/Blackhole.dir/src/models/particle.cpp.s
+.PHONY : src/models/particle.cpp.s
+
 src/models/shader.o: src/models/shader.cpp.o
 .PHONY : src/models/shader.o
 
@@ -201,6 +225,30 @@ src/models/shader.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Blackhole.dir/build.make CMakeFiles/Blackhole.dir/src/models/shader.cpp.s
 .PHONY : src/models/shader.cpp.s
 
+src/models/sphere.o: src/models/sphere.cpp.o
+.PHONY : src/models/sphere.o
+
+# target to build an object file
+src/models/sphere.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Blackhole.dir/build.make CMakeFiles/Blackhole.dir/src/models/sphere.cpp.o
+.PHONY : src/models/sphere.cpp.o
+
+src/models/sphere.i: src/models/sphere.cpp.i
+.PHONY : src/models/sphere.i
+
+# target to preprocess a source file
+src/models/sphere.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Blackhole.dir/build.make CMakeFiles/Blackhole.dir/src/models/sphere.cpp.i
+.PHONY : src/models/sphere.cpp.i
+
+src/models/sphere.s: src/models/sphere.cpp.s
+.PHONY : src/models/sphere.s
+
+# target to generate assembly for a file
+src/models/sphere.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Blackhole.dir/build.make CMakeFiles/Blackhole.dir/src/models/sphere.cpp.s
+.PHONY : src/models/sphere.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -216,9 +264,15 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/models/particle.o"
+	@echo "... src/models/particle.i"
+	@echo "... src/models/particle.s"
 	@echo "... src/models/shader.o"
 	@echo "... src/models/shader.i"
 	@echo "... src/models/shader.s"
+	@echo "... src/models/sphere.o"
+	@echo "... src/models/sphere.i"
+	@echo "... src/models/sphere.s"
 .PHONY : help
 
 

@@ -114,11 +114,41 @@ CMakeFiles/Blackhole.dir/src/models/shader.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Blackhole.dir/src/models/shader.cpp.s"
 	/usr/sbin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kajabrych/Documents/PRG/black_hole_engine/src/models/shader.cpp -o CMakeFiles/Blackhole.dir/src/models/shader.cpp.s
 
+CMakeFiles/Blackhole.dir/src/models/particle.cpp.o: CMakeFiles/Blackhole.dir/flags.make
+CMakeFiles/Blackhole.dir/src/models/particle.cpp.o: /home/kajabrych/Documents/PRG/black_hole_engine/src/models/particle.cpp
+CMakeFiles/Blackhole.dir/src/models/particle.cpp.o: CMakeFiles/Blackhole.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/kajabrych/Documents/PRG/black_hole_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Blackhole.dir/src/models/particle.cpp.o"
+	/usr/sbin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Blackhole.dir/src/models/particle.cpp.o -MF CMakeFiles/Blackhole.dir/src/models/particle.cpp.o.d -o CMakeFiles/Blackhole.dir/src/models/particle.cpp.o -c /home/kajabrych/Documents/PRG/black_hole_engine/src/models/particle.cpp
+
+CMakeFiles/Blackhole.dir/src/models/particle.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Blackhole.dir/src/models/particle.cpp.i"
+	/usr/sbin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kajabrych/Documents/PRG/black_hole_engine/src/models/particle.cpp > CMakeFiles/Blackhole.dir/src/models/particle.cpp.i
+
+CMakeFiles/Blackhole.dir/src/models/particle.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Blackhole.dir/src/models/particle.cpp.s"
+	/usr/sbin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kajabrych/Documents/PRG/black_hole_engine/src/models/particle.cpp -o CMakeFiles/Blackhole.dir/src/models/particle.cpp.s
+
+CMakeFiles/Blackhole.dir/src/models/sphere.cpp.o: CMakeFiles/Blackhole.dir/flags.make
+CMakeFiles/Blackhole.dir/src/models/sphere.cpp.o: /home/kajabrych/Documents/PRG/black_hole_engine/src/models/sphere.cpp
+CMakeFiles/Blackhole.dir/src/models/sphere.cpp.o: CMakeFiles/Blackhole.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/kajabrych/Documents/PRG/black_hole_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Blackhole.dir/src/models/sphere.cpp.o"
+	/usr/sbin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Blackhole.dir/src/models/sphere.cpp.o -MF CMakeFiles/Blackhole.dir/src/models/sphere.cpp.o.d -o CMakeFiles/Blackhole.dir/src/models/sphere.cpp.o -c /home/kajabrych/Documents/PRG/black_hole_engine/src/models/sphere.cpp
+
+CMakeFiles/Blackhole.dir/src/models/sphere.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Blackhole.dir/src/models/sphere.cpp.i"
+	/usr/sbin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kajabrych/Documents/PRG/black_hole_engine/src/models/sphere.cpp > CMakeFiles/Blackhole.dir/src/models/sphere.cpp.i
+
+CMakeFiles/Blackhole.dir/src/models/sphere.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Blackhole.dir/src/models/sphere.cpp.s"
+	/usr/sbin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kajabrych/Documents/PRG/black_hole_engine/src/models/sphere.cpp -o CMakeFiles/Blackhole.dir/src/models/sphere.cpp.s
+
 # Object files for target Blackhole
 Blackhole_OBJECTS = \
 "CMakeFiles/Blackhole.dir/src/main.cpp.o" \
 "CMakeFiles/Blackhole.dir/src/glad.c.o" \
-"CMakeFiles/Blackhole.dir/src/models/shader.cpp.o"
+"CMakeFiles/Blackhole.dir/src/models/shader.cpp.o" \
+"CMakeFiles/Blackhole.dir/src/models/particle.cpp.o" \
+"CMakeFiles/Blackhole.dir/src/models/sphere.cpp.o"
 
 # External object files for target Blackhole
 Blackhole_EXTERNAL_OBJECTS =
@@ -126,10 +156,12 @@ Blackhole_EXTERNAL_OBJECTS =
 Blackhole: CMakeFiles/Blackhole.dir/src/main.cpp.o
 Blackhole: CMakeFiles/Blackhole.dir/src/glad.c.o
 Blackhole: CMakeFiles/Blackhole.dir/src/models/shader.cpp.o
+Blackhole: CMakeFiles/Blackhole.dir/src/models/particle.cpp.o
+Blackhole: CMakeFiles/Blackhole.dir/src/models/sphere.cpp.o
 Blackhole: CMakeFiles/Blackhole.dir/build.make
 Blackhole: CMakeFiles/Blackhole.dir/compiler_depend.ts
 Blackhole: CMakeFiles/Blackhole.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/kajabrych/Documents/PRG/black_hole_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable Blackhole"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/kajabrych/Documents/PRG/black_hole_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable Blackhole"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Blackhole.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

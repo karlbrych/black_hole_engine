@@ -1,1 +1,1 @@
-/usr/sbin/c++ -Wl,--dependency-file=CMakeFiles/Blackhole.dir/link.d CMakeFiles/Blackhole.dir/src/main.cpp.o CMakeFiles/Blackhole.dir/src/glad.c.o CMakeFiles/Blackhole.dir/src/models/shader.cpp.o -o Blackhole  -lglfw -ldl -lm -lpthread
+/usr/sbin/c++ -Wl,--dependency-file=CMakeFiles/Blackhole.dir/link.d CMakeFiles/Blackhole.dir/src/main.cpp.o CMakeFiles/Blackhole.dir/src/glad.c.o CMakeFiles/Blackhole.dir/src/models/shader.cpp.o CMakeFiles/Blackhole.dir/src/models/particle.cpp.o CMakeFiles/Blackhole.dir/src/models/sphere.cpp.o -o Blackhole  -lglfw -ldl -lm -lpthread
