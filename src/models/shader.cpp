@@ -3,6 +3,7 @@
 #include <sstream>
 #include <iostream>
 #include <glm/glm.hpp>
+#include <string>
 
 shader::shader(const char* vertexPath, const char* fragmentPath) {
     // 1. Retrieve shader source code from file
@@ -68,6 +69,19 @@ void shader::setInt(const std::string& name, int value) const {
 
 void shader::setFloat(const std::string& name, float value) const {
     glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
+}
+void shader::setVec2(const std::string &name,float x,float y) const{
+    glUniform2f(glGetUniformLocation(ID,name.c_str()),x,y);
+}
+void shader::setVec3(const std::string &name,float x,float y,float z) const{
+    glUniform3f(glGetUniformLocation(ID,name.c_str()),x,y,z);
+}
+void shader::setVec2V(const std::string &name, const glm::vec2 &vec) const {
+    glUniform2fv(glGetUniformLocation(ID, name.c_str()), 1, &vec[0]);
+}
+
+void shader::setVec3V(const std::string &name, const glm::vec3 &vec) const {
+    glUniform3fv(glGetUniformLocation(ID, name.c_str()), 1, &vec[0]);
 }
 
 void shader::checkCompileErrors(GLuint shader, const std::string& type) const {
