@@ -345,9 +345,11 @@ CMakeFiles/Blackhole.dir/src/main.cpp.o: /home/kajabrych/Documents/PRG/black_hol
   /usr/include/bits/wctype-wchar.h \
   /usr/include/bits/wordsize.h \
   /usr/include/bits/xopen_lim.h \
+  /usr/include/c++/15.2.1/algorithm \
   /usr/include/c++/15.2.1/array \
   /usr/include/c++/15.2.1/backward/binders.h \
   /usr/include/c++/15.2.1/bit \
+  /usr/include/c++/15.2.1/bits/algorithmfwd.h \
   /usr/include/c++/15.2.1/bits/alloc_traits.h \
   /usr/include/c++/15.2.1/bits/allocator.h \
   /usr/include/c++/15.2.1/bits/basic_ios.h \
@@ -356,6 +358,7 @@ CMakeFiles/Blackhole.dir/src/main.cpp.o: /home/kajabrych/Documents/PRG/black_hol
   /usr/include/c++/15.2.1/bits/basic_string.tcc \
   /usr/include/c++/15.2.1/bits/char_traits.h \
   /usr/include/c++/15.2.1/bits/charconv.h \
+  /usr/include/c++/15.2.1/bits/chrono.h \
   /usr/include/c++/15.2.1/bits/concept_check.h \
   /usr/include/c++/15.2.1/bits/cpp_type_traits.h \
   /usr/include/c++/15.2.1/bits/cxxabi_forced.h \
@@ -387,6 +390,7 @@ CMakeFiles/Blackhole.dir/src/main.cpp.o: /home/kajabrych/Documents/PRG/black_hol
   /usr/include/c++/15.2.1/bits/ostream.h \
   /usr/include/c++/15.2.1/bits/ostream.tcc \
   /usr/include/c++/15.2.1/bits/ostream_insert.h \
+  /usr/include/c++/15.2.1/bits/parse_numbers.h \
   /usr/include/c++/15.2.1/bits/postypes.h \
   /usr/include/c++/15.2.1/bits/predefined_ops.h \
   /usr/include/c++/15.2.1/bits/ptr_traits.h \
@@ -396,20 +400,27 @@ CMakeFiles/Blackhole.dir/src/main.cpp.o: /home/kajabrych/Documents/PRG/black_hol
   /usr/include/c++/15.2.1/bits/specfun.h \
   /usr/include/c++/15.2.1/bits/std_abs.h \
   /usr/include/c++/15.2.1/bits/std_function.h \
+  /usr/include/c++/15.2.1/bits/std_thread.h \
+  /usr/include/c++/15.2.1/bits/stl_algo.h \
   /usr/include/c++/15.2.1/bits/stl_algobase.h \
   /usr/include/c++/15.2.1/bits/stl_bvector.h \
   /usr/include/c++/15.2.1/bits/stl_construct.h \
   /usr/include/c++/15.2.1/bits/stl_function.h \
+  /usr/include/c++/15.2.1/bits/stl_heap.h \
   /usr/include/c++/15.2.1/bits/stl_iterator.h \
   /usr/include/c++/15.2.1/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/15.2.1/bits/stl_iterator_base_types.h \
   /usr/include/c++/15.2.1/bits/stl_pair.h \
+  /usr/include/c++/15.2.1/bits/stl_tempbuf.h \
   /usr/include/c++/15.2.1/bits/stl_uninitialized.h \
   /usr/include/c++/15.2.1/bits/stl_vector.h \
   /usr/include/c++/15.2.1/bits/streambuf.tcc \
   /usr/include/c++/15.2.1/bits/streambuf_iterator.h \
   /usr/include/c++/15.2.1/bits/string_view.tcc \
   /usr/include/c++/15.2.1/bits/stringfwd.h \
+  /usr/include/c++/15.2.1/bits/this_thread_sleep.h \
+  /usr/include/c++/15.2.1/bits/uniform_int_dist.h \
+  /usr/include/c++/15.2.1/bits/unique_ptr.h \
   /usr/include/c++/15.2.1/bits/unordered_map.h \
   /usr/include/c++/15.2.1/bits/uses_allocator.h \
   /usr/include/c++/15.2.1/bits/uses_allocator_args.h \
@@ -420,6 +431,7 @@ CMakeFiles/Blackhole.dir/src/main.cpp.o: /home/kajabrych/Documents/PRG/black_hol
   /usr/include/c++/15.2.1/cctype \
   /usr/include/c++/15.2.1/cerrno \
   /usr/include/c++/15.2.1/cfloat \
+  /usr/include/c++/15.2.1/chrono \
   /usr/include/c++/15.2.1/climits \
   /usr/include/c++/15.2.1/clocale \
   /usr/include/c++/15.2.1/cmath \
@@ -429,6 +441,7 @@ CMakeFiles/Blackhole.dir/src/main.cpp.o: /home/kajabrych/Documents/PRG/black_hol
   /usr/include/c++/15.2.1/cstdint \
   /usr/include/c++/15.2.1/cstdio \
   /usr/include/c++/15.2.1/cstdlib \
+  /usr/include/c++/15.2.1/ctime \
   /usr/include/c++/15.2.1/cwchar \
   /usr/include/c++/15.2.1/cwctype \
   /usr/include/c++/15.2.1/debug/assertions.h \
@@ -449,12 +462,16 @@ CMakeFiles/Blackhole.dir/src/main.cpp.o: /home/kajabrych/Documents/PRG/black_hol
   /usr/include/c++/15.2.1/limits \
   /usr/include/c++/15.2.1/new \
   /usr/include/c++/15.2.1/ostream \
+  /usr/include/c++/15.2.1/pstl/execution_defs.h \
+  /usr/include/c++/15.2.1/pstl/glue_algorithm_defs.h \
   /usr/include/c++/15.2.1/pstl/pstl_config.h \
+  /usr/include/c++/15.2.1/ratio \
   /usr/include/c++/15.2.1/stdexcept \
   /usr/include/c++/15.2.1/streambuf \
   /usr/include/c++/15.2.1/string \
   /usr/include/c++/15.2.1/string_view \
   /usr/include/c++/15.2.1/system_error \
+  /usr/include/c++/15.2.1/thread \
   /usr/include/c++/15.2.1/tr1/bessel_function.tcc \
   /usr/include/c++/15.2.1/tr1/beta_function.tcc \
   /usr/include/c++/15.2.1/tr1/ell_integral.tcc \
@@ -505,6 +522,8 @@ CMakeFiles/Blackhole.dir/src/main.cpp.o: /home/kajabrych/Documents/PRG/black_hol
   /usr/include/stdint.h \
   /usr/include/stdio.h \
   /usr/include/stdlib.h \
+  /usr/include/string.h \
+  /usr/include/strings.h \
   /usr/include/sys/cdefs.h \
   /usr/include/sys/select.h \
   /usr/include/sys/single_threaded.h \
@@ -656,6 +675,19 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o: /home/kajabrych/Documents/PR
   /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/detail/type_half.inl \
   /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/fwd.hpp \
   /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/glm.hpp \
+  /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/detail/setup.hpp \
+  /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/ext/scalar_constants.hpp \
+  /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/ext/scalar_constants.inl \
+  /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/gtc/constants.hpp \
+  /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/gtc/constants.inl \
+  /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/ext/matrix_clip_space.hpp \
+  /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/ext/matrix_clip_space.inl \
+  /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/ext/matrix_projection.hpp \
+  /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/ext/matrix_projection.inl \
+  /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/ext/matrix_transform.hpp \
+  /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/ext/matrix_transform.inl \
+  /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/gtc/matrix_transform.hpp \
+  /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/gtc/matrix_transform.inl \
   /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/integer.hpp \
   /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/mat2x2.hpp \
   /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/packing.hpp \
@@ -754,9 +786,11 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o: /home/kajabrych/Documents/PR
   /usr/include/bits/wctype-wchar.h \
   /usr/include/bits/wordsize.h \
   /usr/include/bits/xopen_lim.h \
+  /usr/include/c++/15.2.1/algorithm \
   /usr/include/c++/15.2.1/array \
   /usr/include/c++/15.2.1/backward/binders.h \
   /usr/include/c++/15.2.1/bit \
+  /usr/include/c++/15.2.1/bits/algorithmfwd.h \
   /usr/include/c++/15.2.1/bits/alloc_traits.h \
   /usr/include/c++/15.2.1/bits/allocated_ptr.h \
   /usr/include/c++/15.2.1/bits/allocator.h \
@@ -820,20 +854,24 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o: /home/kajabrych/Documents/PR
   /usr/include/c++/15.2.1/bits/sstream.tcc \
   /usr/include/c++/15.2.1/bits/std_abs.h \
   /usr/include/c++/15.2.1/bits/std_function.h \
+  /usr/include/c++/15.2.1/bits/stl_algo.h \
   /usr/include/c++/15.2.1/bits/stl_algobase.h \
   /usr/include/c++/15.2.1/bits/stl_bvector.h \
   /usr/include/c++/15.2.1/bits/stl_construct.h \
   /usr/include/c++/15.2.1/bits/stl_function.h \
+  /usr/include/c++/15.2.1/bits/stl_heap.h \
   /usr/include/c++/15.2.1/bits/stl_iterator.h \
   /usr/include/c++/15.2.1/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/15.2.1/bits/stl_iterator_base_types.h \
   /usr/include/c++/15.2.1/bits/stl_pair.h \
+  /usr/include/c++/15.2.1/bits/stl_tempbuf.h \
   /usr/include/c++/15.2.1/bits/stl_uninitialized.h \
   /usr/include/c++/15.2.1/bits/stl_vector.h \
   /usr/include/c++/15.2.1/bits/streambuf.tcc \
   /usr/include/c++/15.2.1/bits/streambuf_iterator.h \
   /usr/include/c++/15.2.1/bits/string_view.tcc \
   /usr/include/c++/15.2.1/bits/stringfwd.h \
+  /usr/include/c++/15.2.1/bits/uniform_int_dist.h \
   /usr/include/c++/15.2.1/bits/unique_ptr.h \
   /usr/include/c++/15.2.1/bits/unordered_map.h \
   /usr/include/c++/15.2.1/bits/uses_allocator.h \
@@ -880,6 +918,8 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o: /home/kajabrych/Documents/PR
   /usr/include/c++/15.2.1/locale \
   /usr/include/c++/15.2.1/new \
   /usr/include/c++/15.2.1/ostream \
+  /usr/include/c++/15.2.1/pstl/execution_defs.h \
+  /usr/include/c++/15.2.1/pstl/glue_algorithm_defs.h \
   /usr/include/c++/15.2.1/pstl/pstl_config.h \
   /usr/include/c++/15.2.1/ratio \
   /usr/include/c++/15.2.1/sstream \
@@ -941,6 +981,8 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o: /home/kajabrych/Documents/PR
   /usr/include/stdint.h \
   /usr/include/stdio.h \
   /usr/include/stdlib.h \
+  /usr/include/string.h \
+  /usr/include/strings.h \
   /usr/include/sys/cdefs.h \
   /usr/include/sys/select.h \
   /usr/include/sys/single_threaded.h \
@@ -1699,8 +1741,6 @@ CMakeFiles/Blackhole.dir/src/models/sphere.cpp.o: /home/kajabrych/Documents/PRG/
 
 /usr/include/c++/15.2.1/bits/fs_path.h:
 
-/usr/include/c++/15.2.1/bits/chrono.h:
-
 /usr/include/c++/15.2.1/bits/allocated_ptr.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/syslimits.h:
@@ -1761,6 +1801,10 @@ CMakeFiles/Blackhole.dir/src/models/sphere.cpp.o: /home/kajabrych/Documents/PRG/
 
 /usr/include/c++/15.2.1/pstl/pstl_config.h:
 
+/usr/include/c++/15.2.1/pstl/glue_algorithm_defs.h:
+
+/usr/include/c++/15.2.1/pstl/execution_defs.h:
+
 /usr/include/c++/15.2.1/ostream:
 
 /usr/include/c++/15.2.1/istream:
@@ -1768,8 +1812,6 @@ CMakeFiles/Blackhole.dir/src/models/sphere.cpp.o: /home/kajabrych/Documents/PRG/
 /usr/include/c++/15.2.1/initializer_list:
 
 /usr/include/c++/15.2.1/functional:
-
-/usr/include/c++/15.2.1/ext/type_traits.h:
 
 /usr/include/c++/15.2.1/ext/string_conversions.h:
 
@@ -1780,8 +1822,6 @@ CMakeFiles/Blackhole.dir/src/models/sphere.cpp.o: /home/kajabrych/Documents/PRG/
 /usr/include/c++/15.2.1/bits/shared_ptr_base.h:
 
 /usr/include/c++/15.2.1/debug/assertions.h:
-
-/usr/include/c++/15.2.1/cwchar:
 
 /usr/include/c++/15.2.1/cstdlib:
 
@@ -1809,11 +1849,21 @@ CMakeFiles/Blackhole.dir/src/models/sphere.cpp.o: /home/kajabrych/Documents/PRG/
 
 /usr/include/c++/15.2.1/bits/unordered_map.h:
 
+/usr/include/c++/15.2.1/cwchar:
+
+/usr/include/c++/15.2.1/bits/uniform_int_dist.h:
+
+/usr/include/c++/15.2.1/ext/type_traits.h:
+
+/usr/include/c++/15.2.1/bits/this_thread_sleep.h:
+
 /usr/include/c++/15.2.1/bits/streambuf_iterator.h:
 
 /usr/include/c++/15.2.1/bits/stl_pair.h:
 
 /usr/include/c++/15.2.1/bits/stl_iterator_base_types.h:
+
+/usr/include/c++/15.2.1/chrono:
 
 /usr/include/c++/15.2.1/bits/stl_iterator_base_funcs.h:
 
@@ -1873,6 +1923,8 @@ CMakeFiles/Blackhole.dir/src/models/sphere.cpp.o: /home/kajabrych/Documents/PRG/
 
 /usr/include/c++/15.2.1/bits/cpp_type_traits.h:
 
+/usr/include/c++/15.2.1/bits/chrono.h:
+
 /usr/include/c++/15.2.1/bits/char_traits.h:
 
 /usr/include/c++/15.2.1/bits/uses_allocator_args.h:
@@ -1891,7 +1943,11 @@ CMakeFiles/Blackhole.dir/src/models/sphere.cpp.o: /home/kajabrych/Documents/PRG/
 
 /usr/include/c++/15.2.1/backward/binders.h:
 
+/usr/include/c++/15.2.1/bits/algorithmfwd.h:
+
 /usr/include/c++/15.2.1/array:
+
+/usr/include/c++/15.2.1/algorithm:
 
 /usr/include/bits/wctype-wchar.h:
 
@@ -2095,6 +2151,8 @@ CMakeFiles/Blackhole.dir/src/models/sphere.cpp.o:
 
 /usr/include/c++/15.2.1/filesystem:
 
+/usr/include/c++/15.2.1/bits/std_thread.h:
+
 /usr/include/bits/types/struct_FILE.h:
 
 /usr/include/c++/15.2.1/debug/debug.h:
@@ -2125,9 +2183,9 @@ CMakeFiles/Blackhole.dir/src/models/sphere.cpp.o:
 
 /home/kajabrych/Documents/PRG/black_hole_engine/src/models/sphere.h:
 
-/usr/include/c++/15.2.1/bits/parse_numbers.h:
-
 /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/atomic_word.h:
+
+/usr/include/c++/15.2.1/bits/parse_numbers.h:
 
 /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/ext/matrix_double2x3.hpp:
 
@@ -2259,6 +2317,8 @@ CMakeFiles/Blackhole.dir/src/main.cpp.o:
 
 /usr/include/bits/long-double.h:
 
+/usr/include/c++/15.2.1/bits/stl_tempbuf.h:
+
 /usr/include/stdc-predef.h:
 
 /usr/include/c++/15.2.1/bits/postypes.h:
@@ -2272,6 +2332,8 @@ CMakeFiles/Blackhole.dir/src/main.cpp.o:
 /usr/include/pthread.h:
 
 /usr/include/c++/15.2.1/bits/stl_uninitialized.h:
+
+/usr/include/c++/15.2.1/bits/stl_algo.h:
 
 /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/ext/matrix_float4x2.hpp:
 
@@ -2539,9 +2601,9 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o:
 
 /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/detail/type_vec3.inl:
 
-/usr/include/c++/15.2.1/ratio:
-
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/limits.h:
+
+/usr/include/c++/15.2.1/ratio:
 
 /usr/include/bits/floatn-common.h:
 
@@ -2583,6 +2645,8 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o:
 
 /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/mat3x4.hpp:
 
+/usr/include/c++/15.2.1/thread:
+
 /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/vec2.hpp:
 
 /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/c++allocator.h:
@@ -2606,6 +2670,8 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o:
 /usr/include/asm-generic/errno-base.h:
 
 /usr/include/c++/15.2.1/exception:
+
+/usr/include/c++/15.2.1/bits/stl_heap.h:
 
 /usr/include/asm-generic/bitsperlong.h:
 

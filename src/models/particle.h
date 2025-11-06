@@ -1,3 +1,4 @@
+#pragma once
 #include "glm/fwd.hpp"
 #include <iostream>
 #include <sys/types.h>
@@ -9,8 +10,8 @@
 struct Object{
   glm::vec3 pos;
   double xv,yv,zv;
-  long mass;
-  float radius;
+  double mass;
+  double radius;
   bool IsBlackHole;
   GLuint VAO,VBO,EBO;
   size_t indexCount;
@@ -22,106 +23,9 @@ struct Plane{
     void draw(const shader &shader)const;
     std::vector<Object> objs;
 };
-double invSqrt(double n) {
-	uint64_t i;
-	double x2 = n*0.5;
-	double y=n;
+double invSqrt(double n);
+void DoGravity(Plane &plane);
 
-	memcpy(&i, &y, sizeof(i));
-	i = 0x5fe6eb50c7aa19f9ULL - (i >> 1);
-
-	memcpy(&y, &i, sizeof(y));
-
-	const double treehalves = 1.5;
-	y = y * (treehalves - (x2 * y *y));
-	y = y * (treehalves - (x2 * y * y)); //pokud bude potreba vetsi presnost
-	return y;
-}
-void DoGravity(Plane &plane) {
-    double G = 1.0;
-    double dt = 0.1;
-    int n = plane.objs.size();
-    std::vector<glm::vec3> accel(n, glm::vec3(0,0,0));
-    std::vector<int> mergeTarget(n, -1);
-
-    // 1️⃣ Compute gravity and mark merges
-    for (int i = 0; i < n; ++i) {
-        if (plane.objs[i].mass <= 0) continue;
-
-        for (int j = i + 1; j < n; ++j) {
-            if (plane.objs[j].mass <= 0) continue;
-
-            double dx = plane.objs[j].pos.x - plane.objs[i].pos.x;
-            double dy = plane.objs[j].pos.y - plane.objs[i].pos.y;
-            double dz = plane.objs[j].pos.z - plane.objs[i].pos.z;
-
-            double r2 = dx*dx + dy*dy + dz*dz + 0.05;
-            double radiusSum = plane.objs[i].radius + plane.objs[j].radius;
-
-            // Merge if colliding
-            if (r2 < radiusSum * radiusSum) {
-                mergeTarget[j] = i; // merge j into i
-            }
-
-            // Gravity calculation
-            double inv_r = invSqrt(r2);
-            double factor = G * inv_r * inv_r * inv_r;
-
-            accel[i].x += factor * plane.objs[j].mass * dx;
-            accel[i].y += factor * plane.objs[j].mass * dy;
-            accel[i].z += factor * plane.objs[j].mass * dz;
-
-            accel[j].x -= factor * plane.objs[i].mass * dx;
-            accel[j].y -= factor * plane.objs[i].mass * dy;
-            accel[j].z -= factor * plane.objs[i].mass * dz;
-        }
-    }
-
-    // 2️⃣ Update velocities and positions
-    for (int i = 0; i < n; ++i) {
-        if (plane.objs[i].mass <= 0) continue;
-
-        plane.objs[i].xv += accel[i].x * dt;
-        plane.objs[i].yv += accel[i].y * dt;
-        plane.objs[i].zv += accel[i].z * dt;
-
-        plane.objs[i].pos.x += plane.objs[i].xv * dt;
-        plane.objs[i].pos.y += plane.objs[i].yv * dt;
-        plane.objs[i].pos.z += plane.objs[i].zv * dt;
-    }
-
-    // 3️⃣ Apply merges (in-place)
-    for (int j = 0; j < n; ++j) {
-        int i = mergeTarget[j];
-        if (i < 0 || plane.objs[i].mass <= 0 || plane.objs[j].mass <= 0) continue;
-
-        double totalMass = plane.objs[i].mass + plane.objs[j].mass;
-
-        // Center-of-mass position
-        plane.objs[i].pos = (plane.objs[i].pos * (float)plane.objs[i].mass +
-                             plane.objs[j].pos * (float)plane.objs[j].mass) / (float)totalMass;
-
-        // Momentum conservation
-        plane.objs[i].xv = (plane.objs[i].xv * plane.objs[i].mass + plane.objs[j].xv * plane.objs[j].mass) / totalMass;
-        plane.objs[i].yv = (plane.objs[i].yv * plane.objs[i].mass + plane.objs[j].yv * plane.objs[j].mass) / totalMass;
-        plane.objs[i].zv = (plane.objs[i].zv * plane.objs[i].mass + plane.objs[j].zv * plane.objs[j].mass) / totalMass;
-
-        plane.objs[i].mass = totalMass;
-
-        // Fast approximate radius scaling: radius ~ cube root of mass
-        plane.objs[i].radius = cbrt(totalMass);
-
-        // Mark merged object as inactive
-        plane.objs[j].mass = 0;
-    }
-
-    // 4️⃣ Remove inactive objects
-    plane.objs.erase(
-        std::remove_if(plane.objs.begin(), plane.objs.end(),
-                       [](const Object &o){ return o.mass <= 0; }),
-        plane.objs.end()
-    );
-}
 
 
 

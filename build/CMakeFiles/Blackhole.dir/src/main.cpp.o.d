@@ -353,5 +353,20 @@ CMakeFiles/Blackhole.dir/src/main.cpp.o: \
  /home/kajabrych/Documents/PRG/black_hole_engine/src/models/shader.h \
  /home/kajabrych/Documents/PRG/black_hole_engine/include/glad/glad.h \
  /home/kajabrych/Documents/PRG/black_hole_engine/include/KHR/khrplatform.h \
+ /usr/include/string.h /usr/include/strings.h \
+ /usr/include/c++/15.2.1/algorithm \
+ /usr/include/c++/15.2.1/bits/stl_algo.h \
+ /usr/include/c++/15.2.1/bits/algorithmfwd.h \
+ /usr/include/c++/15.2.1/bits/stl_heap.h \
+ /usr/include/c++/15.2.1/bits/uniform_int_dist.h \
+ /usr/include/c++/15.2.1/bits/stl_tempbuf.h \
+ /usr/include/c++/15.2.1/pstl/glue_algorithm_defs.h \
+ /usr/include/c++/15.2.1/pstl/execution_defs.h \
  /home/kajabrych/Documents/PRG/black_hole_engine/src/models/sphere.h \
- /home/kajabrych/Documents/PRG/black_hole_engine/include/GLFW/glfw3.h
+ /home/kajabrych/Documents/PRG/black_hole_engine/include/GLFW/glfw3.h \
+ /usr/include/c++/15.2.1/chrono /usr/include/c++/15.2.1/bits/chrono.h \
+ /usr/include/c++/15.2.1/ratio /usr/include/c++/15.2.1/ctime \
+ /usr/include/c++/15.2.1/bits/parse_numbers.h \
+ /usr/include/c++/15.2.1/thread /usr/include/c++/15.2.1/bits/std_thread.h \
+ /usr/include/c++/15.2.1/bits/unique_ptr.h \
+ /usr/include/c++/15.2.1/bits/this_thread_sleep.h
