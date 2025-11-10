@@ -14,21 +14,46 @@ void Object::draw(const shader &shader) const {
   glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, 0);
   glBindVertexArray(0);
 }
-double invSqrt(double n) {
-  uint64_t i;
-  double x2 = n * 0.5;
-  double y = n;
 
-  memcpy(&i, &y, sizeof(i));
-  i = 0x5fe6eb50c7aa19f9ULL - (i >> 1);
 
-  memcpy(&y, &i, sizeof(y));
-
-  const double treehalves = 1.5;
-  y = y * (treehalves - (x2 * y * y));
-  y = y * (treehalves - (x2 * y * y)); // pokud bude potreba vetsi presnost
-  return y;
+static inline double quakeInvSqrt(double n) {
+    uint64_t i;
+    double x2 = n * 0.5;
+    double y = n;
+  
+    memcpy(&i, &y, sizeof(i));
+    i = 0x5fe6eb50c7aa19f9ULL - (i >> 1);
+    memcpy(&y, &i, sizeof(y));
+  
+    const double threehalves = 1.5;
+    y = y * (threehalves - (x2 * y * y));
+    y = y * (threehalves - (x2 * y * y));
+    return y;
 }
+
+#include <immintrin.h>
+static inline double hwInvSqrt(double x) {
+    __m128d in = _mm_set_sd(x);
+    __m128d out = _mm_cvtss_sd(in, _mm_rsqrt_ss(_mm_cvtpd_ps(in)));
+    __m128d half = _mm_set_sd(0.5 * x);
+    __m128d threehalves = _mm_set_sd(1.5);
+    out = _mm_mul_sd(out,
+                     _mm_sub_sd(threehalves,
+                                _mm_mul_sd(_mm_mul_sd(half, out), out)));
+    return _mm_cvtsd_f64(out);
+}
+
+const bool hasSSE = __builtin_cpu_supports("sse");
+double invSqrt(double n) {
+#if defined(__x86_64__) || defined(__i386__)
+    if (hasSSE)
+        return hwInvSqrt(n);
+    return quakeInvSqrt(n);
+#else
+    return quakeInvSqrt(n);
+#endif
+}
+
   void DoGravity(Plane &plane) {
     double G = 0.00675;
     double dt = 0.01;
