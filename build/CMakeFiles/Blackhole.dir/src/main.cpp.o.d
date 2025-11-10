@@ -251,15 +251,41 @@ CMakeFiles/Blackhole.dir/src/main.cpp.o: \
  /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/ext/.././ext/matrix_float4x4_precision.hpp \
  /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/ext/../detail/func_matrix.inl \
  /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/ext/matrix_transform.inl \
- /home/kajabrych/Documents/PRG/black_hole_engine/src/models/camera.h \
+ /home/kajabrych/Documents/PRG/black_hole_engine/include/glad/glad.h \
+ /home/kajabrych/Documents/PRG/black_hole_engine/include/KHR/khrplatform.h \
+ /home/kajabrych/Documents/PRG/black_hole_engine/include/GLFW/glfw3.h \
+ /usr/include/c++/15.2.1/chrono /usr/include/c++/15.2.1/bits/chrono.h \
+ /usr/include/c++/15.2.1/ratio /usr/include/c++/15.2.1/ctime \
+ /usr/include/time.h /usr/include/bits/time.h /usr/include/bits/timex.h \
+ /usr/include/bits/types/struct_tm.h \
+ /usr/include/bits/types/struct_itimerspec.h \
+ /usr/include/c++/15.2.1/bits/parse_numbers.h \
+ /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/fwd.hpp \
+ /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/glm.hpp \
+ /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/detail/_fixes.hpp \
+ /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/detail/setup.hpp \
+ /usr/include/c++/15.2.1/climits \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/limits.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/syslimits.h \
+ /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+ /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+ /usr/include/bits/pthread_stack_min-dynamic.h \
+ /usr/include/bits/posix2_lim.h /usr/include/bits/xopen_lim.h \
+ /usr/include/bits/uio_lim.h /usr/include/c++/15.2.1/cfloat \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/float.h \
+ /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/packing.hpp \
+ /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/detail/func_packing.inl \
+ /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/detail/type_half.hpp \
+ /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/detail/setup.hpp \
+ /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/detail/type_half.inl \
+ /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/integer.hpp \
+ /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/detail/func_integer.inl \
  /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/gtc/matrix_transform.hpp \
  /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/gtc/../ext/matrix_projection.hpp \
  /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/gtc/../ext/matrix_projection.inl \
  /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/gtc/../ext/matrix_clip_space.hpp \
  /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/gtc/../ext/matrix_clip_space.inl \
  /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/gtc/matrix_transform.inl \
- /home/kajabrych/Documents/PRG/black_hole_engine/src/models/particle.h \
- /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/fwd.hpp \
  /usr/include/c++/15.2.1/iostream /usr/include/c++/15.2.1/ostream \
  /usr/include/c++/15.2.1/bits/ostream.h /usr/include/c++/15.2.1/ios \
  /usr/include/c++/15.2.1/iosfwd /usr/include/c++/15.2.1/bits/stringfwd.h \
@@ -289,11 +315,8 @@ CMakeFiles/Blackhole.dir/src/main.cpp.o: \
  /usr/include/linux/stddef.h /usr/include/asm/posix_types.h \
  /usr/include/asm/posix_types_64.h /usr/include/asm-generic/posix_types.h \
  /usr/include/bits/types/struct_sched_param.h /usr/include/bits/cpu-set.h \
- /usr/include/time.h /usr/include/bits/time.h /usr/include/bits/timex.h \
- /usr/include/bits/types/struct_tm.h \
- /usr/include/bits/types/struct_itimerspec.h /usr/include/bits/setjmp.h \
+ /usr/include/bits/setjmp.h \
  /usr/include/bits/types/struct___jmp_buf_tag.h \
- /usr/include/bits/pthread_stack_min-dynamic.h \
  /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/atomic_word.h \
  /usr/include/sys/single_threaded.h \
  /usr/include/c++/15.2.1/bits/locale_classes.h \
@@ -331,28 +354,13 @@ CMakeFiles/Blackhole.dir/src/main.cpp.o: \
  /usr/include/c++/15.2.1/bits/locale_facets.tcc \
  /usr/include/c++/15.2.1/bits/basic_ios.tcc \
  /usr/include/c++/15.2.1/bits/ostream.tcc /usr/include/c++/15.2.1/istream \
- /usr/include/c++/15.2.1/bits/istream.tcc \
- /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/glm.hpp \
- /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/detail/_fixes.hpp \
- /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/detail/setup.hpp \
- /usr/include/c++/15.2.1/climits \
- /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/limits.h \
- /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h /usr/include/bits/xopen_lim.h \
- /usr/include/bits/uio_lim.h /usr/include/c++/15.2.1/cfloat \
- /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/float.h \
- /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/packing.hpp \
- /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/detail/func_packing.inl \
- /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/detail/type_half.hpp \
- /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/detail/setup.hpp \
- /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/detail/type_half.inl \
- /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/integer.hpp \
- /home/kajabrych/Documents/PRG/black_hole_engine/include/glm/detail/func_integer.inl \
+ /usr/include/c++/15.2.1/bits/istream.tcc /usr/include/c++/15.2.1/thread \
+ /usr/include/c++/15.2.1/bits/std_thread.h \
+ /usr/include/c++/15.2.1/bits/unique_ptr.h \
+ /usr/include/c++/15.2.1/bits/this_thread_sleep.h \
+ /home/kajabrych/Documents/PRG/black_hole_engine/src/models/camera.h \
+ /home/kajabrych/Documents/PRG/black_hole_engine/src/models/particle.h \
  /home/kajabrych/Documents/PRG/black_hole_engine/src/models/shader.h \
- /home/kajabrych/Documents/PRG/black_hole_engine/include/glad/glad.h \
- /home/kajabrych/Documents/PRG/black_hole_engine/include/KHR/khrplatform.h \
  /usr/include/string.h /usr/include/strings.h \
  /usr/include/c++/15.2.1/algorithm \
  /usr/include/c++/15.2.1/bits/stl_algo.h \
@@ -362,11 +370,4 @@ CMakeFiles/Blackhole.dir/src/main.cpp.o: \
  /usr/include/c++/15.2.1/bits/stl_tempbuf.h \
  /usr/include/c++/15.2.1/pstl/glue_algorithm_defs.h \
  /usr/include/c++/15.2.1/pstl/execution_defs.h \
- /home/kajabrych/Documents/PRG/black_hole_engine/src/models/sphere.h \
- /home/kajabrych/Documents/PRG/black_hole_engine/include/GLFW/glfw3.h \
- /usr/include/c++/15.2.1/chrono /usr/include/c++/15.2.1/bits/chrono.h \
- /usr/include/c++/15.2.1/ratio /usr/include/c++/15.2.1/ctime \
- /usr/include/c++/15.2.1/bits/parse_numbers.h \
- /usr/include/c++/15.2.1/thread /usr/include/c++/15.2.1/bits/std_thread.h \
- /usr/include/c++/15.2.1/bits/unique_ptr.h \
- /usr/include/c++/15.2.1/bits/this_thread_sleep.h
+ /home/kajabrych/Documents/PRG/black_hole_engine/src/models/sphere.h

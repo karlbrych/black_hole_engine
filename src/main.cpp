@@ -1,16 +1,16 @@
 #include "glm/ext/matrix_transform.hpp"
-#include "models/camera.h"
-#include "models/particle.h"
-#include "models/shader.h"
-#include "models/sphere.h"
+#include "glad/glad.h"
 #include <GLFW/glfw3.h>
 #include <chrono>
-#include <glad/glad.h>
 #include <glm/fwd.hpp>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
 #include <thread>
+#include "models/camera.h"
+#include "models/particle.h"
+#include "models/shader.h"
+#include "models/sphere.h"
 #define HEIGHT 960
 #define WIDTH 1280
 // pro mys
@@ -82,24 +82,24 @@ int main() {
   sphere1.yv = 0;
   sphere1.zv = -0.0022;
   sphere1.IsBlackHole= false;
-  sphere1.radius=0.2;
+  sphere1.radius=2;
   sphere1.VAO = sphereMesh.VAO;
   sphere1.VBO = sphereMesh.VBO;
   sphere1.EBO = sphereMesh.EBO;
-  sphere1.pos={0,0,0}; 
+  sphere1.pos={12,0,0}; 
   sphere1.indexCount = sphereMesh.indexCount;
     sphere1.modelMatrix =
       glm::translate(glm::mat4(1.0f), sphere1.pos);
 	sphere1.mass= 1000;
 
   Object sphere2;
-  sphere2.pos = {3,0,0};
+  sphere2.pos = {15,0,0};
   sphere2.xv = 0;
   sphere2.yv = 0;
   sphere2.zv = 1.5;
   sphere2.IsBlackHole= false;
   sphere2.mass=1;
-  sphere2.radius=0.1;
+  sphere2.radius=1;
   sphere2.VAO = sphereMesh.VAO;
   sphere2.VBO = sphereMesh.VBO;
   sphere2.EBO = sphereMesh.EBO;
@@ -138,11 +138,12 @@ int main() {
 	PrintObjects(plane);
     glfwSwapBuffers(window);
     glfwPollEvents();
+    
   }
+  
   glDeleteVertexArrays(1, &sphereMesh.VAO);
   glDeleteBuffers(1, &sphereMesh.VBO);
   glDeleteBuffers(1, &sphereMesh.EBO);
-
   glfwTerminate();
   return 0;
 }

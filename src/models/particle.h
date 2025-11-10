@@ -8,10 +8,10 @@
 #include <string.h>
 #include <algorithm>
 struct Object{
-  glm::vec3 pos;
+  glm::dvec3 pos;
   double xv,yv,zv;
-  double mass;
-  double radius;
+  long mass;
+  float radius;
   bool IsBlackHole;
   GLuint VAO,VBO,EBO;
   size_t indexCount;
