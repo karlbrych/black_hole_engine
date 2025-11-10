@@ -82,58 +82,37 @@ double dt = 0.005; // your simulation timestep
 
 // --- Central body ---
 Object sphere1;
-sphere1.pos = {0,0,0};
-sphere1.mass = 1000;
-sphere1.radius = 2;
-sphere1.xv = sphere1.yv = sphere1.zv = 0;
-sphere1.VAO = sphereMesh.VAO;
-sphere1.VBO = sphereMesh.VBO;
-sphere1.EBO = sphereMesh.EBO;
-sphere1.indexCount = sphereMesh.indexCount;
-sphere1.modelMatrix = glm::translate(glm::mat4(1.0f), sphere1.pos);
-sphere1.IsBlackHole = false;
+  sphere1.xv = 0;
+  sphere1.yv = 0;
+  sphere1.zv = -0.0022;
+  sphere1.IsBlackHole= false;
+  sphere1.radius=2;
+  sphere1.VAO = sphereMesh.VAO;
+  sphere1.VBO = sphereMesh.VBO;
+  sphere1.EBO = sphereMesh.EBO;
+  sphere1.pos={12,0,0}; 
+  sphere1.indexCount = sphereMesh.indexCount;
+    sphere1.modelMatrix =
+      glm::translate(glm::mat4(1.0f), sphere1.pos);
+	sphere1.mass= 1000;
 
-// --- First orbiting body ---
-Object sphere2;
-sphere2.pos = {15,0,0};  // along X
-sphere2.mass = 1;
-sphere2.radius = 1;
-sphere2.VAO = sphereMesh.VAO;
-sphere2.VBO = sphereMesh.VBO;
-sphere2.EBO = sphereMesh.EBO;
-sphere2.indexCount = sphereMesh.indexCount;
-sphere2.modelMatrix = glm::translate(glm::mat4(1.0f), sphere2.pos);
-sphere2.IsBlackHole = false;
-
-// Circular orbit velocity in X-Z plane (perpendicular to radius)
-double r2 = glm::length(sphere2.pos - sphere1.pos);
-double v2 = sqrt(G * sphere1.mass / r2) * 0.2;  // dt=0.005, larger scale now
-sphere2.xv = 0;      // radius along X
-sphere2.yv = 0;      // no motion in Y
-sphere2.zv = v2;     // perpendicular in Z
-
-// --- Second orbiting body ---
-Object sphere3;
-sphere3.pos = {-15,0,0};
-sphere3.mass = 1;
-sphere3.radius = 1;
-sphere3.VAO = sphereMesh.VAO;
-sphere3.VBO = sphereMesh.VBO;
-sphere3.EBO = sphereMesh.EBO;
-sphere3.indexCount = sphereMesh.indexCount;
-sphere3.modelMatrix = glm::translate(glm::mat4(1.0f), sphere3.pos);
-sphere3.IsBlackHole = false;
-
-double r3 = glm::length(sphere3.pos - sphere1.pos);
-double v3 = sqrt(G * sphere1.mass / r3) * 0.2;  // same scale
-sphere3.xv = 0;
-sphere3.yv = 0;
-sphere3.zv = -v3;    // opposite direction in Z
-
+  Object sphere2;
+  sphere2.pos = {15,0,0};
+  sphere2.xv = 0;
+  sphere2.yv = 0;
+  sphere2.zv = 1.5;
+  sphere2.IsBlackHole= false;
+  sphere2.mass=1;
+  sphere2.radius=1;
+  sphere2.VAO = sphereMesh.VAO;
+  sphere2.VBO = sphereMesh.VBO;
+  sphere2.EBO = sphereMesh.EBO;
+  sphere2.indexCount = sphereMesh.indexCount;
+  sphere2.modelMatrix =
+      glm::translate(glm::mat4(1.0f), sphere2.pos);
 
 plane.objs.push_back(&sphere1);
 plane.objs.push_back(&sphere2);
-plane.objs.push_back(&sphere3);
 
   OrthoCamera camera;
   auto lastTime = std::chrono::high_resolution_clock::now();
