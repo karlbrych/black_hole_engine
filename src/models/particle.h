@@ -8,7 +8,7 @@
 #include <string.h>
 #include <algorithm>
 struct Object{
-  glm::dvec3 pos;
+  glm::vec3 pos;
   double xv,yv,zv;
   long mass;
   float radius;
