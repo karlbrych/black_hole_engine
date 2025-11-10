@@ -1,12 +1,10 @@
 #pragma once
 #include "glm/fwd.hpp"
-#include <iostream>
 #include <sys/types.h>
 #include <vector>
 #include <glm/glm.hpp>
 #include "shader.h"
 #include <string.h>
-#include <algorithm>
 struct Object{
   glm::vec3 pos;
   double xv,yv,zv;
@@ -21,7 +19,7 @@ struct Object{
 
 struct Plane{
     void draw(const shader &shader)const;
-    std::vector<Object> objs;
+    std::vector<Object *> objs;
 };
 double invSqrt(double n);
 void DoGravity(Plane &plane,double G, double dt);

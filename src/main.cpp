@@ -22,7 +22,7 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
 }
 void PrintObjects(const Plane &pl) {
     for (size_t i = 0; i < pl.objs.size(); ++i) {
-        const Object &o = pl.objs[i];
+        const Object &o = *pl.objs[i];
         printf("Object %zu:\n", i + 1);
         printf("  Position: (%.2f, %.2f, %.2f)\n", o.pos.x, o.pos.y, o.pos.z);
         printf("  IsBlackHole: %d\n", o.IsBlackHole);
@@ -131,9 +131,9 @@ sphere3.yv = 0;
 sphere3.zv = -v3;    // opposite direction in Z
 
 
-plane.objs.push_back(sphere1);
-plane.objs.push_back(sphere2);
-plane.objs.push_back(sphere3);
+plane.objs.push_back(&sphere1);
+plane.objs.push_back(&sphere2);
+plane.objs.push_back(&sphere3);
 
   OrthoCamera camera;
   auto lastTime = std::chrono::high_resolution_clock::now();
