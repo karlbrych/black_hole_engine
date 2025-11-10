@@ -52,9 +52,7 @@ double invSqrt(double n) {
 #endif
 }
 
-  void DoGravity(Plane &plane) {
-    double G = 0.00675;
-    double dt = 0.02;
+  void DoGravity(Plane &plane, double G, double dt) {
     int n = plane.objs.size();
     std::vector<glm::vec3> accel(n, glm::vec3(0,0,0));
     std::vector<int> mergeTarget(n, -1);

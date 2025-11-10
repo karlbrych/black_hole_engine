@@ -24,7 +24,7 @@ struct Plane{
     std::vector<Object> objs;
 };
 double invSqrt(double n);
-void DoGravity(Plane &plane);
+void DoGravity(Plane &plane,double G, double dt);
 
 
 
