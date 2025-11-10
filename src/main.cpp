@@ -63,7 +63,7 @@ int main() {
     return -1;
   }
   glfwMakeContextCurrent(window);
-
+  glfwSwapInterval(0); //remove later
   if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
     std::cerr << "Failed to initialize GLAD\n";
     return -1;
@@ -112,33 +112,30 @@ int main() {
   plane.objs.push_back(sphere2);
 
   OrthoCamera camera;
-  Plane tmp = plane;
+
+
+  auto lastTime = std::chrono::high_resolution_clock::now();
+  int frameCount = 0;
   while (!glfwWindowShouldClose(window)) {
 	
     glClearColor(1.0f,1.0f,1.0f,1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-   	PrintObjects(tmp);
-    PrintObjects(plane);
-	std::cout<<"original\n";
     plane.draw(shader);
-	PrintObjects(plane);
-	PrintObjects(tmp);
-	std::cout<<"after draw\n";
     shader.use();
     shader.setMat4("projection", camera.projection);
-	std::cout<<"after projection\n";
-	PrintObjects(plane);
-	PrintObjects(tmp);
     shader.setMat4("view", camera.view);
-	std::cout<<"after view\n";
-	PrintObjects(plane);
-	PrintObjects(tmp);
-   	DoGravity(plane); 
-	std::cout<< "after gravity calc\n";
-	PrintObjects(plane);
+    DoGravity(plane); 
     glfwSwapBuffers(window);
     glfwPollEvents();
-    
+
+    frameCount++;
+    auto now = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed = now-lastTime;
+    if(elapsed.count() >= 1.0) {
+    	std::cout << frameCount << "\n";
+	frameCount = 0;
+	lastTime=now;
+    }
   }
   
   glDeleteVertexArrays(1, &sphereMesh.VAO);

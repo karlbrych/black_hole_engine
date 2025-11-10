@@ -37,9 +37,7 @@ static inline double hwInvSqrt(double x) {
     __m128d out = _mm_cvtss_sd(in, _mm_rsqrt_ss(_mm_cvtpd_ps(in)));
     __m128d half = _mm_set_sd(0.5 * x);
     __m128d threehalves = _mm_set_sd(1.5);
-    out = _mm_mul_sd(out,
-                     _mm_sub_sd(threehalves,
-                                _mm_mul_sd(_mm_mul_sd(half, out), out)));
+    out = _mm_mul_sd(out, _mm_sub_sd(threehalves, _mm_mul_sd(_mm_mul_sd(half, out), out)));
     return _mm_cvtsd_f64(out);
 }
 
@@ -56,7 +54,7 @@ double invSqrt(double n) {
 
   void DoGravity(Plane &plane) {
     double G = 0.00675;
-    double dt = 0.01;
+    double dt = 0.02;
     int n = plane.objs.size();
     std::vector<glm::vec3> accel(n, glm::vec3(0,0,0));
     std::vector<int> mergeTarget(n, -1);
