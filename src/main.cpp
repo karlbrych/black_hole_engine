@@ -75,44 +75,43 @@ int main() {
   shader shader("../src/shaders/vertex.glsl", "../src/shaders/fragment.glsl");
   sphere sphereMesh = createSphere(1.0f, 64, 32);
 
-  Plane plane;
+  Plane *plane = new Plane();
 
 double G = 0.00675;
 double dt = 0.005; // your simulation timestep
 
 // --- Central body ---
-Object sphere1;
-  sphere1.xv = 0;
-  sphere1.yv = 0;
-  sphere1.zv = -0.0022;
-  sphere1.IsBlackHole= false;
-  sphere1.radius=2;
-  sphere1.VAO = sphereMesh.VAO;
-  sphere1.VBO = sphereMesh.VBO;
-  sphere1.EBO = sphereMesh.EBO;
-  sphere1.pos={12,0,0}; 
-  sphere1.indexCount = sphereMesh.indexCount;
-    sphere1.modelMatrix =
-      glm::translate(glm::mat4(1.0f), sphere1.pos);
-	sphere1.mass= 1000;
+Object *sphere1 = new Object {
+  .pos = {12, 0, 0},
+  .xv = 0,
+  .yv = 0,
+  .zv = -0.0022,
+  .mass = 1000,
+  .radius = 2,
+  .IsBlackHole = false,
+  .VAO = sphereMesh.VAO,
+  .VBO = sphereMesh.VBO,
+  .EBO = sphereMesh.EBO,
+  .indexCount = sphereMesh.indexCount,
+  .modelMatrix = glm::translate(glm::mat4(1.0f), sphere1->pos)
 
-  Object sphere2;
-  sphere2.pos = {15,0,0};
-  sphere2.xv = 0;
-  sphere2.yv = 0;
-  sphere2.zv = 1.5;
-  sphere2.IsBlackHole= false;
-  sphere2.mass=1;
-  sphere2.radius=1;
-  sphere2.VAO = sphereMesh.VAO;
-  sphere2.VBO = sphereMesh.VBO;
-  sphere2.EBO = sphereMesh.EBO;
-  sphere2.indexCount = sphereMesh.indexCount;
-  sphere2.modelMatrix =
-      glm::translate(glm::mat4(1.0f), sphere2.pos);
-
-plane.objs.push_back(&sphere1);
-plane.objs.push_back(&sphere2);
+};
+  Object *sphere2 = new Object {
+  .pos = {15,0,0},
+  .xv = 0,
+  .yv = 0,
+  .zv = 1.5,
+  .mass=1,
+  .radius=1,
+  .IsBlackHole= false,
+  .VAO = sphereMesh.VAO,
+  .VBO = sphereMesh.VBO,
+  .EBO = sphereMesh.EBO,
+  .indexCount = sphereMesh.indexCount,
+  .modelMatrix = glm::translate(glm::mat4(1.0f), sphere2->pos)
+  };
+plane->objs.push_back(sphere1);
+plane->objs.push_back(sphere2);
 
   OrthoCamera camera;
   auto lastTime = std::chrono::high_resolution_clock::now();
@@ -121,7 +120,7 @@ plane.objs.push_back(&sphere2);
 	
     glClearColor(1.0f,1.0f,1.0f,1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    plane.draw(shader);
+    plane->draw(shader);
     shader.use();
     shader.setMat4("projection", camera.projection);
     shader.setMat4("view", camera.view);
