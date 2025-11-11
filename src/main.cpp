@@ -79,16 +79,16 @@ int main() {
   Plane plane;
 
   double G = 0.00675;
-  double dt = 0.005; // your simulation timestep
+  double dt = 0.01; // your simulation timestep
 
 // --- Central body ---
   Object *sphere1 = new Object {
-    .pos={12,0,0},
+    .pos={-3,0,0},
     .xv = 0,
     .yv = 0,
-    .zv = -0.0022,
-    .mass = 1000,
-    .radius=2,
+    .zv = std::sqrt(0.0675/12),
+    .mass = 10,
+    .radius=1,
     .IsBlackHole= false,
     .VAO = sphereMesh.VAO,
     .VBO = sphereMesh.VBO,
@@ -98,11 +98,11 @@ int main() {
   sphere1->modelMatrix = glm::translate(glm::mat4(1.0f), sphere1->pos);
 
   Object *sphere2 = new Object {
-    .pos = {15,0,0},
+    .pos = {3,0,0},
     .xv = 0,
     .yv = 0,
-    .zv = 1.5,
-    .mass=1,
+    .zv = -(std::sqrt(0.0675/12)),
+    .mass=10,
     .radius=1,
     .IsBlackHole= false,
     .VAO = sphereMesh.VAO,
