@@ -1,0 +1,44 @@
+[
+{
+  "directory": "/home/kajabrych/PRG/black_hole_engine/build",
+  "command": "/usr/bin/c++  -I/home/kajabrych/PRG/black_hole_engine/include -std=gnu++17 -o CMakeFiles/Blackhole.dir/src/main.cpp.o -c /home/kajabrych/PRG/black_hole_engine/src/main.cpp",
+  "file": "/home/kajabrych/PRG/black_hole_engine/src/main.cpp",
+  "output": "CMakeFiles/Blackhole.dir/src/main.cpp.o"
+},
+{
+  "directory": "/home/kajabrych/PRG/black_hole_engine/build",
+  "command": "/usr/bin/cc  -I/home/kajabrych/PRG/black_hole_engine/include  -o CMakeFiles/Blackhole.dir/src/glad.c.o -c /home/kajabrych/PRG/black_hole_engine/src/glad.c",
+  "file": "/home/kajabrych/PRG/black_hole_engine/src/glad.c",
+  "output": "CMakeFiles/Blackhole.dir/src/glad.c.o"
+},
+{
+  "directory": "/home/kajabrych/PRG/black_hole_engine/build",
+  "command": "/usr/bin/c++  -I/home/kajabrych/PRG/black_hole_engine/include -std=gnu++17 -o CMakeFiles/Blackhole.dir/src/models/shader.cpp.o -c /home/kajabrych/PRG/black_hole_engine/src/models/shader.cpp",
+  "file": "/home/kajabrych/PRG/black_hole_engine/src/models/shader.cpp",
+  "output": "CMakeFiles/Blackhole.dir/src/models/shader.cpp.o"
+},
+{
+  "directory": "/home/kajabrych/PRG/black_hole_engine/build",
+  "command": "/usr/bin/c++  -I/home/kajabrych/PRG/black_hole_engine/include -std=gnu++17 -o CMakeFiles/Blackhole.dir/src/models/particle.cpp.o -c /home/kajabrych/PRG/black_hole_engine/src/models/particle.cpp",
+  "file": "/home/kajabrych/PRG/black_hole_engine/src/models/particle.cpp",
+  "output": "CMakeFiles/Blackhole.dir/src/models/particle.cpp.o"
+},
+{
+  "directory": "/home/kajabrych/PRG/black_hole_engine/build",
+  "command": "/usr/bin/c++  -I/home/kajabrych/PRG/black_hole_engine/include -std=gnu++17 -o CMakeFiles/Blackhole.dir/src/models/sphere.cpp.o -c /home/kajabrych/PRG/black_hole_engine/src/models/sphere.cpp",
+  "file": "/home/kajabrych/PRG/black_hole_engine/src/models/sphere.cpp",
+  "output": "CMakeFiles/Blackhole.dir/src/models/sphere.cpp.o"
+},
+{
+  "directory": "/home/kajabrych/PRG/black_hole_engine/build",
+  "command": "/usr/bin/c++  -I/home/kajabrych/PRG/black_hole_engine/include -std=gnu++17 -o CMakeFiles/Blackhole.dir/src/models/stb_image.cpp.o -c /home/kajabrych/PRG/black_hole_engine/src/models/stb_image.cpp",
+  "file": "/home/kajabrych/PRG/black_hole_engine/src/models/stb_image.cpp",
+  "output": "CMakeFiles/Blackhole.dir/src/models/stb_image.cpp.o"
+},
+{
+  "directory": "/home/kajabrych/PRG/black_hole_engine/build",
+  "command": "/usr/bin/c++  -I/home/kajabrych/PRG/black_hole_engine/include -std=gnu++17 -o CMakeFiles/Blackhole.dir/src/models/texture.cpp.o -c /home/kajabrych/PRG/black_hole_engine/src/models/texture.cpp",
+  "file": "/home/kajabrych/PRG/black_hole_engine/src/models/texture.cpp",
+  "output": "CMakeFiles/Blackhole.dir/src/models/texture.cpp.o"
+}
+]
