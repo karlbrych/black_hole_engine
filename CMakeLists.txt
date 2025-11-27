@@ -13,6 +13,8 @@ set(SOURCES
     src/models/shader.cpp
     src/models/particle.cpp
     src/models/sphere.cpp
+    src/models/stb_image.cpp
+    src/models/texture.cpp
 )
 
 # Add all .cpp files from src/shader
