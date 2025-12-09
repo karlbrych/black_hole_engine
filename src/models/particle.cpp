@@ -1,5 +1,6 @@
 #include "particle.h"
 #include "shader.h"
+#include <unordered_map>
 #include <algorithm>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -52,11 +53,33 @@ double invSqrt(double n) {
 #endif
 }
 
-  void DoGravity(Plane *plane, double G, double dt) {
-    int n = plane->objs.size();
-    std::vector<glm::vec3> accel(n, glm::vec3(0,0,0));
-    std::vector<int> mergeTarget(n, -1);
+struct DSU {
+    std::vector<int> parent;
 
+    DSU(int n) : parent(n) {
+        for (int i = 0; i < n; i++) parent[i] = i;
+    }
+
+    int find(int x) {
+        if (parent[x] == x) return x;
+        return parent[x] = find(parent[x]);
+    }
+
+    void unite(int a, int b) {
+        a = find(a);
+        b = find(b);
+        if (a != b) parent[b] = a;
+    }
+};
+
+  void DoGravity(Plane *plane, double G, double dt) {
+      int n = plane->objs.size();
+      std::vector<glm::vec3> accel(n, glm::vec3(0,0,0));
+      std::vector<int> mergeTarget(n, -1);
+      DSU dsu(n);
+      std::unordered_map<int, std::vector<int>> groups;
+      bool anyCollision = false;
+//movement between objects and collision detection
     for (int i = 0; i < n; ++i) {
         if (plane->objs[i]->mass <= 0) continue;
 
@@ -71,14 +94,14 @@ double invSqrt(double n) {
             double radiusSum = plane->objs[i]->radius + plane->objs[j]->radius;
 
             // Merge if colliding
-            if (r2 < radiusSum * radiusSum*0.99) {
-                mergeTarget[j] = i; // merge j into i
+            if (r2 < radiusSum * radiusSum * 0.99f) {
+                dsu.unite(i, j);
+                anyCollision = true;
             }
 
             // Gravity calculation
            double inv_r = invSqrt(r2+0.05*0.05);
-       
-            double factor = G * inv_r * inv_r * inv_r;
+           const double factor = G * inv_r * inv_r * inv_r;
 
             accel[i].x += factor * plane->objs[j]->mass * dx;
             accel[i].y += factor * plane->objs[j]->mass * dy;
@@ -89,7 +112,7 @@ double invSqrt(double n) {
             accel[j].z -= factor * plane->objs[i]->mass * dz;
         }
     }
-
+//self movement with its velocity
     for (int i = 0; i < n; ++i) {
         if (plane->objs[i]->mass <= 0) continue;
 
@@ -102,37 +125,71 @@ double invSqrt(double n) {
         plane->objs[i]->pos.z += plane->objs[i]->zv * dt;
     }
 
-    for (int j = 0; j < n; ++j) {
-        int i = mergeTarget[j];
-        if (i < 0 || plane->objs[i]->mass <= 0 || plane->objs[j]->mass <= 0) continue;
+//DSU collision
+      if (anyCollision) {
+          //grouping DSU
+          for (int i = 0; i < n; i++) {
+              int root = dsu.find(i);
+              groups[root].push_back(i);
+          }
+          //sort by mass
+          for (auto &kv : groups) {
+              auto &group = kv.second;
 
-        double totalMass = plane->objs[i]->mass + plane->objs[j]->mass;
+              std::sort(group.begin(), group.end(),
+                  [&](int a, int b) {
+                      return plane->objs[a]->mass > plane->objs[b]->mass;
+                  }
+              );
+          }
 
-        // Center-of-mass position
-        plane->objs[i]->pos = (plane->objs[i]->pos * (float)plane->objs[i]->mass +
-                             plane->objs[j]->pos * (float)plane->objs[j]->mass) / (float)totalMass;
 
-        // Momentum conservation
-        plane->objs[i]->xv = (plane->objs[i]->xv * plane->objs[i]->mass + plane->objs[j]->xv * plane->objs[j]->mass) / totalMass;
-        plane->objs[i]->yv = (plane->objs[i]->yv * plane->objs[i]->mass + plane->objs[j]->yv * plane->objs[j]->mass) / totalMass;
-        plane->objs[i]->zv = (plane->objs[i]->zv * plane->objs[i]->mass + plane->objs[j]->zv * plane->objs[j]->mass) / totalMass;
 
-        plane->objs[i]->mass = totalMass;
+          // merging
+          std::vector<bool> dead(n, false);
 
-        // Fast approximate radius scaling: radius ~ cube root of mass
-        plane->objs[i]->radius = cbrt(totalMass);
+          for (auto &kv : groups) {
+              auto &g = kv.second;
+              if (g.size() <= 1) continue;
 
-        // Mark merged object as inactie
-        plane->objs[j]->mass = 0;
-    }
+              int BiggestMass = g[0];
 
-    plane->objs.erase(
-        std::remove_if(plane->objs.begin(), plane->objs.end(),
-                       [](const Object *o){ return o->mass <= 0; }),
-        plane->objs.end()
-    );
-	  // Update modelMatrix from pos so rendering follows simulation
-  for (auto &o : plane->objs) {
-    o->modelMatrix = glm::translate(glm::mat4(1.0f), o->pos);
-  }
+              double totalMass = 0.0;
+              glm::dvec3 pos(0), vel(0);
+
+              for (int idx : g) {
+                  double m = plane->objs[idx]->mass;
+                  if (m <= 0) continue;
+                  totalMass += m;
+                  pos += m * glm::dvec3(plane->objs[idx]->pos.x, plane->objs[idx]->pos.y, plane->objs[idx]->pos.z);
+                  vel += m * glm::dvec3(plane->objs[idx]->xv, plane->objs[idx]->yv, plane->objs[idx]->zv);
+              }
+
+              pos /= totalMass;
+              vel /= totalMass;
+
+              plane->objs[BiggestMass]->mass = totalMass;
+              plane->objs[BiggestMass]->pos = glm::vec3(pos);
+              plane->objs[BiggestMass]->xv = vel.x;
+              plane->objs[BiggestMass]->yv = vel.y;
+              plane->objs[BiggestMass]->zv = vel.z;
+
+              for (size_t k = 1; k < g.size(); ++k)
+                  dead[g[k]] = true;
+          }
+
+          // rebuild objs
+          std::vector<Object*> newObjs;
+          newObjs.reserve(n);
+
+          for (int i = 0; i < n; ++i)
+              if (!dead[i])
+                  newObjs.push_back(plane->objs[i]);
+
+          plane->objs = std::move(newObjs);
+      }
+      for (auto &o : plane->objs) {
+          o->modelMatrix = glm::translate(glm::mat4(1.0f), o->pos);
+      }
+
 }

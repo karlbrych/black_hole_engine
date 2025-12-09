@@ -140,11 +140,11 @@ int main()
 
   // --- Central body ---
   Object *sphere1 = new Object{
-      .pos = {-3, 0, 0},
+      .pos = {0, 0, 0},
       .xv = 0,
       .yv = 0,
       .zv = std::sqrt(0.0675 / 12),
-      .mass = 10,
+      .mass = 51,
       .radius = 1,
       .IsBlackHole = false,
       .VAO = sphereMesh.VAO,
@@ -154,11 +154,11 @@ int main()
   sphere1->modelMatrix = glm::translate(glm::mat4(1.0f), sphere1->pos);
 
   Object *sphere2 = new Object{
-      .pos = {3, 0, 0},
+      .pos = {10, 0, 0},
       .xv = 0,
-      .yv = 0,
+      .yv = -(std::sqrt(0.0675 / 2)),
       .zv = -(std::sqrt(0.0675 / 12)),
-      .mass = 10,
+      .mass = 49,
       .radius = 1,
       .IsBlackHole = false,
       .VAO = sphereMesh.VAO,
@@ -169,8 +169,58 @@ int main()
   sphere2->modelMatrix =
       glm::translate(glm::mat4(1.0f), sphere2->pos);
 
+  Object *sphere3 = new Object{
+    .pos = {0, 10, 0},
+    .xv = -(std::sqrt(0.0675 / 2)),
+    .yv = 0,
+    .zv = -(std::sqrt(0.0675 / 12)),
+    .mass = 20,
+    .radius = 1,
+    .IsBlackHole = false,
+    .VAO = sphereMesh.VAO,
+    .VBO = sphereMesh.VBO,
+    .EBO = sphereMesh.EBO,
+    .indexCount = sphereMesh.indexCount,
+};
+  sphere3->modelMatrix =
+      glm::translate(glm::mat4(1.0f), sphere3->pos);
+  Object *sphere4 = new Object{
+    .pos = {0, 0, 10},
+    .xv = 0,
+    .yv = -(std::sqrt(0.0675 / 5)),
+    .zv = -(std::sqrt(0.0675 / 12)),
+    .mass = 40,
+    .radius = 1,
+    .IsBlackHole = false,
+    .VAO = sphereMesh.VAO,
+    .VBO = sphereMesh.VBO,
+    .EBO = sphereMesh.EBO,
+    .indexCount = sphereMesh.indexCount,
+};
+  sphere4->modelMatrix =
+      glm::translate(glm::mat4(1.0f), sphere4->pos);
+  Object *sphere5 = new Object{
+    .pos = {10, 10, 10},
+    .xv = (std::sqrt(0.0675 / 5)),
+    .yv = 0,
+    .zv = -(std::sqrt(0.0675 / 12)),
+    .mass = 47,
+    .radius = 1,
+    .IsBlackHole = false,
+    .VAO = sphereMesh.VAO,
+    .VBO = sphereMesh.VBO,
+    .EBO = sphereMesh.EBO,
+    .indexCount = sphereMesh.indexCount,
+};
+  sphere5->modelMatrix =
+      glm::translate(glm::mat4(1.0f), sphere5->pos);
+
+
   plane.objs.push_back(sphere1);
   plane.objs.push_back(sphere2);
+  plane.objs.push_back(sphere3);
+  plane.objs.push_back(sphere4);
+  plane.objs.push_back(sphere5);
 
   // start camera on the same vertical level as the balls
   camPos.y = 0.0f;
