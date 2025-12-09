@@ -1,1 +1,6 @@
-build/
+build-procedure.txt
+.cache
+.vscode
+cmake-build-debug
+build
+.idea
