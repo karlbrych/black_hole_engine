@@ -37,7 +37,6 @@ glm::vec2 circleOffset(0.0f, 0.0f);
 bool rightPressed = false;
 
 
-static PerspectiveCamera camera;
 static glm::vec3 camPos(0.0f, 5.0f, 20.0f);
 static glm::vec3 camFront(0.0f, 0.0f, -1.0f);
 static glm::vec3 camUp(0.0f, 1.0f, 0.0f);

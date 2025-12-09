@@ -1,3 +1,3 @@
-/home/maran/Documents/skola/T3/black_hole_engine/build/CMakeFiles/Blackhole.dir
-/home/maran/Documents/skola/T3/black_hole_engine/build/CMakeFiles/edit_cache.dir
-/home/maran/Documents/skola/T3/black_hole_engine/build/CMakeFiles/rebuild_cache.dir
+/home/kajabrych/PRG/black_hole_engine/build/CMakeFiles/Blackhole.dir
+/home/kajabrych/PRG/black_hole_engine/build/CMakeFiles/edit_cache.dir
+/home/kajabrych/PRG/black_hole_engine/build/CMakeFiles/rebuild_cache.dir
