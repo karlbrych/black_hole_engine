@@ -3,39 +3,40 @@
 #include "glad/glad.h"
 #include <GLFW/glfw3.h>
 #include <chrono>
+#include <cstdio>
 #include <glm/fwd.hpp>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
 #include <thread>
-#include "models/camera.h"
 #include "models/particle.h"
 #include "models/shader.h"
 #include "models/sphere.h"
 #include "models/texture.h"
 #include <map>
-#define HEIGHT 960
-float lastMouseX = WIDTH / 2.0f;
-float lastMouseY = HEIGHT / 2.0f;
-bool firstMouse = true;
+#include "models/camera.h"
 
-float yaw = -90.0f; // start facing -Z
-float pitch = 0.0f;
-float mouseSensitivity = 0.1f;
-#define WIDTH 1280
-
-// pro mys
-double mouseX = 0.0, mouseY = 0.0;
-glm::vec2 circleOffset(0.0f, 0.0f);
-bool rightPressed = false;
-
-// CAMERA
 enum class CameraType
 {
   Perspective,
   Ortho
 };
+// CAMERA
 CameraType currentCamera = CameraType::Perspective;
+static PerspectiveCamera camera;
+std::map<int, bool> keysPressed;
+bool firstMouse = true;
+
+float yaw = -90.0f; // start facing -Z
+float pitch = 0.0f;
+float mouseSensitivity = 0.1f;
+float lastMouseX,lastMouseY;
+// pro mys
+double mouseX = 0.0, mouseY = 0.0;
+glm::vec2 circleOffset(0.0f, 0.0f);
+bool rightPressed = false;
+
+
 static PerspectiveCamera camera;
 static glm::vec3 camPos(0.0f, 5.0f, 20.0f);
 static glm::vec3 camFront(0.0f, 0.0f, -1.0f);
@@ -147,7 +148,7 @@ int main()
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
   GLFWwindow *window =
-      glfwCreateWindow(WIDTH, HEIGHT, "OpenGL Circle", nullptr, nullptr);
+      glfwCreateWindow(WIDTH, HEIGHT, "black_hole_engine:OpenGL", nullptr, nullptr);
   if (!window)
   {
     std::cerr << "Failed to create window\n";
@@ -156,6 +157,16 @@ int main()
   }
   glfwMakeContextCurrent(window);
   glfwSwapInterval(0); // remove later
+  GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+  if (!monitor) {
+    std::cerr << "No monitor detected!\n";
+    return -1;
+  }
+  const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+  WIDTH= mode->width;
+  HEIGHT = mode->height;
+  lastMouseX = WIDTH / 2.0f;
+  lastMouseY = HEIGHT / 2.0f;
   if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
   {
     std::cerr << "Failed to initialize GLAD\n";
@@ -167,7 +178,7 @@ int main()
   glfwSetMouseButtonCallback(window, mouse_button_callback);
   shader shader("../src/shaders/vertex.glsl", "../src/shaders/fragment.glsl");
   sphere sphereMesh = createSphere(1.0f, 64, 32);
-  GLuint texture = Texture::LoadTexture("../src/assets/poop-texture.jpg");
+  GLuint texture = Texture::LoadTexture("../src/assets/planet.jpg");
   Plane plane;
 
   double G = 0.00675;
@@ -203,7 +214,10 @@ int main()
   };
   sphere2->modelMatrix =
       glm::translate(glm::mat4(1.0f), sphere2->pos);
-
+Object *sunSphere = new Object{
+		.pos = {10,0,0},
+		.xv = 0,
+};
   plane.objs.push_back(sphere1);
   plane.objs.push_back(sphere2);
 
@@ -250,7 +264,7 @@ int main()
     camera.view = glm::lookAt(camPos, camPos + camFront, camUp);
 
     // render
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    glClearColor(0.0f, 0.2f, 0.4f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     shader.use();
