@@ -8,13 +8,23 @@ void Plane::draw(const shader &shader) const {
     obj->draw(shader);
   }
 }
+void Plane::rotate(float time) 
+{
+	for(auto &obj:  objs) {
+		obj -> rotate(time);
+	}
+}
+
 void Object::draw(const shader &shader) const {
   shader.setMat4("model", modelMatrix);
   glBindVertexArray(VAO);
   glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, 0);
   glBindVertexArray(0);
 }
-
+void Object::rotate(float time)
+{
+  modelMatrix = glm::rotate(modelMatrix, time, glm::vec3(1.0f, 0.0f, 0.0));
+}
 
 static inline double quakeInvSqrt(double n) {
     uint64_t i;

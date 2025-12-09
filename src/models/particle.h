@@ -15,10 +15,12 @@ struct Object{
   size_t indexCount;
   glm::mat4 modelMatrix;
   void draw (const shader& shader)const;
+  void rotate (float time);
 }; 
 
 struct Plane{
     void draw(const shader &shader)const;
+	void rotate(float time);
     std::vector<Object *> objs;
 };
 double invSqrt(double n);

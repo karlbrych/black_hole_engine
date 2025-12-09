@@ -38,10 +38,12 @@ static PerspectiveCamera camera;
 static glm::vec3 camPos(0.0f, 5.0f, 20.0f);
 static glm::vec3 camFront(0.0f, 0.0f, -1.0f);
 static glm::vec3 camUp(0.0f, 1.0f, 0.0f);
+
 void framebuffer_size_callback(GLFWwindow *window, int width, int height)
 {
   glViewport(0, 0, WIDTH, HEIGHT);
 }
+
 void PrintObjects(const Plane &pl)
 {
   for (size_t i = 0; i < pl.objs.size(); ++i)
@@ -98,6 +100,7 @@ void mouse_button_callback(GLFWwindow *window, int button, int action,
   if (button == GLFW_MOUSE_BUTTON_RIGHT)
     rightPressed = (action == GLFW_PRESS);
 }
+
 int main()
 {
 
@@ -191,6 +194,7 @@ int main()
   int frameCount = 0;
   bool tabPressedLastFrame = false; // mimo hlavní smyčku
   glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
   // main loop
   while (!glfwWindowShouldClose(window))
   {
@@ -248,6 +252,8 @@ int main()
     shader.setMat4("view", camera.view);
     Texture::BindTexture(texture, 0);
     shader.setInt("diffuseTexture", 0);
+	float tmp = glfwGetTime();
+	plane.rotate(tmp);
     plane.draw(shader);
     DoGravity(&plane, G, dt);
     glfwSwapBuffers(window);
