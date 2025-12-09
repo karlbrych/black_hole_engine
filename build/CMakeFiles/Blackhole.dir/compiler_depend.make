@@ -354,10 +354,15 @@ CMakeFiles/Blackhole.dir/src/main.cpp.o: /home/almo/School/PRJ/black_hole_engine
   /usr/include/bits/wordsize.h \
   /usr/include/bits/xopen_lim.h \
   /usr/include/c++/15.2.1/array \
+  /usr/include/c++/15.2.1/backward/auto_ptr.h \
   /usr/include/c++/15.2.1/backward/binders.h \
   /usr/include/c++/15.2.1/bit \
+  /usr/include/c++/15.2.1/bits/align.h \
   /usr/include/c++/15.2.1/bits/alloc_traits.h \
+  /usr/include/c++/15.2.1/bits/allocated_ptr.h \
   /usr/include/c++/15.2.1/bits/allocator.h \
+  /usr/include/c++/15.2.1/bits/atomic_base.h \
+  /usr/include/c++/15.2.1/bits/atomic_lockfree_defines.h \
   /usr/include/c++/15.2.1/bits/basic_ios.h \
   /usr/include/c++/15.2.1/bits/basic_ios.tcc \
   /usr/include/c++/15.2.1/bits/basic_string.h \
@@ -400,9 +405,14 @@ CMakeFiles/Blackhole.dir/src/main.cpp.o: /home/almo/School/PRJ/black_hole_engine
   /usr/include/c++/15.2.1/bits/postypes.h \
   /usr/include/c++/15.2.1/bits/predefined_ops.h \
   /usr/include/c++/15.2.1/bits/ptr_traits.h \
+  /usr/include/c++/15.2.1/bits/random.h \
+  /usr/include/c++/15.2.1/bits/random.tcc \
   /usr/include/c++/15.2.1/bits/range_access.h \
   /usr/include/c++/15.2.1/bits/refwrap.h \
   /usr/include/c++/15.2.1/bits/requires_hosted.h \
+  /usr/include/c++/15.2.1/bits/shared_ptr.h \
+  /usr/include/c++/15.2.1/bits/shared_ptr_atomic.h \
+  /usr/include/c++/15.2.1/bits/shared_ptr_base.h \
   /usr/include/c++/15.2.1/bits/specfun.h \
   /usr/include/c++/15.2.1/bits/std_abs.h \
   /usr/include/c++/15.2.1/bits/std_function.h \
@@ -416,7 +426,10 @@ CMakeFiles/Blackhole.dir/src/main.cpp.o: /home/almo/School/PRJ/black_hole_engine
   /usr/include/c++/15.2.1/bits/stl_iterator_base_types.h \
   /usr/include/c++/15.2.1/bits/stl_map.h \
   /usr/include/c++/15.2.1/bits/stl_multimap.h \
+  /usr/include/c++/15.2.1/bits/stl_numeric.h \
   /usr/include/c++/15.2.1/bits/stl_pair.h \
+  /usr/include/c++/15.2.1/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/15.2.1/bits/stl_tempbuf.h \
   /usr/include/c++/15.2.1/bits/stl_tree.h \
   /usr/include/c++/15.2.1/bits/stl_uninitialized.h \
   /usr/include/c++/15.2.1/bits/stl_vector.h \
@@ -425,6 +438,7 @@ CMakeFiles/Blackhole.dir/src/main.cpp.o: /home/almo/School/PRJ/black_hole_engine
   /usr/include/c++/15.2.1/bits/string_view.tcc \
   /usr/include/c++/15.2.1/bits/stringfwd.h \
   /usr/include/c++/15.2.1/bits/this_thread_sleep.h \
+  /usr/include/c++/15.2.1/bits/uniform_int_dist.h \
   /usr/include/c++/15.2.1/bits/unique_ptr.h \
   /usr/include/c++/15.2.1/bits/unordered_map.h \
   /usr/include/c++/15.2.1/bits/uses_allocator.h \
@@ -455,6 +469,7 @@ CMakeFiles/Blackhole.dir/src/main.cpp.o: /home/almo/School/PRJ/black_hole_engine
   /usr/include/c++/15.2.1/ext/aligned_buffer.h \
   /usr/include/c++/15.2.1/ext/alloc_traits.h \
   /usr/include/c++/15.2.1/ext/atomicity.h \
+  /usr/include/c++/15.2.1/ext/concurrence.h \
   /usr/include/c++/15.2.1/ext/numeric_traits.h \
   /usr/include/c++/15.2.1/ext/string_conversions.h \
   /usr/include/c++/15.2.1/ext/type_traits.h \
@@ -466,11 +481,18 @@ CMakeFiles/Blackhole.dir/src/main.cpp.o: /home/almo/School/PRJ/black_hole_engine
   /usr/include/c++/15.2.1/istream \
   /usr/include/c++/15.2.1/limits \
   /usr/include/c++/15.2.1/map \
+  /usr/include/c++/15.2.1/memory \
   /usr/include/c++/15.2.1/new \
+  /usr/include/c++/15.2.1/numeric \
   /usr/include/c++/15.2.1/ostream \
+  /usr/include/c++/15.2.1/pstl/execution_defs.h \
+  /usr/include/c++/15.2.1/pstl/glue_memory_defs.h \
+  /usr/include/c++/15.2.1/pstl/glue_numeric_defs.h \
   /usr/include/c++/15.2.1/pstl/pstl_config.h \
+  /usr/include/c++/15.2.1/random \
   /usr/include/c++/15.2.1/ratio \
   /usr/include/c++/15.2.1/stdexcept \
+  /usr/include/c++/15.2.1/stdlib.h \
   /usr/include/c++/15.2.1/streambuf \
   /usr/include/c++/15.2.1/string \
   /usr/include/c++/15.2.1/string_view \
@@ -503,6 +525,7 @@ CMakeFiles/Blackhole.dir/src/main.cpp.o: /home/almo/School/PRJ/black_hole_engine
   /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/error_constants.h \
   /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/gthr-default.h \
   /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/gthr.h \
+  /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/opt_random.h \
   /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/os_defines.h \
   /usr/include/ctype.h \
   /usr/include/endian.h \
@@ -535,12 +558,18 @@ CMakeFiles/Blackhole.dir/src/main.cpp.o: /home/almo/School/PRJ/black_hole_engine
   /usr/include/time.h \
   /usr/include/wchar.h \
   /usr/include/wctype.h \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/emmintrin.h \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/float.h \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/limits.h \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/mm_malloc.h \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/mmintrin.h \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/mwaitintrin.h \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/pmmintrin.h \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdarg.h \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stddef.h \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdint.h \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/syslimits.h
+  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/syslimits.h \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/xmmintrin.h
 
 CMakeFiles/Blackhole.dir/src/models/particle.cpp.o: /home/almo/School/PRJ/black_hole_engine/src/models/particle.cpp \
   /home/almo/School/PRJ/black_hole_engine/include/KHR/khrplatform.h \
@@ -702,12 +731,21 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o: /home/almo/School/PRJ/black_
   /home/almo/School/PRJ/black_hole_engine/src/models/particle.h \
   /home/almo/School/PRJ/black_hole_engine/src/models/shader.h \
   /usr/include/alloca.h \
+  /usr/include/asm-generic/bitsperlong.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
+  /usr/include/asm-generic/int-ll64.h \
+  /usr/include/asm-generic/posix_types.h \
+  /usr/include/asm-generic/types.h \
+  /usr/include/asm/bitsperlong.h \
   /usr/include/asm/errno.h \
+  /usr/include/asm/posix_types.h \
+  /usr/include/asm/posix_types_64.h \
+  /usr/include/asm/types.h \
   /usr/include/assert.h \
   /usr/include/bits/atomic_wide_counter.h \
   /usr/include/bits/byteswap.h \
+  /usr/include/bits/cpu-set.h \
   /usr/include/bits/endian.h \
   /usr/include/bits/endianness.h \
   /usr/include/bits/errno.h \
@@ -732,7 +770,9 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o: /home/almo/School/PRJ/black_
   /usr/include/bits/pthread_stack_min-dynamic.h \
   /usr/include/bits/pthreadtypes-arch.h \
   /usr/include/bits/pthreadtypes.h \
+  /usr/include/bits/sched.h \
   /usr/include/bits/select.h \
+  /usr/include/bits/setjmp.h \
   /usr/include/bits/stdint-intn.h \
   /usr/include/bits/stdint-least.h \
   /usr/include/bits/stdint-uintn.h \
@@ -743,8 +783,10 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o: /home/almo/School/PRJ/black_
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/bits/thread-shared-types.h \
+  /usr/include/bits/time.h \
   /usr/include/bits/time64.h \
   /usr/include/bits/timesize.h \
+  /usr/include/bits/timex.h \
   /usr/include/bits/types.h \
   /usr/include/bits/types/FILE.h \
   /usr/include/bits/types/__FILE.h \
@@ -761,8 +803,12 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o: /home/almo/School/PRJ/black_
   /usr/include/bits/types/mbstate_t.h \
   /usr/include/bits/types/sigset_t.h \
   /usr/include/bits/types/struct_FILE.h \
+  /usr/include/bits/types/struct___jmp_buf_tag.h \
+  /usr/include/bits/types/struct_itimerspec.h \
+  /usr/include/bits/types/struct_sched_param.h \
   /usr/include/bits/types/struct_timespec.h \
   /usr/include/bits/types/struct_timeval.h \
+  /usr/include/bits/types/struct_tm.h \
   /usr/include/bits/types/time_t.h \
   /usr/include/bits/types/timer_t.h \
   /usr/include/bits/types/wint_t.h \
@@ -776,11 +822,16 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o: /home/almo/School/PRJ/black_
   /usr/include/bits/xopen_lim.h \
   /usr/include/c++/15.2.1/algorithm \
   /usr/include/c++/15.2.1/array \
+  /usr/include/c++/15.2.1/backward/auto_ptr.h \
   /usr/include/c++/15.2.1/backward/binders.h \
   /usr/include/c++/15.2.1/bit \
   /usr/include/c++/15.2.1/bits/algorithmfwd.h \
+  /usr/include/c++/15.2.1/bits/align.h \
   /usr/include/c++/15.2.1/bits/alloc_traits.h \
+  /usr/include/c++/15.2.1/bits/allocated_ptr.h \
   /usr/include/c++/15.2.1/bits/allocator.h \
+  /usr/include/c++/15.2.1/bits/atomic_base.h \
+  /usr/include/c++/15.2.1/bits/atomic_lockfree_defines.h \
   /usr/include/c++/15.2.1/bits/basic_string.h \
   /usr/include/c++/15.2.1/bits/basic_string.tcc \
   /usr/include/c++/15.2.1/bits/char_traits.h \
@@ -788,10 +839,12 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o: /home/almo/School/PRJ/black_
   /usr/include/c++/15.2.1/bits/concept_check.h \
   /usr/include/c++/15.2.1/bits/cpp_type_traits.h \
   /usr/include/c++/15.2.1/bits/cxxabi_forced.h \
+  /usr/include/c++/15.2.1/bits/cxxabi_init_exception.h \
   /usr/include/c++/15.2.1/bits/enable_special_members.h \
   /usr/include/c++/15.2.1/bits/erase_if.h \
   /usr/include/c++/15.2.1/bits/exception.h \
   /usr/include/c++/15.2.1/bits/exception_defines.h \
+  /usr/include/c++/15.2.1/bits/exception_ptr.h \
   /usr/include/c++/15.2.1/bits/functexcept.h \
   /usr/include/c++/15.2.1/bits/functional_hash.h \
   /usr/include/c++/15.2.1/bits/hash_bytes.h \
@@ -802,6 +855,7 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o: /home/almo/School/PRJ/black_
   /usr/include/c++/15.2.1/bits/memory_resource.h \
   /usr/include/c++/15.2.1/bits/memoryfwd.h \
   /usr/include/c++/15.2.1/bits/move.h \
+  /usr/include/c++/15.2.1/bits/nested_exception.h \
   /usr/include/c++/15.2.1/bits/new_allocator.h \
   /usr/include/c++/15.2.1/bits/node_handle.h \
   /usr/include/c++/15.2.1/bits/ostream_insert.h \
@@ -811,6 +865,9 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o: /home/almo/School/PRJ/black_
   /usr/include/c++/15.2.1/bits/range_access.h \
   /usr/include/c++/15.2.1/bits/refwrap.h \
   /usr/include/c++/15.2.1/bits/requires_hosted.h \
+  /usr/include/c++/15.2.1/bits/shared_ptr.h \
+  /usr/include/c++/15.2.1/bits/shared_ptr_atomic.h \
+  /usr/include/c++/15.2.1/bits/shared_ptr_base.h \
   /usr/include/c++/15.2.1/bits/specfun.h \
   /usr/include/c++/15.2.1/bits/std_abs.h \
   /usr/include/c++/15.2.1/bits/std_function.h \
@@ -824,12 +881,14 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o: /home/almo/School/PRJ/black_
   /usr/include/c++/15.2.1/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/15.2.1/bits/stl_iterator_base_types.h \
   /usr/include/c++/15.2.1/bits/stl_pair.h \
+  /usr/include/c++/15.2.1/bits/stl_raw_storage_iter.h \
   /usr/include/c++/15.2.1/bits/stl_tempbuf.h \
   /usr/include/c++/15.2.1/bits/stl_uninitialized.h \
   /usr/include/c++/15.2.1/bits/stl_vector.h \
   /usr/include/c++/15.2.1/bits/string_view.tcc \
   /usr/include/c++/15.2.1/bits/stringfwd.h \
   /usr/include/c++/15.2.1/bits/uniform_int_dist.h \
+  /usr/include/c++/15.2.1/bits/unique_ptr.h \
   /usr/include/c++/15.2.1/bits/unordered_map.h \
   /usr/include/c++/15.2.1/bits/uses_allocator.h \
   /usr/include/c++/15.2.1/bits/uses_allocator_args.h \
@@ -852,8 +911,11 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o: /home/almo/School/PRJ/black_
   /usr/include/c++/15.2.1/cwchar \
   /usr/include/c++/15.2.1/debug/assertions.h \
   /usr/include/c++/15.2.1/debug/debug.h \
+  /usr/include/c++/15.2.1/exception \
   /usr/include/c++/15.2.1/ext/aligned_buffer.h \
   /usr/include/c++/15.2.1/ext/alloc_traits.h \
+  /usr/include/c++/15.2.1/ext/atomicity.h \
+  /usr/include/c++/15.2.1/ext/concurrence.h \
   /usr/include/c++/15.2.1/ext/numeric_traits.h \
   /usr/include/c++/15.2.1/ext/string_conversions.h \
   /usr/include/c++/15.2.1/ext/type_traits.h \
@@ -861,9 +923,11 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o: /home/almo/School/PRJ/black_
   /usr/include/c++/15.2.1/initializer_list \
   /usr/include/c++/15.2.1/iosfwd \
   /usr/include/c++/15.2.1/limits \
+  /usr/include/c++/15.2.1/memory \
   /usr/include/c++/15.2.1/new \
   /usr/include/c++/15.2.1/pstl/execution_defs.h \
   /usr/include/c++/15.2.1/pstl/glue_algorithm_defs.h \
+  /usr/include/c++/15.2.1/pstl/glue_memory_defs.h \
   /usr/include/c++/15.2.1/pstl/pstl_config.h \
   /usr/include/c++/15.2.1/stdlib.h \
   /usr/include/c++/15.2.1/string \
@@ -885,10 +949,13 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o: /home/almo/School/PRJ/black_
   /usr/include/c++/15.2.1/typeinfo \
   /usr/include/c++/15.2.1/unordered_map \
   /usr/include/c++/15.2.1/vector \
+  /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/atomic_word.h \
   /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/c++allocator.h \
   /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/c++config.h \
   /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/c++locale.h \
   /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/cpu_defines.h \
+  /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/gthr-default.h \
+  /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/gthr.h \
   /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/os_defines.h \
   /usr/include/ctype.h \
   /usr/include/endian.h \
@@ -900,8 +967,14 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o: /home/almo/School/PRJ/black_
   /usr/include/limits.h \
   /usr/include/linux/errno.h \
   /usr/include/linux/limits.h \
+  /usr/include/linux/posix_types.h \
+  /usr/include/linux/sched/types.h \
+  /usr/include/linux/stddef.h \
+  /usr/include/linux/types.h \
   /usr/include/locale.h \
   /usr/include/math.h \
+  /usr/include/pthread.h \
+  /usr/include/sched.h \
   /usr/include/stdc-predef.h \
   /usr/include/stdint.h \
   /usr/include/stdio.h \
@@ -910,7 +983,9 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o: /home/almo/School/PRJ/black_
   /usr/include/strings.h \
   /usr/include/sys/cdefs.h \
   /usr/include/sys/select.h \
+  /usr/include/sys/single_threaded.h \
   /usr/include/sys/types.h \
+  /usr/include/time.h \
   /usr/include/wchar.h \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/adxintrin.h \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/amxavx512intrin.h \
@@ -2173,15 +2248,9 @@ CMakeFiles/Blackhole.dir/src/models/texture.cpp.o: /home/almo/School/PRJ/black_h
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/popcntintrin.h:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/pmmintrin.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/mwaitintrin.h:
-
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/movrsintrin.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/movdirintrin.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/mmintrin.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/lzcntintrin.h:
 
@@ -2195,9 +2264,29 @@ CMakeFiles/Blackhole.dir/src/models/texture.cpp.o: /home/almo/School/PRJ/black_h
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/gfniintrin.h:
 
-/home/almo/School/PRJ/black_hole_engine/src/models/sphere.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/fxsrintrin.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/fmaintrin.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/f16cintrin.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/cmpccxaddintrin.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/cetintrin.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/avxvnniint16intrin.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/avxintrin.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/avx512vpopcntdqintrin.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/avx512vp2intersectvlintrin.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/avx512vp2intersectintrin.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/avx512vnniintrin.h:
+
+/home/almo/School/PRJ/black_hole_engine/src/models/sphere.h:
 
 /home/almo/School/PRJ/black_hole_engine/src/models/shader.h:
 
@@ -2221,9 +2310,9 @@ CMakeFiles/Blackhole.dir/src/models/texture.cpp.o: /home/almo/School/PRJ/black_h
 
 /home/almo/School/PRJ/black_hole_engine/include/glm/ext/matrix_transform.inl:
 
-/home/almo/School/PRJ/black_hole_engine/include/glm/detail/type_half.hpp:
+/usr/include/c++/15.2.1/pstl/glue_numeric_defs.h:
 
-/usr/include/c++/15.2.1/bits/exception_defines.h:
+/home/almo/School/PRJ/black_hole_engine/include/glm/detail/type_half.hpp:
 
 /home/almo/School/PRJ/black_hole_engine/include/glm/mat3x4.hpp:
 
@@ -2258,6 +2347,8 @@ CMakeFiles/Blackhole.dir/src/models/stb_image.cpp.o:
 /home/almo/School/PRJ/black_hole_engine/include/glm/detail/_vectorize.hpp:
 
 /home/almo/School/PRJ/black_hole_engine/include/glm/ext/matrix_double2x3_precision.hpp:
+
+/usr/include/c++/15.2.1/bits/shared_ptr.h:
 
 /usr/include/asm-generic/errno.h:
 
@@ -2431,13 +2522,9 @@ CMakeFiles/Blackhole.dir/src/models/texture.cpp.o:
 
 /home/almo/School/PRJ/black_hole_engine/include/glm/ext/vector_uint3.hpp:
 
-/home/almo/School/PRJ/black_hole_engine/include/glm/ext/matrix_double4x2_precision.hpp:
-
 /usr/include/c++/15.2.1/bits/requires_hosted.h:
 
 /usr/include/bits/libm-simd-decl-stubs.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/avxintrin.h:
 
 /usr/include/bits/types/__FILE.h:
 
@@ -2446,6 +2533,10 @@ CMakeFiles/Blackhole.dir/src/models/texture.cpp.o:
 /usr/include/bits/sched.h:
 
 /home/almo/School/PRJ/black_hole_engine/include/glm/ext/matrix_double3x2_precision.hpp:
+
+/home/almo/School/PRJ/black_hole_engine/include/glm/ext/matrix_double4x2_precision.hpp:
+
+/usr/include/c++/15.2.1/bits/atomic_lockfree_defines.h:
 
 /usr/include/c++/15.2.1/iosfwd:
 
@@ -2461,11 +2552,9 @@ CMakeFiles/Blackhole.dir/src/models/texture.cpp.o:
 
 /usr/include/c++/15.2.1/bits/functional_hash.h:
 
+/usr/include/c++/15.2.1/bits/stl_numeric.h:
+
 /usr/include/endian.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/xmmintrin.h:
-
-/usr/include/stdint.h:
 
 /usr/include/c++/15.2.1/bits/stringfwd.h:
 
@@ -2484,8 +2573,6 @@ CMakeFiles/Blackhole.dir/src/models/texture.cpp.o:
 /home/almo/School/PRJ/black_hole_engine/include/glm/ext/matrix_double4x3.hpp:
 
 /usr/include/c++/15.2.1/bits/stl_tempbuf.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/avx512vp2intersectvlintrin.h:
 
 /home/almo/School/PRJ/black_hole_engine/include/glm/detail/compute_vector_decl.hpp:
 
@@ -2515,8 +2602,6 @@ CMakeFiles/Blackhole.dir/src/models/texture.cpp.o:
 
 /usr/include/c++/15.2.1/bits/streambuf.tcc:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/cmpccxaddintrin.h:
-
 /home/almo/School/PRJ/black_hole_engine/include/glm/detail/type_vec1.inl:
 
 /usr/include/bits/stdlib-float.h:
@@ -2543,6 +2628,10 @@ CMakeFiles/Blackhole.dir/src/models/shader.cpp.o:
 
 /usr/include/bits/types/clockid_t.h:
 
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/bmi2intrin.h:
+
+/usr/include/c++/15.2.1/random:
+
 /home/almo/School/PRJ/black_hole_engine/include/glm/detail/type_vec2.inl:
 
 /usr/include/c++/15.2.1/bits/char_traits.h:
@@ -2564,6 +2653,8 @@ CMakeFiles/Blackhole.dir/src/models/shader.cpp.o:
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stddef.h:
 
 /usr/include/asm-generic/int-ll64.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/mwaitintrin.h:
 
 CMakeFiles/Blackhole.dir/src/glad.c.o:
 
@@ -2615,6 +2706,12 @@ CMakeFiles/Blackhole.dir/src/glad.c.o:
 
 /home/almo/School/PRJ/black_hole_engine/include/glm/mat2x3.hpp:
 
+/usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/c++io.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/clwbintrin.h:
+
+CMakeFiles/Blackhole.dir/src/main.cpp.o:
+
 /usr/include/bits/types/__sigset_t.h:
 
 /home/almo/School/PRJ/black_hole_engine/include/KHR/khrplatform.h:
@@ -2625,6 +2722,10 @@ CMakeFiles/Blackhole.dir/src/glad.c.o:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/crtfastmath.o:
 
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/enqcmdintrin.h:
+
+/usr/include/c++/15.2.1/bits/memory_resource.h:
+
 /usr/include/c++/15.2.1/compare:
 
 /home/almo/School/PRJ/black_hole_engine/include/glm/ext/matrix_float3x4_precision.hpp:
@@ -2633,9 +2734,17 @@ CMakeFiles/Blackhole.dir/src/glad.c.o:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o:
 
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/clzerointrin.h:
+
+/home/almo/School/PRJ/black_hole_engine/include/glm/packing.hpp:
+
 /usr/include/bits/cpu-set.h:
 
 /home/almo/School/PRJ/black_hole_engine/src/models/particle.cpp:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/cldemoteintrin.h:
+
+/home/almo/School/PRJ/black_hole_engine/include/glm/matrix.hpp:
 
 /home/almo/School/PRJ/black_hole_engine/include/glm/ext/vector_int3.hpp:
 
@@ -2648,6 +2757,8 @@ CMakeFiles/Blackhole.dir/src/glad.c.o:
 /usr/include/c++/15.2.1/bits/chrono.h:
 
 /usr/include/sys/select.h:
+
+/usr/include/c++/15.2.1/numeric:
 
 /home/almo/School/PRJ/black_hole_engine/include/glm/vec2.hpp:
 
@@ -2733,12 +2844,6 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o:
 
 /usr/include/c++/15.2.1/bits/ostream.tcc:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/vpclmulqdqintrin.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/mm_malloc.h:
-
-/usr/include/asm-generic/bitsperlong.h:
-
 /usr/lib/libc.so:
 
 /usr/include/c++/15.2.1/bits/basic_string.h:
@@ -2754,6 +2859,12 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o:
 /usr/include/bits/wordsize.h:
 
 /usr/include/stdio.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/vpclmulqdqintrin.h:
+
+/usr/include/asm-generic/bitsperlong.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/mm_malloc.h:
 
 /home/almo/School/PRJ/black_hole_engine/include/glm/ext/scalar_uint_sized.hpp:
 
@@ -2847,8 +2958,6 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o:
 
 /usr/include/string.h:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/fmaintrin.h:
-
 /home/almo/School/PRJ/black_hole_engine/include/glm/detail/type_mat4x3.inl:
 
 /usr/include/c++/15.2.1/bits/stl_pair.h:
@@ -2873,6 +2982,10 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o:
 
 /usr/include/asm/types.h:
 
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/avxvnniintrin.h:
+
+/usr/include/assert.h:
+
 /usr/include/bits/errno.h:
 
 /usr/include/bits/flt-eval-method.h:
@@ -2888,8 +3001,6 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o:
 /home/almo/School/PRJ/black_hole_engine/include/glm/ext/vector_uint2.hpp:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/amxavx512intrin.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/avx512vnniintrin.h:
 
 /usr/include/bits/iscanonical.h:
 
@@ -2937,11 +3048,17 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o:
 
 /usr/include/c++/15.2.1/tr1/ell_integral.tcc:
 
+/usr/include/c++/15.2.1/backward/auto_ptr.h:
+
 /usr/include/c++/15.2.1/backward/binders.h:
 
-/usr/include/c++/15.2.1/cctype:
+/usr/include/c++/15.2.1/bits/align.h:
+
+/usr/include/c++/15.2.1/debug/debug.h:
 
 /usr/include/c++/15.2.1/bits/alloc_traits.h:
+
+/usr/include/c++/15.2.1/bits/allocated_ptr.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/xsavesintrin.h:
 
@@ -2949,13 +3066,25 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o:
 
 /usr/include/c++/15.2.1/bits/allocator.h:
 
+/usr/include/c++/15.2.1/bits/atomic_base.h:
+
 /usr/include/c++/15.2.1/bits/basic_string.tcc:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/avxifmaintrin.h:
+
+/usr/include/bits/types/struct_timeval.h:
+
+/usr/include/c++/15.2.1/bits/node_handle.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/wbnoinvdintrin.h:
 
 /usr/include/c++/15.2.1/bits/concept_check.h:
 
 /usr/include/c++/15.2.1/bits/cxxabi_forced.h:
+
+/usr/include/c++/15.2.1/cctype:
+
+/usr/include/c++/15.2.1/ext/concurrence.h:
 
 /usr/include/c++/15.2.1/bits/cxxabi_init_exception.h:
 
@@ -2967,11 +3096,11 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o:
 
 /usr/include/c++/15.2.1/bits/hash_bytes.h:
 
-/home/almo/School/PRJ/black_hole_engine/include/glm/matrix.hpp:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/cldemoteintrin.h:
-
 /usr/include/c++/15.2.1/bits/hashtable_policy.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/clflushoptintrin.h:
+
+/usr/include/c++/15.2.1/bits/invoke.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/mwaitxintrin.h:
 
@@ -2986,6 +3115,8 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o:
 /usr/include/c++/15.2.1/bits/ios_base.h:
 
 /usr/include/c++/15.2.1/bits/locale_classes.tcc:
+
+/usr/include/c++/15.2.1/bits/shared_ptr_atomic.h:
 
 /usr/include/c++/15.2.1/bits/locale_facets.h:
 
@@ -3009,6 +3140,12 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o:
 
 /usr/include/c++/15.2.1/bits/postypes.h:
 
+/usr/include/c++/15.2.1/bits/exception_defines.h:
+
+/usr/include/c++/15.2.1/bits/random.h:
+
+/usr/include/c++/15.2.1/bits/random.tcc:
+
 /home/almo/School/PRJ/black_hole_engine/include/glm/ext/matrix_double2x3.hpp:
 
 /home/almo/School/PRJ/black_hole_engine/include/glm/mat2x4.hpp:
@@ -3020,6 +3157,10 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o:
 /home/almo/School/PRJ/black_hole_engine/include/glm/trigonometric.hpp:
 
 /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/c++allocator.h:
+
+/usr/include/c++/15.2.1/bits/shared_ptr_base.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/avx10_2mediaintrin.h:
 
 /usr/include/c++/15.2.1/ext/string_conversions.h:
 
@@ -3037,6 +3178,8 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o:
 
 /usr/include/c++/15.2.1/bits/stl_iterator_base_types.h:
 
+/usr/include/c++/15.2.1/bits/stl_raw_storage_iter.h:
+
 /usr/include/c++/15.2.1/bits/stl_tree.h:
 
 /usr/include/c++/15.2.1/pstl/glue_algorithm_defs.h:
@@ -3049,9 +3192,21 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o:
 
 /usr/include/c++/15.2.1/bits/this_thread_sleep.h:
 
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/avxneconvertintrin.h:
+
+/usr/include/c++/15.2.1/ext/type_traits.h:
+
+/usr/include/c++/15.2.1/bits/uniform_int_dist.h:
+
+/usr/include/c++/15.2.1/cwchar:
+
 /usr/include/c++/15.2.1/bits/unique_ptr.h:
 
 /usr/include/c++/15.2.1/bits/unordered_map.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/avx512vnnivlintrin.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/avx512vldqintrin.h:
 
 /usr/include/c++/15.2.1/bits/uses_allocator.h:
 
@@ -3075,23 +3230,13 @@ CMakeFiles/Blackhole.dir/src/models/sphere.cpp.o:
 
 /usr/include/c++/15.2.1/clocale:
 
-/usr/include/bits/types/struct_timeval.h:
-
-/usr/include/c++/15.2.1/bits/node_handle.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/avxifmaintrin.h:
-
 /home/almo/School/PRJ/black_hole_engine/include/glm/detail/func_common.inl:
 
 /usr/include/c++/15.2.1/concepts:
 
-/usr/include/c++/15.2.1/cwchar:
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/avxvnniint8intrin.h:
 
-/usr/include/c++/15.2.1/bits/uniform_int_dist.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/avx10_2mediaintrin.h:
-
-/usr/include/c++/15.2.1/debug/debug.h:
+/usr/include/c++/15.2.1/cstdio:
 
 /usr/include/c++/15.2.1/ext/aligned_buffer.h:
 
@@ -3109,11 +3254,19 @@ CMakeFiles/Blackhole.dir/src/models/sphere.cpp.o:
 
 /usr/include/c++/15.2.1/istream:
 
+/usr/include/c++/15.2.1/memory:
+
 /usr/include/c++/15.2.1/map:
 
 /usr/include/c++/15.2.1/new:
 
+/usr/include/c++/15.2.1/pstl/execution_defs.h:
+
+/usr/include/c++/15.2.1/pstl/glue_memory_defs.h:
+
 /usr/include/c++/15.2.1/stdexcept:
+
+/usr/include/c++/15.2.1/stdlib.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/libgcc.a:
 
@@ -3140,8 +3293,6 @@ CMakeFiles/Blackhole.dir/src/models/sphere.cpp.o:
 /usr/include/bits/types/struct_timespec.h:
 
 /usr/include/c++/15.2.1/tr1/hypergeometric.tcc:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/avx512vpopcntdqintrin.h:
 
 /usr/include/c++/15.2.1/tr1/legendre_function.tcc:
 
@@ -3177,6 +3328,8 @@ CMakeFiles/Blackhole.dir/src/models/sphere.cpp.o:
 
 /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/gthr.h:
 
+/usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/opt_random.h:
+
 /usr/include/c++/15.2.1/bits/ptr_traits.h:
 
 /home/almo/School/PRJ/black_hole_engine/include/glm/ext/matrix_double2x4_precision.hpp:
@@ -3203,33 +3356,29 @@ CMakeFiles/Blackhole.dir/src/models/sphere.cpp.o:
 
 /usr/include/time.h:
 
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/emmintrin.h:
+
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/float.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/mmintrin.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/pmmintrin.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/syslimits.h:
 
+/usr/include/stdint.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/xmmintrin.h:
+
 /usr/include/c++/15.2.1/algorithm:
 
-/usr/include/c++/15.2.1/pstl/execution_defs.h:
-
-/usr/include/c++/15.2.1/stdlib.h:
-
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/adxintrin.h:
-
-/usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/c++io.h:
-
-CMakeFiles/Blackhole.dir/src/main.cpp.o:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/clwbintrin.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/smmintrin.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/amxbf16intrin.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/amxcomplexintrin.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/avx512vldqintrin.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/avx512vnnivlintrin.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/amxfp8intrin.h:
 
@@ -3271,10 +3420,6 @@ CMakeFiles/Blackhole.dir/src/main.cpp.o:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/avx512ifmavlintrin.h:
 
-/home/almo/School/PRJ/black_hole_engine/include/glm/packing.hpp:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/clzerointrin.h:
-
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/avx512vbmi2intrin.h:
 
 /usr/include/bits/libc-header-start.h:
@@ -3284,35 +3429,3 @@ CMakeFiles/Blackhole.dir/src/main.cpp.o:
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/avx512bitalgintrin.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/avx512vbmivlintrin.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/avx512vp2intersectintrin.h:
-
-/usr/include/c++/15.2.1/ext/type_traits.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/avxneconvertintrin.h:
-
-/usr/include/c++/15.2.1/cstdio:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/avxvnniint8intrin.h:
-
-/usr/include/assert.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/avxvnniintrin.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/bmi2intrin.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/cetintrin.h:
-
-/usr/include/c++/15.2.1/bits/invoke.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/clflushoptintrin.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/emmintrin.h:
-
-/usr/include/c++/15.2.1/bits/memory_resource.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/enqcmdintrin.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/f16cintrin.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/fxsrintrin.h:

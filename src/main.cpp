@@ -14,6 +14,7 @@
 #include "models/sphere.h"
 #include "models/texture.h"
 #include <map>
+#include <random>
 #define HEIGHT 960
 enum class CameraType
 {
@@ -136,92 +137,45 @@ int main()
   Plane plane;
 
   double G = 0.00675;
-  double dt = 0.01; // your simulation timestep
+  double dt = 0.005;
 
   // --- Central body ---
-  Object *sphere1 = new Object{
-      .pos = {0, 0, 0},
-      .xv = 0,
-      .yv = 0,
-      .zv = std::sqrt(0.0675 / 12),
-      .mass = 51,
-      .radius = 1,
-      .IsBlackHole = false,
-      .VAO = sphereMesh.VAO,
-      .VBO = sphereMesh.VBO,
-      .EBO = sphereMesh.EBO,
-      .indexCount = sphereMesh.indexCount};
+  auto sphere1 = std::make_unique<Object>();
+  sphere1->pos = {12, 0, 0};
+  sphere1->xv = 0;
+  sphere1->yv = 0;
+  sphere1->zv = -0.0022;
+  sphere1->mass = 1000;
+  sphere1->radius = 2;
+  sphere1->IsBlackHole = false;
+  sphere1->VAO = sphereMesh.VAO;
+  sphere1->VBO = sphereMesh.VBO;
+  sphere1->EBO = sphereMesh.EBO;
+  sphere1->indexCount = sphereMesh.indexCount;
   sphere1->modelMatrix = glm::translate(glm::mat4(1.0f), sphere1->pos);
 
-  Object *sphere2 = new Object{
-      .pos = {10, 0, 0},
-      .xv = 0,
-      .yv = -(std::sqrt(0.0675 / 2)),
-      .zv = -(std::sqrt(0.0675 / 12)),
-      .mass = 49,
-      .radius = 1,
-      .IsBlackHole = false,
-      .VAO = sphereMesh.VAO,
-      .VBO = sphereMesh.VBO,
-      .EBO = sphereMesh.EBO,
-      .indexCount = sphereMesh.indexCount,
-  };
-  sphere2->modelMatrix =
-      glm::translate(glm::mat4(1.0f), sphere2->pos);
+  // --- Orbiting body ---
+  auto sphere2 = std::make_unique<Object>();
+  sphere2->pos = {15, 0, 0};
+  sphere2->xv = 0;
+  sphere2->yv = 0;
+  sphere2->zv = 1.5;
+  sphere2->mass = 1;
+  sphere2->radius = 1;
+  sphere2->IsBlackHole = false;
+  sphere2->VAO = sphereMesh.VAO;
+  sphere2->VBO = sphereMesh.VBO;
+  sphere2->EBO = sphereMesh.EBO;
+  sphere2->indexCount = sphereMesh.indexCount;
+  sphere2->modelMatrix = glm::translate(glm::mat4(1.0f), sphere2->pos);
 
-  Object *sphere3 = new Object{
-    .pos = {0, 10, 0},
-    .xv = -(std::sqrt(0.0675 / 2)),
-    .yv = 0,
-    .zv = -(std::sqrt(0.0675 / 12)),
-    .mass = 20,
-    .radius = 1,
-    .IsBlackHole = false,
-    .VAO = sphereMesh.VAO,
-    .VBO = sphereMesh.VBO,
-    .EBO = sphereMesh.EBO,
-    .indexCount = sphereMesh.indexCount,
-};
-  sphere3->modelMatrix =
-      glm::translate(glm::mat4(1.0f), sphere3->pos);
-  Object *sphere4 = new Object{
-    .pos = {0, 0, 10},
-    .xv = 0,
-    .yv = -(std::sqrt(0.0675 / 5)),
-    .zv = -(std::sqrt(0.0675 / 12)),
-    .mass = 40,
-    .radius = 1,
-    .IsBlackHole = false,
-    .VAO = sphereMesh.VAO,
-    .VBO = sphereMesh.VBO,
-    .EBO = sphereMesh.EBO,
-    .indexCount = sphereMesh.indexCount,
-};
-  sphere4->modelMatrix =
-      glm::translate(glm::mat4(1.0f), sphere4->pos);
-  Object *sphere5 = new Object{
-    .pos = {10, 10, 10},
-    .xv = (std::sqrt(0.0675 / 5)),
-    .yv = 0,
-    .zv = -(std::sqrt(0.0675 / 12)),
-    .mass = 47,
-    .radius = 1,
-    .IsBlackHole = false,
-    .VAO = sphereMesh.VAO,
-    .VBO = sphereMesh.VBO,
-    .EBO = sphereMesh.EBO,
-    .indexCount = sphereMesh.indexCount,
-};
-  sphere5->modelMatrix =
-      glm::translate(glm::mat4(1.0f), sphere5->pos);
+  // Push objects to plane
+  plane.objs.push_back(std::move(sphere1));
+  plane.objs.push_back(std::move(sphere2));
 
 
-  plane.objs.push_back(sphere1);
-  plane.objs.push_back(sphere2);
-  plane.objs.push_back(sphere3);
-  plane.objs.push_back(sphere4);
-  plane.objs.push_back(sphere5);
 
+  //std::vector<std::unique_ptr<Object>> objs;
   // start camera on the same vertical level as the balls
   camPos.y = 0.0f;
   camFront = glm::normalize(glm::vec3(0.0f, 0.0f, -1.0f));
@@ -242,8 +196,14 @@ int main()
   bool tabPressedLastFrame = false; // mimo hlavní smyčku
   glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
   // main loop
+  int count = 500;
   while (!glfwWindowShouldClose(window))
   {
+    if (count == 500) {
+      PrintObjects(plane);
+      count = 0;
+    }
+    count++;
     // --- Delta time ---
     float currentFrame = glfwGetTime();
     DeltaTime = currentFrame - lastFrame;
