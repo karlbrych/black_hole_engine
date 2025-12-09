@@ -253,7 +253,14 @@ CMakeFiles/Blackhole.dir/src/main.cpp.o: \
  /usr/include/bits/time.h /usr/include/bits/timex.h \
  /usr/include/bits/types/struct_tm.h \
  /usr/include/bits/types/struct_itimerspec.h \
- /usr/include/c++/15/bits/parse_numbers.h \
+ /usr/include/c++/15/bits/parse_numbers.h /usr/include/c++/15/cstdio \
+ /usr/include/stdio.h \
+ /usr/lib/gcc/x86_64-redhat-linux/15/include/stdarg.h \
+ /usr/include/bits/types/__fpos_t.h /usr/include/bits/types/__mbstate_t.h \
+ /usr/include/bits/types/__fpos64_t.h /usr/include/bits/types/__FILE.h \
+ /usr/include/bits/types/FILE.h /usr/include/bits/types/struct_FILE.h \
+ /usr/include/bits/types/cookie_io_functions_t.h \
+ /usr/include/bits/stdio_lim.h \
  /home/kajabrych/PRG/black_hole_engine/include/glm/fwd.hpp \
  /home/kajabrych/PRG/black_hole_engine/include/glm/glm.hpp \
  /home/kajabrych/PRG/black_hole_engine/include/glm/detail/_fixes.hpp \
@@ -284,11 +291,8 @@ CMakeFiles/Blackhole.dir/src/main.cpp.o: \
  /usr/include/c++/15/bits/ostream.h /usr/include/c++/15/ios \
  /usr/include/c++/15/iosfwd /usr/include/c++/15/bits/stringfwd.h \
  /usr/include/c++/15/bits/postypes.h /usr/include/c++/15/cwchar \
- /usr/include/wchar.h \
- /usr/lib/gcc/x86_64-redhat-linux/15/include/stdarg.h \
- /usr/include/bits/types/wint_t.h /usr/include/bits/types/mbstate_t.h \
- /usr/include/bits/types/__mbstate_t.h /usr/include/bits/types/__FILE.h \
- /usr/include/bits/types/FILE.h /usr/include/c++/15/exception \
+ /usr/include/wchar.h /usr/include/bits/types/wint_t.h \
+ /usr/include/bits/types/mbstate_t.h /usr/include/c++/15/exception \
  /usr/include/c++/15/bits/exception_ptr.h \
  /usr/include/c++/15/bits/cxxabi_init_exception.h \
  /usr/include/c++/15/bits/nested_exception.h \
@@ -319,15 +323,11 @@ CMakeFiles/Blackhole.dir/src/main.cpp.o: \
  /usr/include/c++/15/bits/basic_string.h /usr/include/c++/15/string_view \
  /usr/include/c++/15/bits/string_view.tcc \
  /usr/include/c++/15/ext/string_conversions.h /usr/include/c++/15/cstdlib \
- /usr/include/c++/15/cstdio /usr/include/stdio.h \
- /usr/include/bits/types/__fpos_t.h /usr/include/bits/types/__fpos64_t.h \
- /usr/include/bits/types/struct_FILE.h \
- /usr/include/bits/types/cookie_io_functions_t.h \
- /usr/include/bits/stdio_lim.h /usr/include/c++/15/cerrno \
- /usr/include/errno.h /usr/include/bits/errno.h \
- /usr/include/linux/errno.h /usr/include/asm/errno.h \
- /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
- /usr/include/bits/types/error_t.h /usr/include/c++/15/bits/charconv.h \
+ /usr/include/c++/15/cerrno /usr/include/errno.h \
+ /usr/include/bits/errno.h /usr/include/linux/errno.h \
+ /usr/include/asm/errno.h /usr/include/asm-generic/errno.h \
+ /usr/include/asm-generic/errno-base.h /usr/include/bits/types/error_t.h \
+ /usr/include/c++/15/bits/charconv.h \
  /usr/include/c++/15/bits/basic_string.tcc \
  /usr/include/c++/15/bits/locale_classes.tcc \
  /usr/include/c++/15/system_error \
@@ -347,7 +347,6 @@ CMakeFiles/Blackhole.dir/src/main.cpp.o: \
  /usr/include/c++/15/bits/std_thread.h \
  /usr/include/c++/15/bits/unique_ptr.h \
  /usr/include/c++/15/bits/this_thread_sleep.h \
- /home/kajabrych/PRG/black_hole_engine/src/models/camera.h \
  /home/kajabrych/PRG/black_hole_engine/src/models/particle.h \
  /home/kajabrych/PRG/black_hole_engine/src/models/shader.h \
  /usr/include/string.h /usr/include/strings.h \
@@ -355,4 +354,5 @@ CMakeFiles/Blackhole.dir/src/main.cpp.o: \
  /home/kajabrych/PRG/black_hole_engine/src/models/texture.h \
  /usr/include/c++/15/map /usr/include/c++/15/bits/stl_tree.h \
  /usr/include/c++/15/bits/stl_map.h \
- /usr/include/c++/15/bits/stl_multimap.h
+ /usr/include/c++/15/bits/stl_multimap.h \
+ /home/kajabrych/PRG/black_hole_engine/src/models/camera.h
