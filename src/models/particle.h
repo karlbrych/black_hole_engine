@@ -14,6 +14,7 @@ struct Object{
   GLuint VAO,VBO,EBO;
   size_t indexCount;
   glm::mat4 modelMatrix;
+  GLuint textureId;
   void draw (const shader& shader)const;
   void rotate (float time);
 }; 

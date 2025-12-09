@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include "texture.h"
 void Plane::draw(const shader &shader) const {
   for (const auto &obj : objs) {
     obj->draw(shader);
@@ -16,6 +17,7 @@ void Plane::rotate(float time)
 }
 
 void Object::draw(const shader &shader) const {
+  Texture::BindTexture(textureId, 0);
   shader.setMat4("model", modelMatrix);
   glBindVertexArray(VAO);
   glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, 0);

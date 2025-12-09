@@ -309,6 +309,7 @@ CMakeFiles/Blackhole.dir/src/models/particle.cpp.o: \
  /home/kajabrych/PRG/black_hole_engine/include/glm/gtc/../ext/matrix_transform.hpp \
  /home/kajabrych/PRG/black_hole_engine/include/glm/gtc/../ext/matrix_transform.inl \
  /home/kajabrych/PRG/black_hole_engine/include/glm/gtc/matrix_transform.inl \
+ /home/kajabrych/PRG/black_hole_engine/src/models/texture.h \
  /usr/lib/gcc/x86_64-redhat-linux/15/include/immintrin.h \
  /usr/lib/gcc/x86_64-redhat-linux/15/include/x86gprintrin.h \
  /usr/lib/gcc/x86_64-redhat-linux/15/include/ia32intrin.h \

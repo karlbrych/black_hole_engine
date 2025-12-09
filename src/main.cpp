@@ -177,7 +177,9 @@ int main()
   glfwSetMouseButtonCallback(window, mouse_button_callback);
   shader shader("../src/shaders/vertex.glsl", "../src/shaders/fragment.glsl");
   sphere sphereMesh = createSphere(1.0f, 64, 32);
-  GLuint texture = Texture::LoadTexture("../src/assets/planet.jpg");
+  GLuint texture1 = Texture::LoadTexture("../src/assets/planet.jpg");
+  GLuint texture2 = Texture::LoadTexture("../src/assets/poop-texture.jpg");
+
   Plane plane;
 
   double G = 0.00675;
@@ -195,7 +197,10 @@ int main()
       .VAO = sphereMesh.VAO,
       .VBO = sphereMesh.VBO,
       .EBO = sphereMesh.EBO,
-      .indexCount = sphereMesh.indexCount};
+      .indexCount = sphereMesh.indexCount,
+      .textureId = texture1
+    };
+    
   sphere1->modelMatrix = glm::translate(glm::mat4(1.0f), sphere1->pos);
 
   Object *sphere2 = new Object{
@@ -210,6 +215,7 @@ int main()
       .VBO = sphereMesh.VBO,
       .EBO = sphereMesh.EBO,
       .indexCount = sphereMesh.indexCount,
+      .textureId = texture2
   };
   sphere2->modelMatrix =
       glm::translate(glm::mat4(1.0f), sphere2->pos);
@@ -244,7 +250,7 @@ Object *sunSphere = new Object{
     // --- Zpracování vstupu ---
 
     tabPressedLastFrame = (glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS);
-	std::cout << tabPressedLastFrame << std::endl;
+	  std::cout << tabPressedLastFrame << std::endl;
     // --- Aktualizace projekce ---
     if (currentCamera == CameraType::Perspective)
     {
@@ -269,10 +275,9 @@ Object *sunSphere = new Object{
     shader.use();
     shader.setMat4("projection", camera.projection);
     shader.setMat4("view", camera.view);
-    Texture::BindTexture(texture, 0);
     shader.setInt("diffuseTexture", 0);
-	float tmp = glfwGetTime();
-	plane.rotate(tmp);
+	  float tmp = glfwGetTime();
+	  plane.rotate(tmp);
     plane.draw(shader);
     DoGravity(&plane, G, dt);
     glfwSwapBuffers(window);
