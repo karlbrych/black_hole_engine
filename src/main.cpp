@@ -15,13 +15,6 @@
 #include "models/texture.h"
 #include <map>
 #define HEIGHT 960
-enum class CameraType
-{
-  Perspective,
-  Ortho
-};
-CameraType currentCamera = CameraType::Perspective;
-std::map<int, bool> keysPressed;
 float lastMouseX = WIDTH / 2.0f;
 float lastMouseY = HEIGHT / 2.0f;
 bool firstMouse = true;
@@ -30,14 +23,53 @@ float yaw = -90.0f; // start facing -Z
 float pitch = 0.0f;
 float mouseSensitivity = 0.1f;
 #define WIDTH 1280
+
 // pro mys
 double mouseX = 0.0, mouseY = 0.0;
 glm::vec2 circleOffset(0.0f, 0.0f);
 bool rightPressed = false;
+
+// CAMERA
+enum class CameraType
+{
+  Perspective,
+  Ortho
+};
+CameraType currentCamera = CameraType::Perspective;
 static PerspectiveCamera camera;
 static glm::vec3 camPos(0.0f, 5.0f, 20.0f);
 static glm::vec3 camFront(0.0f, 0.0f, -1.0f);
 static glm::vec3 camUp(0.0f, 1.0f, 0.0f);
+float cameraSpeed = 7.0f;
+
+float deltaTime = 0.0f;
+float lastFrame;
+
+bool tabPressedLastFrame = false;
+
+void processInput(GLFWwindow *window)
+{
+    glm::vec3 right = glm::normalize(glm::cross(camFront, camUp));
+    float velocity = cameraSpeed * deltaTime;
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+      camPos += camFront * velocity;
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+      camPos -= camFront * velocity;
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+      camPos -= right * velocity;
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+      camPos += right * velocity;
+    if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+      camPos += camUp * velocity;
+    if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
+      camPos -= camUp * velocity;
+
+    // --- Přepínání kamery ---
+    if ((glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS) && !tabPressedLastFrame)
+    {
+      currentCamera = (currentCamera == CameraType::Perspective) ? CameraType::Ortho : CameraType::Perspective;
+    }
+}
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height)
 {
@@ -182,17 +214,9 @@ int main()
       glm::perspective(glm::radians(45.0f), (float)WIDTH / (float)HEIGHT, 0.1f, 100.0f);
   camera.view = glm::lookAt(camPos, camPos + camFront, camUp);
 
-  float lastFrame = 0.0f;
-  float DeltaTime = 0.0f;
-  static const float moveStep = 7.0; // tune speed
-  glfwSetKeyCallback(window, [](GLFWwindow *w, int key, int scancode, int action, int mods)
-                     {
-    if (action == GLFW_PRESS) keysPressed[key] = true;
-    else if (action == GLFW_RELEASE) keysPressed[key] = false; });
 
   auto lastTime = std::chrono::high_resolution_clock::now();
   int frameCount = 0;
-  bool tabPressedLastFrame = false; // mimo hlavní smyčku
   glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
   // main loop
@@ -200,32 +224,14 @@ int main()
   {
     // --- Delta time ---
     float currentFrame = glfwGetTime();
-    DeltaTime = currentFrame - lastFrame;
+    deltaTime = currentFrame - lastFrame;
     lastFrame = currentFrame;
 
+	processInput(window);
     // --- Zpracování vstupu ---
-    glm::vec3 right = glm::normalize(glm::cross(camFront, camUp));
-    float velocity = moveStep * DeltaTime;
-    if (keysPressed[GLFW_KEY_W])
-      camPos += camFront * velocity;
-    if (keysPressed[GLFW_KEY_S])
-      camPos -= camFront * velocity;
-    if (keysPressed[GLFW_KEY_A])
-      camPos -= right * velocity;
-    if (keysPressed[GLFW_KEY_D])
-      camPos += right * velocity;
-    if (keysPressed[GLFW_KEY_LEFT_SHIFT])
-      camPos += camUp * velocity;
-    if (keysPressed[GLFW_KEY_LEFT_CONTROL])
-      camPos -= camUp * velocity;
 
-    // --- Přepínání kamery ---
-    if (keysPressed[GLFW_KEY_TAB] && !tabPressedLastFrame)
-    {
-      currentCamera = (currentCamera == CameraType::Perspective) ? CameraType::Ortho : CameraType::Perspective;
-    }
-    tabPressedLastFrame = keysPressed[GLFW_KEY_TAB];
-
+    tabPressedLastFrame = (glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS);
+	std::cout << tabPressedLastFrame << std::endl;
     // --- Aktualizace projekce ---
     if (currentCamera == CameraType::Perspective)
     {
@@ -259,15 +265,8 @@ int main()
     glfwSwapBuffers(window);
     glfwPollEvents();
 
-    frameCount++;
-    auto now = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> elapsed = now - lastTime;
-    if (elapsed.count() >= 1.0)
-    {
-      std::cout << frameCount << "\n";
-      frameCount = 0;
-      lastTime = now;
-    }
+
+
   }
 
   glDeleteVertexArrays(1, &sphereMesh.VAO);
