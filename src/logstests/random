@@ -1,0 +1,30 @@
+std::random_device rd;
+  std::mt19937 gen(rd());
+
+  // ranges
+  std::uniform_real_distribution<float> posDist(-25.0f, 25.0f);
+  std::uniform_real_distribution<float> velDist(-5.0f, 5.0f);
+  std::uniform_real_distribution<float> massDist(5.0f, 20.0f);   // <- integer distribution
+  std::uniform_real_distribution<float> radiusDist(0.5f, 5.0f);
+
+  plane.objs.reserve(500);
+
+  for (int i = 0; i < 500; ++i) {
+    auto obj = std::make_unique<Object>(Object{
+        .pos = { posDist(gen), posDist(gen), posDist(gen) },
+        .xv  = velDist(gen),
+        .yv  = velDist(gen),
+        .zv  = velDist(gen),
+        .mass = massDist(gen),
+        .radius = radiusDist(gen),
+        .IsBlackHole = false,
+        .VAO = sphereMesh.VAO,
+        .VBO = sphereMesh.VBO,
+        .EBO = sphereMesh.EBO,
+        .indexCount = sphereMesh.indexCount
+    });
+
+    obj->modelMatrix = glm::translate(glm::mat4(1.0f), obj->pos);
+
+    plane.objs.push_back(std::move(obj));
+  }

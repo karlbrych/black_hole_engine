@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 /usr/lib64/ccache/c++ -Wl,--dependency-file=CMakeFiles/Blackhole.dir/link.d CMakeFiles/Blackhole.dir/src/main.cpp.o CMakeFiles/Blackhole.dir/src/glad.c.o CMakeFiles/Blackhole.dir/src/models/shader.cpp.o CMakeFiles/Blackhole.dir/src/models/particle.cpp.o CMakeFiles/Blackhole.dir/src/models/sphere.cpp.o CMakeFiles/Blackhole.dir/src/models/stb_image.cpp.o CMakeFiles/Blackhole.dir/src/models/texture.cpp.o -o Blackhole  -lglfw -ldl -lm -lpthread
+=======
+/usr/bin/c++ -O3 -march=native -flto -ffast-math -fstrict-aliasing -flto=auto -fno-fat-lto-objects -Wl,--dependency-file=CMakeFiles/Blackhole.dir/link.d CMakeFiles/Blackhole.dir/src/main.cpp.o CMakeFiles/Blackhole.dir/src/glad.c.o CMakeFiles/Blackhole.dir/src/models/shader.cpp.o CMakeFiles/Blackhole.dir/src/models/particle.cpp.o CMakeFiles/Blackhole.dir/src/models/sphere.cpp.o CMakeFiles/Blackhole.dir/src/models/stb_image.cpp.o CMakeFiles/Blackhole.dir/src/models/texture.cpp.o -o Blackhole  -lglfw -ldl -lm -lpthread
+>>>>>>> origin/almo-simulace

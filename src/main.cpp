@@ -9,19 +9,18 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
 #include <thread>
+#include "models/camera.h"
 #include "models/particle.h"
 #include "models/shader.h"
 #include "models/sphere.h"
 #include "models/texture.h"
 #include <map>
-#include "models/camera.h"
-
+#include <random>
 enum class CameraType
 {
   Perspective,
   Ortho
 };
-// CAMERA
 CameraType currentCamera = CameraType::Perspective;
 static PerspectiveCamera camera;
 std::map<int, bool> keysPressed;
@@ -75,7 +74,6 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height)
 {
   glViewport(0, 0, WIDTH, HEIGHT);
 }
-
 void PrintObjects(const Plane &pl)
 {
   for (size_t i = 0; i < pl.objs.size(); ++i)
@@ -132,7 +130,6 @@ void mouse_button_callback(GLFWwindow *window, int button, int action,
   if (button == GLFW_MOUSE_BUTTON_RIGHT)
     rightPressed = (action == GLFW_PRESS);
 }
-
 int main()
 {
 
@@ -163,7 +160,7 @@ int main()
   }
   const GLFWvidmode* mode = glfwGetVideoMode(monitor);
   WIDTH= mode->width;
-  HEIGHT = mode->height;
+  HEIGHT=mode->height;
   lastMouseX = WIDTH / 2.0f;
   lastMouseY = HEIGHT / 2.0f;
   if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -181,67 +178,80 @@ int main()
   Plane plane;
 
   double G = 0.00675;
-  double dt = 0.01; // your simulation timestep
+  double dt = 0.005;
 
   // --- Central body ---
-  Object *sphere1 = new Object{
-      .pos = {-3, 0, 0},
-      .xv = 0,
-      .yv = 0,
-      .zv = std::sqrt(0.0675 / 12),
-      .mass = 10,
-      .radius = 1,
-      .IsBlackHole = false,
-      .VAO = sphereMesh.VAO,
-      .VBO = sphereMesh.VBO,
-      .EBO = sphereMesh.EBO,
-      .indexCount = sphereMesh.indexCount};
+  auto sphere1 = std::make_unique<Object>();
+  sphere1->pos = {12, 0, 0};
+  sphere1->xv = 0;
+  sphere1->yv = 0;
+  sphere1->zv = -0.0022;
+  sphere1->mass = 1000;
+  sphere1->radius = 2;
+  sphere1->IsBlackHole = false;
+  sphere1->VAO = sphereMesh.VAO;
+  sphere1->VBO = sphereMesh.VBO;
+  sphere1->EBO = sphereMesh.EBO;
+  sphere1->indexCount = sphereMesh.indexCount;
   sphere1->modelMatrix = glm::translate(glm::mat4(1.0f), sphere1->pos);
 
-  Object *sphere2 = new Object{
-      .pos = {3, 0, 0},
-      .xv = 0,
-      .yv = 0,
-      .zv = -(std::sqrt(0.0675 / 12)),
-      .mass = 10,
-      .radius = 1,
-      .IsBlackHole = false,
-      .VAO = sphereMesh.VAO,
-      .VBO = sphereMesh.VBO,
-      .EBO = sphereMesh.EBO,
-      .indexCount = sphereMesh.indexCount,
-  };
-  sphere2->modelMatrix =
-      glm::translate(glm::mat4(1.0f), sphere2->pos);
-Object *sunSphere = new Object{
-		.pos = {10,0,0},
-		.xv = 0,
-};
-  plane.objs.push_back(sphere1);
-  plane.objs.push_back(sphere2);
+  // --- Orbiting body ---
+  auto sphere2 = std::make_unique<Object>();
+  sphere2->pos = {15, 0, 0};
+  sphere2->xv = 0;
+  sphere2->yv = 0;
+  sphere2->zv = 1.5;
+  sphere2->mass = 1;
+  sphere2->radius = 1;
+  sphere2->IsBlackHole = false;
+  sphere2->VAO = sphereMesh.VAO;
+  sphere2->VBO = sphereMesh.VBO;
+  sphere2->EBO = sphereMesh.EBO;
+  sphere2->indexCount = sphereMesh.indexCount;
+  sphere2->modelMatrix = glm::translate(glm::mat4(1.0f), sphere2->pos);
 
+  // Push objects to plane
+  plane.objs.push_back(std::move(sphere1));
+  plane.objs.push_back(std::move(sphere2));
+
+
+
+  //std::vector<std::unique_ptr<Object>> objs;
   // start camera on the same vertical level as the balls
   camPos.y = 0.0f;
   camFront = glm::normalize(glm::vec3(0.0f, 0.0f, -1.0f));
   camera.projection =
       glm::perspective(glm::radians(45.0f), (float)WIDTH / (float)HEIGHT, 0.1f, 100.0f);
   camera.view = glm::lookAt(camPos, camPos + camFront, camUp);
+  float lastFrame = 0.0f;
+  float DeltaTime = 0.0f;
+  static const float moveStep = 7.0; // tune speed
+  glfwSetKeyCallback(window, [](GLFWwindow *w, int key, int scancode, int action, int mods)
+                     {
+    if (action == GLFW_PRESS) keysPressed[key] = true;
+    else if (action == GLFW_RELEASE) keysPressed[key] = false; });
 
 
   auto lastTime = std::chrono::high_resolution_clock::now();
   int frameCount = 0;
+  bool tabPressedLastFrame = false; // mimo hlavní smyčku
   glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
   // main loop
+  int count = 500;
   while (!glfwWindowShouldClose(window))
   {
+    if (count == 500) {
+      PrintObjects(plane);
+      count = 0;
+    }
+    count++;
     // --- Delta time ---
     float currentFrame = glfwGetTime();
-    deltaTime = currentFrame - lastFrame;
+    DeltaTime = currentFrame - lastFrame;
     lastFrame = currentFrame;
 
-	processInput(window);
-    // --- Zpracování vstupu ---
+	processInput(window); //zpracovani vstupu
+
 
     tabPressedLastFrame = (glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS);
 	std::cout << tabPressedLastFrame << std::endl;
@@ -263,7 +273,7 @@ Object *sunSphere = new Object{
     camera.view = glm::lookAt(camPos, camPos + camFront, camUp);
 
     // render
-    glClearColor(0.0f, 0.2f, 0.4f, 1.0f);
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     shader.use();
@@ -271,15 +281,10 @@ Object *sunSphere = new Object{
     shader.setMat4("view", camera.view);
     Texture::BindTexture(texture, 0);
     shader.setInt("diffuseTexture", 0);
-	float tmp = glfwGetTime();
-	plane.rotate(tmp);
     plane.draw(shader);
     DoGravity(&plane, G, dt);
     glfwSwapBuffers(window);
     glfwPollEvents();
-
-
-
   }
 
   glDeleteVertexArrays(1, &sphereMesh.VAO);
