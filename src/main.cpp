@@ -166,6 +166,7 @@ int main()
   HEIGHT = mode->height;
   lastMouseX = WIDTH / 2.0f;
   lastMouseY = HEIGHT / 2.0f;
+  std::cout<< WIDTH << " " << HEIGHT << "\n";
   if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
   {
     std::cerr << "Failed to initialize GLAD\n";
@@ -179,7 +180,7 @@ int main()
   sphere sphereMesh = createSphere(1.0f, 64, 32);
   GLuint texture1 = Texture::LoadTexture("../src/assets/planet.jpg");
   GLuint texture2 = Texture::LoadTexture("../src/assets/poop-texture.jpg");
-
+  GLuint texture3 = Texture::LoadTexture("../src/assets/sun-texture.jpg");
   Plane plane;
 
   double G = 0.00675;
@@ -187,11 +188,11 @@ int main()
 
   // --- Central body ---
   Object *sphere1 = new Object{
-      .pos = {-3, 0, 0},
+      .pos = {-13, 0, 0},
       .xv = 0,
       .yv = 0,
       .zv = std::sqrt(0.0675 / 12),
-      .mass = 10,
+      .mass = 1,
       .radius = 1,
       .IsBlackHole = false,
       .VAO = sphereMesh.VAO,
@@ -209,20 +210,17 @@ int main()
       .yv = 0,
       .zv = -(std::sqrt(0.0675 / 12)),
       .mass = 10,
-      .radius = 1,
+      .radius = 3,
       .IsBlackHole = false,
       .VAO = sphereMesh.VAO,
       .VBO = sphereMesh.VBO,
       .EBO = sphereMesh.EBO,
       .indexCount = sphereMesh.indexCount,
-      .textureId = texture2
+      .textureId = texture3
   };
   sphere2->modelMatrix =
       glm::translate(glm::mat4(1.0f), sphere2->pos);
-Object *sunSphere = new Object{
-		.pos = {10,0,0},
-		.xv = 0,
-};
+
   plane.objs.push_back(sphere1);
   plane.objs.push_back(sphere2);
 
@@ -250,7 +248,7 @@ Object *sunSphere = new Object{
     // --- Zpracování vstupu ---
 
     tabPressedLastFrame = (glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS);
-	  std::cout << tabPressedLastFrame << std::endl;
+	  //std::cout << tabPressedLastFrame << std::endl;
     // --- Aktualizace projekce ---
     if (currentCamera == CameraType::Perspective)
     {

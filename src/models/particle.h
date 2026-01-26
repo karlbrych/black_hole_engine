@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 #include "shader.h"
 #include <string.h>
+#include <memory>
 struct Object{
   glm::vec3 pos;
   double xv,yv,zv;
@@ -22,10 +23,11 @@ struct Object{
 struct Plane{
     void draw(const shader &shader)const;
 	void rotate(float time);
-    std::vector<Object *> objs;
+    std::vector<Object*> objs;
 };
 double invSqrt(double n);
 void DoGravity(Plane *plane,double G, double dt);
+void MergeAndDeadRemove(Plane *plane, const int *n, std::vector<bool> &dead);
 
 
 
