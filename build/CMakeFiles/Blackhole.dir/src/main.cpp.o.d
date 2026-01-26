@@ -349,7 +349,19 @@ CMakeFiles/Blackhole.dir/src/main.cpp.o: \
  /usr/include/c++/15/bits/this_thread_sleep.h \
  /home/kajabrych/PRG/black_hole_engine/src/models/particle.h \
  /home/kajabrych/PRG/black_hole_engine/src/models/shader.h \
- /usr/include/string.h /usr/include/strings.h \
+ /usr/include/string.h /usr/include/strings.h /usr/include/c++/15/memory \
+ /usr/include/c++/15/bits/stl_tempbuf.h \
+ /usr/include/c++/15/bits/stl_raw_storage_iter.h \
+ /usr/include/c++/15/bits/align.h /usr/include/c++/15/bits/shared_ptr.h \
+ /usr/include/c++/15/bits/shared_ptr_base.h \
+ /usr/include/c++/15/bits/allocated_ptr.h \
+ /usr/include/c++/15/ext/concurrence.h \
+ /usr/include/c++/15/bits/shared_ptr_atomic.h \
+ /usr/include/c++/15/bits/atomic_base.h \
+ /usr/include/c++/15/bits/atomic_lockfree_defines.h \
+ /usr/include/c++/15/backward/auto_ptr.h \
+ /usr/include/c++/15/pstl/glue_memory_defs.h \
+ /usr/include/c++/15/pstl/execution_defs.h \
  /home/kajabrych/PRG/black_hole_engine/src/models/sphere.h \
  /home/kajabrych/PRG/black_hole_engine/src/models/texture.h \
  /usr/include/c++/15/map /usr/include/c++/15/bits/stl_tree.h \

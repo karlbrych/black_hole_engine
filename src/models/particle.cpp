@@ -145,6 +145,9 @@ double invSqrt(double n) {
     );
 	  // Update modelMatrix from pos so rendering follows simulation
   for (auto &o : plane->objs) {
-    o->modelMatrix = glm::translate(glm::mat4(1.0f), o->pos);
+		glm::mat4 model = glm::mat4(1.0f);
+		model = glm::translate(model, o->pos);
+		model = glm::scale(model, glm::vec3(o->radius));
+		o->modelMatrix = model;
   }
 }
