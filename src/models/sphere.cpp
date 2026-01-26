@@ -1,3 +1,4 @@
+#define _USE_MATH_DEFINES
 #include "sphere.h"
 #include "glm/glm.hpp"
 #include <vector>

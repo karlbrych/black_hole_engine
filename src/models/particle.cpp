@@ -32,11 +32,11 @@ static inline double quakeInvSqrt(double n) {
     uint64_t i;
     double x2 = n * 0.5;
     double y = n;
-  
+
     memcpy(&i, &y, sizeof(i));
     i = 0x5fe6eb50c7aa19f9ULL - (i >> 1);
     memcpy(&y, &i, sizeof(y));
-  
+
     const double threehalves = 1.5;
     y = y * (threehalves - (x2 * y * y));
     y = y * (threehalves - (x2 * y * y));
@@ -53,8 +53,13 @@ static inline double hwInvSqrt(double x) {
     return _mm_cvtsd_f64(out);
 }
 
-const bool hasSSE = __builtin_cpu_supports("sse");
 double invSqrt(double n) {
+#if defined(__GNUC__) || defined(__clang__)
+    const bool hasSSE = __builtin_cpu_supports("sse");
+#else
+    const bool hasSSE = true;
+#endif
+
 #if defined(__x86_64__) || defined(__i386__)
     if (hasSSE)
         return hwInvSqrt(n);
@@ -63,7 +68,6 @@ double invSqrt(double n) {
     return quakeInvSqrt(n);
 #endif
 }
-
   void DoGravity(Plane *plane, double G, double dt) {
     int n = plane->objs.size();
     std::vector<glm::vec3> accel(n, glm::vec3(0,0,0));

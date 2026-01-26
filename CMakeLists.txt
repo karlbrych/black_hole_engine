@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.15)
 project(Blackhole)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# Include directories
-include_directories(include)
-
-# Source files
+# ---------- Sources ----------
 set(SOURCES
     src/main.cpp
     src/glad.c
@@ -17,21 +17,42 @@ set(SOURCES
     src/models/texture.cpp
 )
 
-# Add all .cpp files from src/shader
 file(GLOB SHADER_SOURCES "src/shader/*.cpp")
-
-# Append them to SOURCES
 list(APPEND SOURCES ${SHADER_SOURCES})
-
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
-# Add executable
+file(COPY ${CMAKE_SOURCE_DIR}/src/assets DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY ${CMAKE_SOURCE_DIR}/src/shaders DESTINATION ${CMAKE_BINARY_DIR})
 add_executable(Blackhole ${SOURCES})
 
-if(WIN32)
-    target_link_directories(Blackhole PRIVATE ${CMAKE_SOURCE_DIR}/libs)
-    target_link_libraries(Blackhole glfw3 opengl32 gdi32)
-elseif(UNIX)
-    find_package(OpenGL REQUIRED)
-    target_link_libraries(Blackhole glfw ${OPENGL_gl_LIBRARY} dl m pthread)
+# ---------- Includes ----------
+target_include_directories(Blackhole PRIVATE
+    ${PROJECT_SOURCE_DIR}/include
+)
+
+# ---------- OpenGL ----------
+find_package(OpenGL REQUIRED)
+
+# ---------- GLFW via FetchContent ----------
+include(FetchContent)
+
+set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+
+FetchContent_Declare(
+    glfw
+    GIT_REPOSITORY https://github.com/glfw/glfw.git
+    GIT_TAG 3.4
+)
+FetchContent_MakeAvailable(glfw)
+
+# ---------- Link ----------
+target_link_libraries(Blackhole PRIVATE glfw OpenGL::GL)
+
+if(UNIX AND NOT APPLE)
+    target_link_libraries(Blackhole PRIVATE dl pthread m)
+endif()
+
+if (WIN32)
+    target_link_libraries(Blackhole PRIVATE opengl32)
+    target_compile_definitions(Blackhole PRIVATE _CRT_SECURE_NO_WARNINGS)
 endif()

@@ -176,11 +176,11 @@ int main()
   glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
   glfwSetCursorPosCallback(window, cursor_position_callback);
   glfwSetMouseButtonCallback(window, mouse_button_callback);
-  shader shader("../src/shaders/vertex.glsl", "../src/shaders/fragment.glsl");
+  shader shader("shaders/vertex.glsl", "shaders/fragment.glsl");
   sphere sphereMesh = createSphere(1.0f, 64, 32);
-  GLuint texture1 = Texture::LoadTexture("../src/assets/planet.jpg");
-  GLuint texture2 = Texture::LoadTexture("../src/assets/poop-texture.jpg");
-  GLuint texture3 = Texture::LoadTexture("../src/assets/sun-texture.jpg");
+  GLuint texture1 = Texture::LoadTexture("assets/planet.jpg");
+  GLuint texture2 = Texture::LoadTexture("assets/poop-texture.jpg");
+  GLuint texture3 = Texture::LoadTexture("assets/sun-texture.jpg");
   Plane plane;
 
   double G = 0.00675;
