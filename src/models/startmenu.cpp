@@ -38,8 +38,9 @@ void StartMenu::beginFrame()
 
 bool StartMenu::render(int windowWidth, int windowHeight, Plane* plane)
 {
-    ImGui::SetNextWindowPos(ImVec2(windowWidth / 2.0f - 200, windowHeight / 2.0f - 150), ImGuiCond_Once);
-    ImGui::SetNextWindowSize(ImVec2(400, 300), ImGuiCond_Once);
+    ImGui::SetNextWindowSize(ImVec2((float)windowWidth, (float)windowHeight), ImGuiCond_Once);
+    ImGui::SetNextWindowPos(ImVec2(windowWidth / 2.0f - 630 , windowHeight/ 2.0f - 150), ImGuiCond_Once); //vycentrovani
+
 
     ImGui::Begin("Main Menu", nullptr, 
                  ImGuiWindowFlags_NoTitleBar | 
@@ -51,14 +52,14 @@ bool StartMenu::render(int windowWidth, int windowHeight, Plane* plane)
     ImGui::Spacing();
     ImGui::Spacing();
     
-    if (ImGui::Button("Start Game", ImVec2(200, 50)))
+    if (ImGui::Button("Start Game", ImVec2(300, 50)))
     {
         startGameRequested = true;
     }
     
     ImGui::SameLine();
     
-    if (ImGui::Button("Exit", ImVec2(200, 50)))
+    if (ImGui::Button("Exit", ImVec2(300, 50)))
     {
         exitGameRequested = true;
     }
@@ -66,7 +67,7 @@ bool StartMenu::render(int windowWidth, int windowHeight, Plane* plane)
     ImGui::Spacing();
     ImGui::Spacing();
     
-    if (ImGui::Button("Save", ImVec2(200, 50)))
+    if (ImGui::Button("Save", ImVec2(300, 50)))
     {
         if (plane) {
             save_to_binary(plane, "saves/save.dat");
@@ -75,7 +76,7 @@ bool StartMenu::render(int windowWidth, int windowHeight, Plane* plane)
     
     ImGui::SameLine();
     
-    if (ImGui::Button("Load", ImVec2(200, 50)))
+    if (ImGui::Button("Load", ImVec2(300, 50)))
     {
         if (plane) {
             load_from_binary(plane, "saves/save.dat");

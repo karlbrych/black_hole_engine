@@ -113,6 +113,7 @@ void cursor_position_callback(GLFWwindow *window, double xpos, double ypos)
     firstMouse = true;
     return;
   }
+  
   float xoffset = xpos - lastMouseX;
   float yoffset = lastMouseY - ypos; // reversed Y
   lastMouseX = xpos;
@@ -311,6 +312,15 @@ int main()
     tabPressedLastFrame = (glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS);
     
     startMenu.beginFrame();
+    
+    // Hide/show cursor based on game state
+    if (!gameStopped) {
+      glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    } 
+    else {
+      glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    }
+    
     if (!gameStopped)
     {
       float currentFrame = glfwGetTime();
