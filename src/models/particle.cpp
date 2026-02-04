@@ -4,6 +4,74 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "texture.h"
+#include <iostream>
+void save_to_binary(const Plane* plane, const std::string &filename) {
+    std::ofstream out(filename, std::ios::binary);
+
+    if (!out.is_open()) {
+        std::cerr << "Failed to open file for writing!" << std::endl;
+        return;
+    }
+
+    // Write the version (size_t)
+    out.write(reinterpret_cast<const char*>(&plane->version), sizeof(plane->version));
+
+    // Write the size of the vector (objs.size())
+    size_t objs_size = plane->objs.size();
+    out.write(reinterpret_cast<const char*>(&objs_size), sizeof(objs_size));
+
+    // Write the objects data
+    for (const auto &obj : plane->objs) {
+        obj->serialize(out);
+    }
+
+    out.close();
+    std::cout << "Data saved to " << filename << std::endl;
+}
+void load_from_binary(Plane* plane, const std::string& filename) {
+    std::ifstream in(filename, std::ios::binary);
+
+    if (!in.is_open()) {
+        std::cerr << "Failed to open file for reading!" << std::endl;
+        return;
+    }
+    size_t file_version = 0;
+    in.read(reinterpret_cast<char*>(&file_version), sizeof(file_version));
+    // Read the version (size_t)
+    if (file_version != plane->version) {
+        std::cerr << "Version mismatch! Expected version " << plane->version 
+                  << ", but found version " << file_version << std::endl;
+        return; // or handle the error in another way (e.g., throw an exception)
+    }
+    // Read the size of the vector (objs.size()) as size_t
+    size_t objs_size = 0;
+    in.read(reinterpret_cast<char*>(&objs_size), sizeof(objs_size));
+    if (!in) {
+        std::cerr << "Failed to read vector size!" << std::endl;
+        return;
+    }
+
+    // Clear the existing objects in the plane
+    for (auto obj : plane->objs) {
+        delete obj; // Free the memory allocated for existing objects
+    }
+    plane->objs.clear(); // Clear the vector
+    // Resize the vector to accommodate the objects
+    plane->objs.resize(objs_size);
+
+    // Read each object into the vector
+    for (size_t i = 0; i < objs_size; ++i) {
+        plane->objs[i] = new Object();  // Allocate memory for each object
+        if (!plane->objs[i]->deserialize(in)) {
+            std::cerr << "Failed to deserialize object " << i << std::endl;
+            return;
+        }
+    }
+
+    in.close();
+    std::cout << "Data loaded from " << filename << std::endl;
+}
+
 void Plane::draw(const shader &shader) const {
   for (const auto &obj : objs) {
     obj->draw(shader);
