@@ -3,6 +3,7 @@ build-procedure.txt
 .vscode
 cmake-build-debug
 build
+emsdk
 .idea
 out
 .vs

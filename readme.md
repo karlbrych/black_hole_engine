@@ -11,6 +11,3 @@ make
 
 ## čistý g++
 g++ src/main.cpp src/glad.c -Iinclude -lglfw -lGL -ldl -lm -o Blackhole
-
-
-

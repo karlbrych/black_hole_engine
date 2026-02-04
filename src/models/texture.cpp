@@ -14,6 +14,10 @@ stbi_set_flip_vertically_on_load(isFliped);
 int width, height, channels;
 unsigned char* data = stbi_load(path.c_str(), &width, &height, &channels, 0);
 
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
 if (!data) {
 std::cerr << "Failed to load texture: " << path << std::endl;
@@ -28,16 +32,15 @@ GLenum format = (channels == 1) ? GL_RED : (channels == 3) ? GL_RGB : GL_RGBA;
 GLuint textureID;
 glGenTextures(1, &textureID);
 glBindTexture(GL_TEXTURE_2D, textureID);
-glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
-glGenerateMipmap(GL_TEXTURE_2D);
-
 
 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
+glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+glGenerateMipmap(GL_TEXTURE_2D);
 
 stbi_image_free(data);
 
@@ -50,7 +53,6 @@ if (slot > 31) slot = 31;
 glActiveTexture(GL_TEXTURE0 + slot);
 glBindTexture(GL_TEXTURE_2D, textureID);
 }
-
 
 // NEW BindTexture method
 void Texture::BindTexture(GLuint textureID, unsigned int slot) {

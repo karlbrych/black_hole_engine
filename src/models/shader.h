@@ -1,7 +1,7 @@
 #pragma once 
 
 #include "glm/fwd.hpp"
-#include <glad/glad.h>
+#include "gl_api.h"
 #include <string>
 #include <glm/glm.hpp>
 

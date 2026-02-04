@@ -3,7 +3,7 @@
 #include "glm/glm.hpp"
 #include <vector>
 #include <cmath>
-#include <glad/glad.h>
+#include "gl_api.h"
 
 sphere createSphere(float radius, unsigned int sectors, unsigned int stacks)
 {

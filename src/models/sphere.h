@@ -1,7 +1,7 @@
 #pragma once
 #include <cstddef>
 #include <vector>
-#include <glad/glad.h>
+#include "gl_api.h"
 struct sphere{
     GLuint VAO,VBO,EBO=0;
     size_t indexCount = 0;
