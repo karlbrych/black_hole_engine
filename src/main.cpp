@@ -54,6 +54,13 @@ void processInput(GLFWwindow *window)
     glm::vec3 right = glm::normalize(glm::cross(camFront, camUp));
     float velocity = cameraSpeed * deltaTime;
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS && !escapePressedLastFrame) {
+	if(gameStopped) {
+	    	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);	
+	}
+	else {
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	    
+	}
     	gameStopped = !gameStopped;
     }
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
@@ -256,6 +263,7 @@ float currentFrame = glfwGetTime();
     lastFrame = currentFrame;
 
 
+
     // --- Zpracování vstupu ---
 	  //std::cout << tabPressedLastFrame << std::endl;
     // --- Aktualizace projekce ---
@@ -268,6 +276,7 @@ float currentFrame = glfwGetTime();
     camera.view = glm::lookAt(camPos, camPos + camFront, camUp);
 
     // render
+
     glClearColor(0.0f, 0.2f, 0.4f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -281,8 +290,29 @@ float currentFrame = glfwGetTime();
     DoGravity(&plane, G, dt);
     }
     else {
-	        ImGui::Text("PAUSED");
+    glClearColor(0.0f, 0.2f, 0.4f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    ImGui::SetNextWindowPos(ImVec2(WIDTH / 2.0f - 200, HEIGHT / 2.0f - 100), ImGuiCond_Once);
+    ImGui::SetNextWindowSize(ImVec2(400, 200), ImGuiCond_Once);
+
+    // Set window flags to remove the background
+    ImGui::Begin("Main Menu", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground);
+
+    // Large text in the center of the window
+    ImGui::Text("Main Menu");
+    // Buttons in the middle
+    if (ImGui::Button("Start Game", ImVec2(200, 50))) {
+        gameStopped = false;
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     }
+    ImGui::SameLine();
+    if (ImGui::Button("Exit", ImVec2(200, 50))) {
+        glfwSetWindowShouldClose(window, GLFW_TRUE); // Exit game
+    }
+
+    ImGui::End();
+
+      }
             ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
     glfwSwapBuffers(window);
