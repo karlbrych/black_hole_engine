@@ -5,9 +5,21 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+# ----------  ImGui  ----------
+set(IMGUI_DIR ${PROJECT_SOURCE_DIR}/include/ImGui)
+
+set(IMGUI_SOURCES
+    ${IMGUI_DIR}/imgui.cpp
+    ${IMGUI_DIR}/imgui_draw.cpp
+    ${IMGUI_DIR}/imgui_tables.cpp
+    ${IMGUI_DIR}/imgui_widgets.cpp
+    ${IMGUI_DIR}/backends/imgui_impl_glfw.cpp
+    ${IMGUI_DIR}/backends/imgui_impl_opengl3.cpp
+)
 
 # ---------- Sources ----------
 set(SOURCES
+    ${IMGUI_SOURCES}
     src/main.cpp
     src/glad.c
     src/models/shader.cpp
@@ -27,6 +39,8 @@ add_executable(Blackhole ${SOURCES})
 # ---------- Includes ----------
 target_include_directories(Blackhole PRIVATE
     ${PROJECT_SOURCE_DIR}/include
+    ${PROJECT_SOURCE_DIR}/include/ImGui
+    ${PROJECT_SOURCE_DIR}/include/ImGui/backends
 )
 
 # ---------- OpenGL ----------
