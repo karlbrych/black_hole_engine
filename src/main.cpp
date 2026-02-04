@@ -15,9 +15,9 @@
 #include "models/shader.h"
 #include "models/sphere.h"
 #include "models/texture.h"
-#include <map>
+#include <map>  
 #include "models/camera.h"
-
+#include "models/skybox.h"
 enum class CameraType
 {
   Perspective,
@@ -184,17 +184,27 @@ int main()
   glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
   glfwSetCursorPosCallback(window, cursor_position_callback);
   glfwSetMouseButtonCallback(window, mouse_button_callback);
-  shader shader("shaders/vertex.glsl", "shaders/fragment.glsl");
+  shader Shader("shaders/vertex.glsl", "shaders/fragment.glsl");
+  shader skyboxShader("shaders/skybox_vertex.glsl", "shaders/skybox_fragment.glsl");
   sphere sphereMesh = createSphere(1.0f, 64, 32);
   GLuint texture1 = Texture::LoadTexture("assets/planet.jpg");
   GLuint texture2 = Texture::LoadTexture("assets/poop-texture.jpg");
   GLuint texture3 = Texture::LoadTexture("assets/sun-texture.jpg");
+  
   Plane plane;
-
+  skybox skybox;
+  skybox.loadTextures({ //loading skybox textures
+      "assets/skybox/right.png",
+      "assets/skybox/left.png",
+      "assets/skybox/top.png",
+      "assets/skybox/bottom.png",
+      "assets/skybox/front.png",
+      "assets/skybox/back.png"
+  });
   double G = 0.00675;
   double dt = 0.01; // your simulation timestep
 
-  // --- Central body ---
+  
   Object *sphere1 = new Object{
       .pos = {-13, 0, 0},
       .xv = 0,
@@ -267,11 +277,19 @@ float currentFrame = glfwGetTime();
     // --- Zpracování vstupu ---
 	  //std::cout << tabPressedLastFrame << std::endl;
     // --- Aktualizace projekce ---
-    
-//změna kamery mezi ortho a persective
+    if (currentCamera == CameraType::Perspective)
+    {
+      camera.projection = glm::perspective(glm::radians(45.0f),
+                                           (float)WIDTH / (float)HEIGHT, 0.1f, 100000.0f);
+    }
+    else
+    {                      // Ortho
       float scale = 10.0f; // velikost scény
-    camera.projection = (currentCamera == CameraType::Perspective) ? (glm::perspective(glm::radians(45.0f), (float)WIDTH / (float)HEIGHT, 0.1f, 100.0f)) : (glm::ortho(-scale * ((float)WIDTH / (float)HEIGHT), scale * ((float)WIDTH / (float)HEIGHT), -scale, scale, 0.1f, 100.0f));
-    
+      camera.projection = glm::ortho(-scale * ((float)WIDTH / (float)HEIGHT),
+                                     scale * ((float)WIDTH / (float)HEIGHT),
+                                     -scale, scale,
+                                     0.1f, 100000.0f);
+    }
 
     camera.view = glm::lookAt(camPos, camPos + camFront, camUp);
 
@@ -280,13 +298,18 @@ float currentFrame = glfwGetTime();
     glClearColor(0.0f, 0.2f, 0.4f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    shader.use();
-    shader.setMat4("projection", camera.projection);
-    shader.setMat4("view", camera.view);
-    shader.setInt("diffuseTexture", 0);
     float tmp = glfwGetTime();
-    plane.rotate(tmp);
-    plane.draw(shader);
+    
+    // Render skybox first with slow rotation
+    skybox.setRotationSpeed(0.13f);  // degrees per second
+    skybox.render(camera.view, camera.projection, tmp);
+    
+    Shader.use();
+    Shader.setMat4("projection", camera.projection);
+    Shader.setMat4("view", camera.view);
+    Shader.setInt("diffuseTexture", 0);
+	  plane.rotate(tmp);
+    plane.draw(Shader);
     DoGravity(&plane, G, dt);
     }
     else {
