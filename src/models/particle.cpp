@@ -5,7 +5,17 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "texture.h"
 #include <iostream>
+#include <filesystem>
+
 void save_to_binary(const Plane* plane, const std::string &filename) {
+    // Create saves directory if it doesn't exist
+    std::filesystem::path filepath(filename);
+    std::filesystem::path directory = filepath.parent_path();
+    if (!directory.empty() && !std::filesystem::exists(directory)) {
+        std::filesystem::create_directories(directory);
+        std::cout << "Created directory: " << directory << std::endl;
+    }
+    
     std::ofstream out(filename, std::ios::binary);
 
     if (!out.is_open()) {

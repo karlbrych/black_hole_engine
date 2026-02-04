@@ -110,7 +110,6 @@ void cursor_position_callback(GLFWwindow *window, double xpos, double ypos)
   }
 
   if(gameStopped){
-    std::cout << "Game stopped \n";
     firstMouse = true;
     return;
   }
@@ -147,44 +146,44 @@ void mouse_button_callback(GLFWwindow *window, int button, int action,
     rightPressed = (action == GLFW_PRESS);
 }
 
-void GamePauseMenu(GLFWwindow *window, Plane plane) {
-    glClearColor(0.0f, 0.2f, 0.4f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    ImGui::SetNextWindowPos(ImVec2(WIDTH / 2.0f - 200, HEIGHT / 2.0f - 100), ImGuiCond_Once);
-    ImGui::SetNextWindowSize(ImVec2(400, 200), ImGuiCond_Once);
-    // Set window flags to remove the background
-    ImGui::Begin("Main Menu", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground);
-    // Large text in the center of the window
-    ImGui::Text("Main Menu");
-    // Buttons in the middle
-    if (ImGui::Button("Start Game", ImVec2(200, 50))) {
-        save_to_binary(&plane, "/home/almo/Desktop/save.dat");
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-    }
-    ImGui::SameLine();
-    if (ImGui::Button("Exit", ImVec2(200, 50))) {
-	load_from_binary(&plane, "/home/almo/Desktop/save.dat");
-    }
-    ImGui::End();
-}
-void GameRunTick(GLFWwindow *window, Plane plane, double G, double dt, shader shader) {
-    float currentFrame = glfwGetTime();
-    deltaTime = currentFrame - lastFrame;
-    lastFrame = currentFrame;
-    float scale = 10.0f; // velikost scény
-    camera.projection = (currentCamera == CameraType::Perspective) ? (glm::perspective(glm::radians(45.0f), (float)WIDTH / (float)HEIGHT, 0.1f, 100.0f)) : (glm::ortho(-scale * ((float)WIDTH / (float)HEIGHT), scale * ((float)WIDTH / (float)HEIGHT), -scale, scale, 0.1f, 100.0f));
-    camera.view = glm::lookAt(camPos, camPos + camFront, camUp);
-    glClearColor(0.0f, 0.2f, 0.4f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    shader.use();
-    shader.setMat4("projection", camera.projection);
-    shader.setMat4("view", camera.view);
-    shader.setInt("diffuseTexture", 0);
-    float tmp = glfwGetTime();
-    plane.rotate(tmp);
-    plane.draw(shader);
-    DoGravity(&plane, G, dt);
-}
+// void GamePauseMenu(GLFWwindow *window, Plane plane) {
+//     glClearColor(0.0f, 0.2f, 0.4f, 1.0f);
+//     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//     ImGui::SetNextWindowPos(ImVec2(WIDTH / 2.0f - 200, HEIGHT / 2.0f - 100), ImGuiCond_Once);
+//     ImGui::SetNextWindowSize(ImVec2(400, 200), ImGuiCond_Once);
+//     // Set window flags to remove the background
+//     ImGui::Begin("Main Menu", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground);
+//     // Large text in the center of the window
+//     ImGui::Text("Main Menu");
+//     // Buttons in the middle
+//     if (ImGui::Button("Start Game", ImVec2(200, 50))) {
+//         save_to_binary(&plane, "/home/almo/Desktop/save.dat");
+// 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+//     }
+//     ImGui::SameLine();
+//     if (ImGui::Button("Exit", ImVec2(200, 50))) {
+// 	load_from_binary(&plane, "/home/almo/Desktop/save.dat");
+//     }
+//     ImGui::End();
+// }
+// void GameRunTick(GLFWwindow *window, Plane plane, double G, double dt, shader shader) {
+//     float currentFrame = glfwGetTime();
+//     deltaTime = currentFrame - lastFrame;
+//     lastFrame = currentFrame;
+//     float scale = 10.0f; // velikost scény
+//     camera.projection = (currentCamera == CameraType::Perspective) ? (glm::perspective(glm::radians(45.0f), (float)WIDTH / (float)HEIGHT, 0.1f, 100.0f)) : (glm::ortho(-scale * ((float)WIDTH / (float)HEIGHT), scale * ((float)WIDTH / (float)HEIGHT), -scale, scale, 0.1f, 100.0f));
+//     camera.view = glm::lookAt(camPos, camPos + camFront, camUp);
+//     glClearColor(0.0f, 0.2f, 0.4f, 1.0f);
+//     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//     shader.use();
+//     shader.setMat4("projection", camera.projection);
+//     shader.setMat4("view", camera.view);
+//     shader.setInt("diffuseTexture", 0);
+//     float tmp = glfwGetTime();
+//     plane.rotate(tmp);
+//     plane.draw(shader);
+//     DoGravity(&plane, G, dt);
+// }
 
 int main()
 {
@@ -287,7 +286,7 @@ int main()
       glm::translate(glm::mat4(1.0f), sphere2->pos);
 
   plane.objs.push_back(sphere1);
-  plane.objs.push_back(sphere2);
+  //plane.objs.push_back(sphere2);
 
   // start camera on the same vertical level as the balls
   camPos.y = 0.0f;
@@ -302,7 +301,7 @@ int main()
   
   // Initialize start menu
   StartMenu startMenu;
-  startMenu.init(window);
+  startMenu.init(window, "#version 330");
 
   // main loop
   while (!glfwWindowShouldClose(window))
@@ -361,7 +360,7 @@ int main()
       glClearColor(0.0f, 0.2f, 0.4f, 1.0f);
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
       
-      startMenu.render(WIDTH, HEIGHT);
+      startMenu.render(WIDTH, HEIGHT, &plane);
       
       if (startMenu.shouldStartGame())
       {

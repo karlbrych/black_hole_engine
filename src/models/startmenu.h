@@ -1,6 +1,8 @@
 #pragma once
 
-#include <GLFW/glfw3.h>
+// Forward declarations to avoid including headers that include OpenGL
+struct GLFWwindow;
+struct Plane;
 
 class StartMenu {
 public:
@@ -17,7 +19,7 @@ public:
     void beginFrame();
     
     // Render the menu UI and return menu state
-    bool render(int windowWidth, int windowHeight);
+    bool render(int windowWidth, int windowHeight, Plane* plane);
     
     // Finalize ImGui rendering
     void endFrame();

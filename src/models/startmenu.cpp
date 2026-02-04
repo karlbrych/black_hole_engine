@@ -1,4 +1,6 @@
 #include "startmenu.h"
+#include "particle.h"
+#include <GLFW/glfw3.h>
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
@@ -34,10 +36,10 @@ void StartMenu::beginFrame()
     ImGui::NewFrame();
 }
 
-bool StartMenu::render(int windowWidth, int windowHeight)
+bool StartMenu::render(int windowWidth, int windowHeight, Plane* plane)
 {
-    ImGui::SetNextWindowPos(ImVec2(windowWidth / 2.0f - 200, windowHeight / 2.0f - 100), ImGuiCond_Once);
-    ImGui::SetNextWindowSize(ImVec2(400, 200), ImGuiCond_Once);
+    ImGui::SetNextWindowPos(ImVec2(windowWidth / 2.0f - 200, windowHeight / 2.0f - 150), ImGuiCond_Once);
+    ImGui::SetNextWindowSize(ImVec2(400, 300), ImGuiCond_Once);
 
     ImGui::Begin("Main Menu", nullptr, 
                  ImGuiWindowFlags_NoTitleBar | 
@@ -46,6 +48,8 @@ bool StartMenu::render(int windowWidth, int windowHeight)
                  ImGuiWindowFlags_NoBackground);
 
     ImGui::Text("Main Menu");
+    ImGui::Spacing();
+    ImGui::Spacing();
     
     if (ImGui::Button("Start Game", ImVec2(200, 50)))
     {
@@ -57,6 +61,25 @@ bool StartMenu::render(int windowWidth, int windowHeight)
     if (ImGui::Button("Exit", ImVec2(200, 50)))
     {
         exitGameRequested = true;
+    }
+    
+    ImGui::Spacing();
+    ImGui::Spacing();
+    
+    if (ImGui::Button("Save", ImVec2(200, 50)))
+    {
+        if (plane) {
+            save_to_binary(plane, "saves/save.dat");
+        }
+    }
+    
+    ImGui::SameLine();
+    
+    if (ImGui::Button("Load", ImVec2(200, 50)))
+    {
+        if (plane) {
+            load_from_binary(plane, "saves/save.dat");
+        }
     }
 
     ImGui::End();
