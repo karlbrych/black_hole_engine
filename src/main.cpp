@@ -1,6 +1,3 @@
-#include "imgui.h"
-#include "imgui_impl_glfw.h"
-#include "imgui_impl_opengl3.h"
 #include "glm/ext/matrix_transform.hpp"
 #include "glad/glad.h"
 #include <GLFW/glfw3.h>
@@ -15,9 +12,10 @@
 #include "models/shader.h"
 #include "models/sphere.h"
 #include "models/texture.h"
-#include <map>  
+#include <map>
 #include "models/camera.h"
 #include "models/skybox.h"
+#include "models/startmenu.h"
 enum class CameraType
 {
   Perspective,
@@ -32,12 +30,11 @@ bool firstMouse = true;
 float yaw = -90.0f; // start facing -Z
 float pitch = 0.0f;
 float mouseSensitivity = 0.1f;
-float lastMouseX,lastMouseY;
+float lastMouseX, lastMouseY;
 // pro mys
 double mouseX = 0.0, mouseY = 0.0;
 glm::vec2 circleOffset(0.0f, 0.0f);
 bool rightPressed = false;
-
 
 static glm::vec3 camPos(0.0f, 5.0f, 20.0f);
 static glm::vec3 camFront(0.0f, 0.0f, -1.0f);
@@ -51,32 +48,34 @@ bool tabPressedLastFrame = false;
 bool escapePressedLastFrame = false;
 void processInput(GLFWwindow *window)
 {
-    glm::vec3 right = glm::normalize(glm::cross(camFront, camUp));
-    float velocity = cameraSpeed * deltaTime;
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS && !escapePressedLastFrame) {
-	if(gameStopped) {
-	    	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);	
-	}
-	else {
-		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-	    
-	}
-    	gameStopped = !gameStopped;
+  glm::vec3 right = glm::normalize(glm::cross(camFront, camUp));
+  float velocity = cameraSpeed * deltaTime;
+  if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS && !escapePressedLastFrame)
+  {
+    if (gameStopped)
+    {
+      glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     }
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-      camPos += camFront * velocity;
-    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-      camPos -= camFront * velocity;
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-      camPos -= right * velocity;
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-      camPos += right * velocity;
-    if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-      camPos += camUp * velocity;
-    if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
-      camPos -= camUp * velocity;
-    currentCamera = ((glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS) && !tabPressedLastFrame) ? ((currentCamera == CameraType::Perspective) ? CameraType::Ortho : CameraType::Perspective) : currentCamera;
-
+    else
+    {
+      glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    }
+    gameStopped = !gameStopped;
+    
+  }
+  if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+    camPos += camFront * velocity;
+  if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+    camPos -= camFront * velocity;
+  if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+    camPos -= right * velocity;
+  if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+    camPos += right * velocity;
+  if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+    camPos += camUp * velocity;
+  if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
+    camPos -= camUp * velocity;
+  currentCamera = ((glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS) && !tabPressedLastFrame) ? ((currentCamera == CameraType::Perspective) ? CameraType::Ortho : CameraType::Perspective) : currentCamera;
 }
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height)
@@ -101,6 +100,8 @@ void PrintObjects(const Plane &pl)
 // Mouse callbacks
 void cursor_position_callback(GLFWwindow *window, double xpos, double ypos)
 {
+  
+
   if (firstMouse)
   {
     lastMouseX = xpos;
@@ -108,6 +109,11 @@ void cursor_position_callback(GLFWwindow *window, double xpos, double ypos)
     firstMouse = false;
   }
 
+  if(gameStopped){
+    std::cout << "Game stopped \n";
+    firstMouse = true;
+    return;
+  }
   float xoffset = xpos - lastMouseX;
   float yoffset = lastMouseY - ypos; // reversed Y
   lastMouseX = xpos;
@@ -164,17 +170,18 @@ int main()
   }
   glfwMakeContextCurrent(window);
   glfwSwapInterval(0); // remove later
-  GLFWmonitor* monitor = glfwGetPrimaryMonitor();
-  if (!monitor) {
+  GLFWmonitor *monitor = glfwGetPrimaryMonitor();
+  if (!monitor)
+  {
     std::cerr << "No monitor detected!\n";
     return -1;
   }
-  const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-  WIDTH= mode->width;
+  const GLFWvidmode *mode = glfwGetVideoMode(monitor);
+  WIDTH = mode->width;
   HEIGHT = mode->height;
   lastMouseX = WIDTH / 2.0f;
   lastMouseY = HEIGHT / 2.0f;
-  std::cout<< WIDTH << " " << HEIGHT << "\n";
+  std::cout << WIDTH << " " << HEIGHT << "\n";
   if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
   {
     std::cerr << "Failed to initialize GLAD\n";
@@ -190,21 +197,19 @@ int main()
   GLuint texture1 = Texture::LoadTexture("assets/planet.jpg");
   GLuint texture2 = Texture::LoadTexture("assets/poop-texture.jpg");
   GLuint texture3 = Texture::LoadTexture("assets/sun-texture.jpg");
-  
+
   Plane plane;
   skybox skybox;
-  skybox.loadTextures({ //loading skybox textures
-      "assets/skybox/right.png",
-      "assets/skybox/left.png",
-      "assets/skybox/top.png",
-      "assets/skybox/bottom.png",
-      "assets/skybox/front.png",
-      "assets/skybox/back.png"
-  });
+  skybox.loadTextures({// loading skybox textures
+                       "assets/skybox/right.png",
+                       "assets/skybox/left.png",
+                       "assets/skybox/top.png",
+                       "assets/skybox/bottom.png",
+                       "assets/skybox/front.png",
+                       "assets/skybox/back.png"});
   double G = 0.00675;
   double dt = 0.01; // your simulation timestep
 
-  
   Object *sphere1 = new Object{
       .pos = {-13, 0, 0},
       .xv = 0,
@@ -217,9 +222,8 @@ int main()
       .VBO = sphereMesh.VBO,
       .EBO = sphereMesh.EBO,
       .indexCount = sphereMesh.indexCount,
-      .textureId = texture1
-    };
-    
+      .textureId = texture1};
+
   sphere1->modelMatrix = glm::translate(glm::mat4(1.0f), sphere1->pos);
 
   Object *sphere2 = new Object{
@@ -234,8 +238,7 @@ int main()
       .VBO = sphereMesh.VBO,
       .EBO = sphereMesh.EBO,
       .indexCount = sphereMesh.indexCount,
-      .textureId = texture3
-  };
+      .textureId = texture3};
   sphere2->modelMatrix =
       glm::translate(glm::mat4(1.0f), sphere2->pos);
 
@@ -249,14 +252,13 @@ int main()
       glm::perspective(glm::radians(45.0f), (float)WIDTH / (float)HEIGHT, 0.1f, 100.0f);
   camera.view = glm::lookAt(camPos, camPos + camFront, camUp);
 
-
   auto lastTime = std::chrono::high_resolution_clock::now();
   int frameCount = 0;
   glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGui_ImplGlfw_InitForOpenGL(window, true);
-    ImGui_ImplOpenGL3_Init("#version 330 core");
+  
+  // Initialize start menu
+  StartMenu startMenu;
+  startMenu.init(window);
 
   // main loop
   while (!glfwWindowShouldClose(window))
@@ -264,88 +266,78 @@ int main()
     processInput(window);
     escapePressedLastFrame = (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS);
     tabPressedLastFrame = (glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS);
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();
-    if(!gameStopped) {
-float currentFrame = glfwGetTime();
-    deltaTime = currentFrame - lastFrame;
-    lastFrame = currentFrame;
-
-
-
-    // --- Zpracování vstupu ---
-	  //std::cout << tabPressedLastFrame << std::endl;
-    // --- Aktualizace projekce ---
-    if (currentCamera == CameraType::Perspective)
+    
+    startMenu.beginFrame();
+    if (!gameStopped)
     {
-      camera.projection = glm::perspective(glm::radians(45.0f),
-                                           (float)WIDTH / (float)HEIGHT, 0.1f, 100000.0f);
+      float currentFrame = glfwGetTime();
+      deltaTime = currentFrame - lastFrame;
+      lastFrame = currentFrame;
+
+      // --- Zpracování vstupu ---
+      // std::cout << tabPressedLastFrame << std::endl;
+      // --- Aktualizace projekce ---
+      if (currentCamera == CameraType::Perspective)
+      {
+        camera.projection = glm::perspective(glm::radians(45.0f),
+                                             (float)WIDTH / (float)HEIGHT, 0.1f, 100000.0f);
+      }
+      else
+      {                      // Ortho
+        float scale = 10.0f; // velikost scény
+        camera.projection = glm::ortho(-scale * ((float)WIDTH / (float)HEIGHT),
+                                       scale * ((float)WIDTH / (float)HEIGHT),
+                                       -scale, scale,
+                                       0.1f, 100000.0f);
+      }
+
+      camera.view = glm::lookAt(camPos, camPos + camFront, camUp);
+
+      // render
+
+      glClearColor(0.0f, 0.2f, 0.4f, 1.0f);
+      glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+      float tmp = glfwGetTime();
+
+      // Render skybox first with slow rotation
+      skybox.setRotationSpeed(0.13f); // degrees per second
+      skybox.render(camera.view, camera.projection, tmp);
+
+      Shader.use();
+      Shader.setMat4("projection", camera.projection);
+      Shader.setMat4("view", camera.view);
+      Shader.setInt("diffuseTexture", 0);
+      plane.rotate(tmp);
+      plane.draw(Shader);
+      DoGravity(&plane, G, dt);
     }
     else
-    {                      // Ortho
-      float scale = 10.0f; // velikost scény
-      camera.projection = glm::ortho(-scale * ((float)WIDTH / (float)HEIGHT),
-                                     scale * ((float)WIDTH / (float)HEIGHT),
-                                     -scale, scale,
-                                     0.1f, 100000.0f);
-    }
-
-    camera.view = glm::lookAt(camPos, camPos + camFront, camUp);
-
-    // render
-
-    glClearColor(0.0f, 0.2f, 0.4f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    float tmp = glfwGetTime();
-    
-    // Render skybox first with slow rotation
-    skybox.setRotationSpeed(0.13f);  // degrees per second
-    skybox.render(camera.view, camera.projection, tmp);
-    
-    Shader.use();
-    Shader.setMat4("projection", camera.projection);
-    Shader.setMat4("view", camera.view);
-    Shader.setInt("diffuseTexture", 0);
-	  plane.rotate(tmp);
-    plane.draw(Shader);
-    DoGravity(&plane, G, dt);
-    }
-    else {
-    glClearColor(0.0f, 0.2f, 0.4f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    ImGui::SetNextWindowPos(ImVec2(WIDTH / 2.0f - 200, HEIGHT / 2.0f - 100), ImGuiCond_Once);
-    ImGui::SetNextWindowSize(ImVec2(400, 200), ImGuiCond_Once);
-
-    // Set window flags to remove the background
-    ImGui::Begin("Main Menu", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground);
-
-    // Large text in the center of the window
-    ImGui::Text("Main Menu");
-    // Buttons in the middle
-    if (ImGui::Button("Start Game", ImVec2(200, 50))) {
+    {
+      glClearColor(0.0f, 0.2f, 0.4f, 1.0f);
+      glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+      
+      startMenu.render(WIDTH, HEIGHT);
+      
+      if (startMenu.shouldStartGame())
+      {
         gameStopped = false;
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-    }
-    ImGui::SameLine();
-    if (ImGui::Button("Exit", ImVec2(200, 50))) {
-        glfwSetWindowShouldClose(window, GLFW_TRUE); // Exit game
-    }
-
-    ImGui::End();
-
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        startMenu.reset();
       }
-            ImGui::Render();
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+      
+      if (startMenu.shouldExitGame())
+      {
+        glfwSetWindowShouldClose(window, GLFW_TRUE);
+      }
+    }
+    
+    startMenu.endFrame();
     glfwSwapBuffers(window);
     glfwPollEvents();
-
-
   }
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
+  
+  startMenu.shutdown();
 
   glDeleteVertexArrays(1, &sphereMesh.VAO);
   glDeleteBuffers(1, &sphereMesh.VBO);
