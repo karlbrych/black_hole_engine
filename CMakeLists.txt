@@ -27,6 +27,8 @@ set(SOURCES
     src/models/sphere.cpp
     src/models/stb_image.cpp
     src/models/texture.cpp
+    src/models/skybox.cpp
+    src/models/startmenu.cpp
 )
 
 file(GLOB SHADER_SOURCES "src/shader/*.cpp")
