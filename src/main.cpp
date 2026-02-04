@@ -1,4 +1,6 @@
-
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
 #include "glm/ext/matrix_transform.hpp"
 #include "glad/glad.h"
 #include <GLFW/glfw3.h>
@@ -44,13 +46,16 @@ float cameraSpeed = 7.0f;
 
 float deltaTime = 0.0f;
 float lastFrame;
-
+bool gameStopped = false;
 bool tabPressedLastFrame = false;
-
+bool escapePressedLastFrame = false;
 void processInput(GLFWwindow *window)
 {
     glm::vec3 right = glm::normalize(glm::cross(camFront, camUp));
     float velocity = cameraSpeed * deltaTime;
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS && !escapePressedLastFrame) {
+    	gameStopped = !gameStopped;
+    }
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
       camPos += camFront * velocity;
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
@@ -63,12 +68,8 @@ void processInput(GLFWwindow *window)
       camPos += camUp * velocity;
     if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
       camPos -= camUp * velocity;
+    currentCamera = ((glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS) && !tabPressedLastFrame) ? ((currentCamera == CameraType::Perspective) ? CameraType::Ortho : CameraType::Perspective) : currentCamera;
 
-    // --- Přepínání kamery ---
-    if ((glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS) && !tabPressedLastFrame)
-    {
-      currentCamera = (currentCamera == CameraType::Perspective) ? CameraType::Ortho : CameraType::Perspective;
-    }
 }
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height)
@@ -235,34 +236,34 @@ int main()
   auto lastTime = std::chrono::high_resolution_clock::now();
   int frameCount = 0;
   glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplOpenGL3_Init("#version 330 core");
 
   // main loop
   while (!glfwWindowShouldClose(window))
   {
-    // --- Delta time ---
-    float currentFrame = glfwGetTime();
+    processInput(window);
+    escapePressedLastFrame = (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS);
+    tabPressedLastFrame = (glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS);
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
+    if(!gameStopped) {
+float currentFrame = glfwGetTime();
     deltaTime = currentFrame - lastFrame;
     lastFrame = currentFrame;
 
-	processInput(window);
-    // --- Zpracování vstupu ---
 
-    tabPressedLastFrame = (glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS);
+    // --- Zpracování vstupu ---
 	  //std::cout << tabPressedLastFrame << std::endl;
     // --- Aktualizace projekce ---
-    if (currentCamera == CameraType::Perspective)
-    {
-      camera.projection = glm::perspective(glm::radians(45.0f),
-                                           (float)WIDTH / (float)HEIGHT, 0.1f, 100.0f);
-    }
-    else
-    {                      // Ortho
+    
+//změna kamery mezi ortho a persective
       float scale = 10.0f; // velikost scény
-      camera.projection = glm::ortho(-scale * ((float)WIDTH / (float)HEIGHT),
-                                     scale * ((float)WIDTH / (float)HEIGHT),
-                                     -scale, scale,
-                                     0.1f, 100.0f);
-    }
+    camera.projection = (currentCamera == CameraType::Perspective) ? (glm::perspective(glm::radians(45.0f), (float)WIDTH / (float)HEIGHT, 0.1f, 100.0f)) : (glm::ortho(-scale * ((float)WIDTH / (float)HEIGHT), scale * ((float)WIDTH / (float)HEIGHT), -scale, scale, 0.1f, 100.0f));
+    
 
     camera.view = glm::lookAt(camPos, camPos + camFront, camUp);
 
@@ -274,16 +275,24 @@ int main()
     shader.setMat4("projection", camera.projection);
     shader.setMat4("view", camera.view);
     shader.setInt("diffuseTexture", 0);
-	  float tmp = glfwGetTime();
-	  plane.rotate(tmp);
+    float tmp = glfwGetTime();
+    plane.rotate(tmp);
     plane.draw(shader);
     DoGravity(&plane, G, dt);
+    }
+    else {
+	        ImGui::Text("PAUSED");
+    }
+            ImGui::Render();
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
     glfwSwapBuffers(window);
     glfwPollEvents();
 
 
-
   }
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
 
   glDeleteVertexArrays(1, &sphereMesh.VAO);
   glDeleteBuffers(1, &sphereMesh.VBO);
