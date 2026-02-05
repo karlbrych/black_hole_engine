@@ -39,7 +39,7 @@ bool rightPressed = false;
 static glm::vec3 camPos(0.0f, 5.0f, 20.0f);
 static glm::vec3 camFront(0.0f, 0.0f, -1.0f);
 static glm::vec3 camUp(0.0f, 1.0f, 0.0f);
-float cameraSpeed = 7.0f;
+float cameraSpeed = 100000.0f;
 
 float deltaTime = 0.0f;
 float lastFrame;
@@ -100,8 +100,6 @@ void PrintObjects(const Plane &pl)
 // Mouse callbacks
 void cursor_position_callback(GLFWwindow *window, double xpos, double ypos)
 {
-  
-
   if (firstMouse)
   {
     lastMouseX = xpos;
@@ -146,45 +144,6 @@ void mouse_button_callback(GLFWwindow *window, int button, int action,
   if (button == GLFW_MOUSE_BUTTON_RIGHT)
     rightPressed = (action == GLFW_PRESS);
 }
-
-// void GamePauseMenu(GLFWwindow *window, Plane plane) {
-//     glClearColor(0.0f, 0.2f, 0.4f, 1.0f);
-//     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-//     ImGui::SetNextWindowPos(ImVec2(WIDTH / 2.0f - 200, HEIGHT / 2.0f - 100), ImGuiCond_Once);
-//     ImGui::SetNextWindowSize(ImVec2(400, 200), ImGuiCond_Once);
-//     // Set window flags to remove the background
-//     ImGui::Begin("Main Menu", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground);
-//     // Large text in the center of the window
-//     ImGui::Text("Main Menu");
-//     // Buttons in the middle
-//     if (ImGui::Button("Start Game", ImVec2(200, 50))) {
-//         save_to_binary(&plane, "/home/almo/Desktop/save.dat");
-// 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-//     }
-//     ImGui::SameLine();
-//     if (ImGui::Button("Exit", ImVec2(200, 50))) {
-// 	load_from_binary(&plane, "/home/almo/Desktop/save.dat");
-//     }
-//     ImGui::End();
-// }
-// void GameRunTick(GLFWwindow *window, Plane plane, double G, double dt, shader shader) {
-//     float currentFrame = glfwGetTime();
-//     deltaTime = currentFrame - lastFrame;
-//     lastFrame = currentFrame;
-//     float scale = 10.0f; // velikost scény
-//     camera.projection = (currentCamera == CameraType::Perspective) ? (glm::perspective(glm::radians(45.0f), (float)WIDTH / (float)HEIGHT, 0.1f, 100.0f)) : (glm::ortho(-scale * ((float)WIDTH / (float)HEIGHT), scale * ((float)WIDTH / (float)HEIGHT), -scale, scale, 0.1f, 100.0f));
-//     camera.view = glm::lookAt(camPos, camPos + camFront, camUp);
-//     glClearColor(0.0f, 0.2f, 0.4f, 1.0f);
-//     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-//     shader.use();
-//     shader.setMat4("projection", camera.projection);
-//     shader.setMat4("view", camera.view);
-//     shader.setInt("diffuseTexture", 0);
-//     float tmp = glfwGetTime();
-//     plane.rotate(tmp);
-//     plane.draw(shader);
-//     DoGravity(&plane, G, dt);
-// }
 
 int main()
 {
@@ -246,50 +205,151 @@ int main()
                        "assets/skybox/bottom.png",
                        "assets/skybox/front.png",
                        "assets/skybox/back.png"});
-  double G = 0.00675;
-  double dt = 0.01; // your simulation timestep
+bool scaleSystem = true;
+double SCALE = scaleSystem ? 100000 : 1.0;
+double MASS_SCALE = SCALE * SCALE * SCALE;
+plane.G = 4.0 * M_PI * M_PI;
+plane.dt = 0.0001;
 
-  Object *sphere1 = new Object{
-      
+// Sun
+Object* sun = new Object(
+    0, 0, 0,
+    glm::vec3(0.0, 0.0, 0.0),
+    sphereMesh.VAO,
+    sphereMesh.VBO,
+    sphereMesh.EBO,
+    1.0 * MASS_SCALE,
+    sphereMesh.indexCount,
+    0.25f * SCALE,
+    texture3,
+    false
+);
 
-      .xv = 0,
-      .yv = 0,
-      .zv = std::sqrt(0.0675 / 12),
-      .pos = {-13, 0, 0},
-      .VAO = sphereMesh.VAO,
-      .VBO = sphereMesh.VBO,
-      .EBO = sphereMesh.EBO,
-      .mass = 1,
-      .indexCount = sphereMesh.indexCount,
-      .radius = 1, 
-      .textureId = texture1,
-      .IsBlackHole = false,
-    };
-    
-  sphere1->modelMatrix = glm::translate(glm::mat4(1.0f), sphere1->pos);
+// Mercury
+Object* mercury = new Object(
+    0, 0, std::sqrt(plane.G / 0.387) * SCALE,
+    glm::vec3(0.387 * SCALE, 0.0, 0.0),
+    sphereMesh.VAO,
+    sphereMesh.VBO,
+    sphereMesh.EBO,
+    1.65e-7 * MASS_SCALE,
+    sphereMesh.indexCount,
+    0.01f * SCALE,
+    texture1,
+    false
+);
 
-  Object *sphere2 = new Object{
+// Venus
+Object* venus = new Object(
+    0, 0, std::sqrt(plane.G / 0.723) * SCALE,
+    glm::vec3(0.723 * SCALE, 0.0, 0.0),
+    sphereMesh.VAO,
+    sphereMesh.VBO,
+    sphereMesh.EBO,
+    2.45e-6 * MASS_SCALE,
+    sphereMesh.indexCount,
+    0.02f * SCALE,
+    texture1,
+    false
+);
 
-      .xv = 0,
-      .yv = 0,
-      .zv = -(std::sqrt(0.0675 / 12)),
-      .pos = {3, 0, 0},
-      .VAO = sphereMesh.VAO,
-      .VBO = sphereMesh.VBO,
-      .EBO = sphereMesh.EBO,
-      .mass = 10,
-      .indexCount = sphereMesh.indexCount,
-      .radius = 3,
-      .textureId = texture3,
-      .IsBlackHole = false,
-  };
-  sphere2->modelMatrix =
-      glm::translate(glm::mat4(1.0f), sphere2->pos);
+// Earth
+Object* earth = new Object(
+    0, 0, std::sqrt(plane.G / 1.0) * SCALE,
+    glm::vec3(1.0 * SCALE, 0.0, 0.0),
+    sphereMesh.VAO,
+    sphereMesh.VBO,
+    sphereMesh.EBO,
+    3.00e-6 * MASS_SCALE,
+    sphereMesh.indexCount,
+    0.02f * SCALE,
+    texture1,
+    false
+);
 
-  plane.objs.push_back(sphere1);
-  //plane.objs.push_back(sphere2);
+// Mars
+Object* mars = new Object(
+    0, 0, std::sqrt(plane.G / 1.524) * SCALE,
+    glm::vec3(1.524 * SCALE, 0.0, 0.0),
+    sphereMesh.VAO,
+    sphereMesh.VBO,
+    sphereMesh.EBO,
+    3.23e-7 * MASS_SCALE,
+    sphereMesh.indexCount,
+    0.015f * SCALE,
+    texture1,
+    false
+);
 
-  // start camera on the same vertical level as the balls
+// Jupiter
+Object* jupiter = new Object(
+    0, 0, std::sqrt(plane.G / 5.203) * SCALE,
+    glm::vec3(5.203 * SCALE, 0.0, 0.0),
+    sphereMesh.VAO,
+    sphereMesh.VBO,
+    sphereMesh.EBO,
+    9.54e-4 * MASS_SCALE,
+    sphereMesh.indexCount,
+    0.08f * SCALE,
+    texture1,
+    false
+);
+
+// Saturn
+Object* saturn = new Object(
+    0, 0, std::sqrt(plane.G / 9.537) * SCALE,
+    glm::vec3(9.537 * SCALE, 0.0, 0.0),
+    sphereMesh.VAO,
+    sphereMesh.VBO,
+    sphereMesh.EBO,
+    2.86e-4 * MASS_SCALE,
+    sphereMesh.indexCount,
+    0.07f * SCALE,
+    texture1,
+    false
+);
+
+// Uranus
+Object* uranus = new Object(
+    0, 0, std::sqrt(plane.G / 19.191) * SCALE,
+    glm::vec3(19.191 * SCALE, 0.0, 0.0),
+    sphereMesh.VAO,
+    sphereMesh.VBO,
+    sphereMesh.EBO,
+    4.37e-5 * MASS_SCALE,
+    sphereMesh.indexCount,
+    0.05f * SCALE,
+    texture1,
+    false
+);
+
+// Neptune
+Object* neptune = new Object(
+    0, 0, std::sqrt(plane.G / 30.07) * SCALE,
+    glm::vec3(30.07 * SCALE, 0.0, 0.0),
+    sphereMesh.VAO,
+    sphereMesh.VBO,
+    sphereMesh.EBO,
+    5.15e-5 * MASS_SCALE,
+    sphereMesh.indexCount,
+    0.05f * SCALE,
+    texture1,
+    false
+);
+
+// Push into container
+plane.objs.push_back(sun);
+plane.objs.push_back(mercury);
+plane.objs.push_back(venus);
+plane.objs.push_back(earth);
+plane.objs.push_back(mars);
+plane.objs.push_back(jupiter);
+plane.objs.push_back(saturn);
+plane.objs.push_back(uranus);
+plane.objs.push_back(neptune);
+
+
+
   camPos.y = 0.0f;
   camFront = glm::normalize(glm::vec3(0.0f, 0.0f, -1.0f));
   camera.projection =
@@ -333,7 +393,7 @@ int main()
       if (currentCamera == CameraType::Perspective)
       {
         camera.projection = glm::perspective(glm::radians(45.0f),
-                                             (float)WIDTH / (float)HEIGHT, 0.1f, 100000.0f);
+                                             (float)WIDTH / (float)HEIGHT, 0.1f, 100000000.0f);
       }
       else
       {                      // Ortho
@@ -341,7 +401,7 @@ int main()
         camera.projection = glm::ortho(-scale * ((float)WIDTH / (float)HEIGHT),
                                        scale * ((float)WIDTH / (float)HEIGHT),
                                        -scale, scale,
-                                       0.1f, 100000.0f);
+                                       0.1f, 100000000.0f);
       }
 
       camera.view = glm::lookAt(camPos, camPos + camFront, camUp);
@@ -363,7 +423,8 @@ int main()
       Shader.setInt("diffuseTexture", 0);
       plane.rotate(tmp);
       plane.draw(Shader);
-      DoGravity(&plane, G, dt);
+      DoGravity(&plane, plane.G, plane.dt);
+      PrintObjects(plane);
     }
     else
     {

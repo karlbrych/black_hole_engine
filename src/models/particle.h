@@ -1,4 +1,6 @@
 #pragma once
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include "glm/fwd.hpp"
 #include <sys/types.h>
 #include <vector>
@@ -12,14 +14,14 @@ struct Object{
   double xv,yv,zv;
   glm::vec3 pos;
   GLuint VAO,VBO,EBO;
-  long mass;  
+  double mass;  
   size_t indexCount;
   void draw (const shader& shader)const;
   void rotate (float time);
   float radius;
   GLuint textureId;
   bool IsBlackHole;
-    bool deserialize(std::ifstream& in) {
+    bool deserialize(std::istream& in) {
         // Read modelMatrix
         in.read(reinterpret_cast<char*>(&modelMatrix), sizeof(modelMatrix));
         if (!in) return false;
@@ -43,7 +45,7 @@ struct Object{
         in.read(reinterpret_cast<char*>(&radius), sizeof(radius));
         in.read(reinterpret_cast<char*>(&textureId), sizeof(textureId));
         in.read(reinterpret_cast<char*>(&IsBlackHole), sizeof(IsBlackHole));
-        
+	modelMatrix = glm::translate(glm::mat4(1.0f), pos);
         return in.good(); // If everything is good, return true
     }
       void serialize(std::ofstream &out) const {
@@ -61,9 +63,30 @@ struct Object{
         out.write(reinterpret_cast<const char*>(&textureId), sizeof(textureId));
         out.write(reinterpret_cast<const char*>(&IsBlackHole), sizeof(IsBlackHole));
     }
+         Object(double xv_ = 0, double yv_ = 0, double zv_ = 0,
+           glm::vec3 pos_ = glm::vec3(0.0f),
+           unsigned int VAO_ = 0, unsigned int VBO_ = 0, unsigned int EBO_ = 0,
+           double mass_ = 1, int indexCount_ = 0,
+           float radius_ = 1.0f, unsigned int textureId_ = 0, bool IsBlackHole_ = false)
+        : xv(xv_), yv(yv_), zv(zv_), pos(pos_), VAO(VAO_), VBO(VBO_), EBO(EBO_),
+          mass(mass_), indexCount(indexCount_), radius(radius_), textureId(textureId_), IsBlackHole(IsBlackHole_)
+    {
+        modelMatrix = glm::translate(glm::mat4(1.0f), pos);
+    }
+	static Object* deserializeFrom(std::istream& in) {
+        Object* obj = new Object();
+        if (!obj->deserialize(in)) {
+            delete obj;
+            return nullptr;
+        }
+        return obj;
+    }
 }; 
 struct Plane{
-    const size_t version = 8;
+
+    double G = 0.00675;
+    double dt = 0.01;
+    const size_t version = 1;
     void draw(const shader &shader)const;
 	void rotate(float time);
     std::vector<Object*> objs;
