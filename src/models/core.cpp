@@ -1,4 +1,5 @@
-#include "particle.h"
+#define _USE_MATH_DEFINES
+#include "core.h"
 #include "shader.h"
 #include <algorithm>
 #include <glm/glm.hpp>

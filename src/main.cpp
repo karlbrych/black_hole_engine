@@ -1,3 +1,4 @@
+#define _USE_MATH_DEFINES
 #include "glm/ext/matrix_transform.hpp"
 #include "glad/glad.h"
 #include <GLFW/glfw3.h>
@@ -8,7 +9,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
 #include <thread>
-#include "models/particle.h"
+#include "models/core.h"
 #include "models/shader.h"
 #include "models/sphere.h"
 #include "models/texture.h"
@@ -39,7 +40,7 @@ bool rightPressed = false;
 static glm::vec3 camPos(0.0f, 5.0f, 20.0f);
 static glm::vec3 camFront(0.0f, 0.0f, -1.0f);
 static glm::vec3 camUp(0.0f, 1.0f, 0.0f);
-float cameraSpeed = 100000.0f;
+float cameraSpeed = 1000.0f;
 
 float deltaTime = 0.0f;
 float lastFrame;
@@ -352,10 +353,6 @@ plane.objs.push_back(neptune);
 
   camPos.y = 0.0f;
   camFront = glm::normalize(glm::vec3(0.0f, 0.0f, -1.0f));
-  camera.projection =
-      glm::perspective(glm::radians(45.0f), (float)WIDTH / (float)HEIGHT, 0.1f, 100.0f);
-  camera.view = glm::lookAt(camPos, camPos + camFront, camUp);
-
   auto lastTime = std::chrono::high_resolution_clock::now();
   int frameCount = 0;
   glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -393,7 +390,7 @@ plane.objs.push_back(neptune);
       if (currentCamera == CameraType::Perspective)
       {
         camera.projection = glm::perspective(glm::radians(45.0f),
-                                             (float)WIDTH / (float)HEIGHT, 0.1f, 100000000.0f);
+                                             (float)WIDTH / (float)HEIGHT, 1.0f, (float)SCALE*500);
       }
       else
       {                      // Ortho
@@ -401,7 +398,7 @@ plane.objs.push_back(neptune);
         camera.projection = glm::ortho(-scale * ((float)WIDTH / (float)HEIGHT),
                                        scale * ((float)WIDTH / (float)HEIGHT),
                                        -scale, scale,
-                                       0.1f, 100000000.0f);
+                                       0.1f, 10000.0f);
       }
 
       camera.view = glm::lookAt(camPos, camPos + camFront, camUp);
@@ -424,7 +421,7 @@ plane.objs.push_back(neptune);
       plane.rotate(tmp);
       plane.draw(Shader);
       DoGravity(&plane, plane.G, plane.dt);
-      PrintObjects(plane);
+      //PrintObjects(plane);
     }
     else
     {
@@ -456,6 +453,9 @@ plane.objs.push_back(neptune);
   glDeleteVertexArrays(1, &sphereMesh.VAO);
   glDeleteBuffers(1, &sphereMesh.VBO);
   glDeleteBuffers(1, &sphereMesh.EBO);
+  glDeleteBuffers(1, &texture1);
+  glDeleteBuffers(1, &texture2);
+  glDeleteBuffers(1, &texture3);
   glfwTerminate();
   std::cout << "Process terminated\n";
   return 0;

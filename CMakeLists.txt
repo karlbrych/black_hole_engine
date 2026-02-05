@@ -23,7 +23,7 @@ set(SOURCES
     src/main.cpp
     src/glad.c
     src/models/shader.cpp
-    src/models/particle.cpp
+    "src/models/core.cpp"
     src/models/sphere.cpp
     src/models/stb_image.cpp
     src/models/texture.cpp
