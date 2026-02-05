@@ -30,6 +30,9 @@ void save_to_binary(const Plane* plane, const std::string &filename) {
     size_t objs_size = plane->objs.size();
     out.write(reinterpret_cast<const char*>(&objs_size), sizeof(objs_size));
 
+
+    out.write(reinterpret_cast<const char*>(&plane->dt), sizeof(plane->dt));
+    out.write(reinterpret_cast<const char*>(&plane->G), sizeof(plane->G));
     // Write the objects data
     for (const auto &obj : plane->objs) {
         obj->serialize(out);
@@ -60,7 +63,8 @@ void load_from_binary(Plane* plane, const std::string& filename) {
         std::cerr << "Failed to read vector size!" << std::endl;
         return;
     }
-
+    in.read(reinterpret_cast<char *>(&plane->dt), sizeof(plane->dt));
+    in.read(reinterpret_cast<char *>(&plane->G), sizeof(plane->G));
     // Clear the existing objects in the plane
     for (auto obj : plane->objs) {
         delete obj; // Free the memory allocated for existing objects
@@ -71,8 +75,8 @@ void load_from_binary(Plane* plane, const std::string& filename) {
 
     // Read each object into the vector
     for (size_t i = 0; i < objs_size; ++i) {
-        plane->objs[i] = new Object();  // Allocate memory for each object
-        if (!plane->objs[i]->deserialize(in)) {
+        plane->objs[i] = Object::deserializeFrom(in);  // Allocate memory for each object
+        if (!plane->objs[i]) {
             std::cerr << "Failed to deserialize object " << i << std::endl;
             return;
         }
