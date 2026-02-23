@@ -13,8 +13,6 @@ class Texture{
 		  static bool isLoaded(const std::string& path);
 		  static void Bind(GLuint textureId,unsigned int slot);
 		  static std::unordered_map<std::string, GLuint> textureCache;
-
-
 };
 #endif
 

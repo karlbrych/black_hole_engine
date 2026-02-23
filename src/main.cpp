@@ -1,3 +1,4 @@
+#include <cstdlib>
 #define _USE_MATH_DEFINES
 #include "glm/ext/matrix_transform.hpp"
 #include "glad/glad.h"
@@ -456,6 +457,7 @@ plane.objs.push_back(neptune);
   glDeleteBuffers(1, &texture1);
   glDeleteBuffers(1, &texture2);
   glDeleteBuffers(1, &texture3);
+  plane.objs.clear();
   glfwTerminate();
   std::cout << "Process terminated\n";
   return 0;

@@ -108,9 +108,8 @@ void Object::draw(const shader &shader) const {
 }
 void Object::rotate(float time)
 {
-  modelMatrix = glm::rotate(modelMatrix, time, glm::vec3(1.0f, 0.0f, 0.0));
+  modelMatrix = glm::rotate(modelMatrix, time, glm::vec3(0.13f, 1.0f, 0.0));
 }
-
 static inline double quakeInvSqrt(double n) {
     uint64_t i;
     double x2 = n * 0.5;
