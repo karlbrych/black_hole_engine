@@ -87,6 +87,8 @@ struct Plane{
     double G = 0.00675;
     double dt = 0.01;
     const size_t version = 1;
+    std::vector<glm::vec3> accelBuffer;
+    std::vector<int> mergeTargetBuffer;
     void draw(const shader &shader)const;
 	void rotate(float time);
     std::vector<Object*> objs;

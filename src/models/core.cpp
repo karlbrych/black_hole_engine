@@ -135,16 +135,18 @@ static inline double hwInvSqrt(double x) {
     return _mm_cvtsd_f64(out);
 }
 
+// Fast inverse square root with one-time CPU feature detection
 double invSqrt(double n) {
-#if defined(__GNUC__) || defined(__clang__)
-    const bool hasSSE = __builtin_cpu_supports("sse");
-#else
-    const bool hasSSE = true;
-#endif
-
 #if defined(__x86_64__) || defined(__i386__)
-    if (hasSSE)
+  #if defined(__GNUC__) || defined(__clang__)
+    static const bool hasSSE = __builtin_cpu_supports("sse");
+  #else
+    static const bool hasSSE = true;
+  #endif
+
+    if (hasSSE) {
         return hwInvSqrt(n);
+    }
     return quakeInvSqrt(n);
 #else
     return quakeInvSqrt(n);
@@ -152,8 +154,9 @@ double invSqrt(double n) {
 }
   void DoGravity(Plane *plane, double G, double dt) {
     int n = plane->objs.size();
-    std::vector<glm::vec3> accel(n, glm::vec3(0,0,0));
-    std::vector<int> mergeTarget(n, -1);
+    // Reuse buffers stored on Plane to avoid per-frame allocations
+    plane->accelBuffer.assign(n, glm::vec3(0.0f));
+    plane->mergeTargetBuffer.assign(n, -1);
 
     for (int i = 0; i < n; ++i) {
         if (plane->objs[i]->mass <= 0) continue;
@@ -170,7 +173,7 @@ double invSqrt(double n) {
 
             // Merge if colliding
             if (r2 < radiusSum * radiusSum*0.99) {
-                mergeTarget[j] = i; // merge j into i
+                plane->mergeTargetBuffer[j] = i; // merge j into i
             }
 
             // Gravity calculation
@@ -178,22 +181,22 @@ double invSqrt(double n) {
        
             double factor = G * inv_r * inv_r * inv_r;
 
-            accel[i].x += factor * plane->objs[j]->mass * dx;
-            accel[i].y += factor * plane->objs[j]->mass * dy;
-            accel[i].z += factor * plane->objs[j]->mass * dz;
+            plane->accelBuffer[i].x += factor * plane->objs[j]->mass * dx;
+            plane->accelBuffer[i].y += factor * plane->objs[j]->mass * dy;
+            plane->accelBuffer[i].z += factor * plane->objs[j]->mass * dz;
 
-            accel[j].x -= factor * plane->objs[i]->mass * dx;
-            accel[j].y -= factor * plane->objs[i]->mass * dy;
-            accel[j].z -= factor * plane->objs[i]->mass * dz;
+            plane->accelBuffer[j].x -= factor * plane->objs[i]->mass * dx;
+            plane->accelBuffer[j].y -= factor * plane->objs[i]->mass * dy;
+            plane->accelBuffer[j].z -= factor * plane->objs[i]->mass * dz;
         }
     }
 
     for (int i = 0; i < n; ++i) {
         if (plane->objs[i]->mass <= 0) continue;
 
-        plane->objs[i]->xv += accel[i].x * dt;
-        plane->objs[i]->yv += accel[i].y * dt;
-        plane->objs[i]->zv += accel[i].z * dt;
+        plane->objs[i]->xv += plane->accelBuffer[i].x * dt;
+        plane->objs[i]->yv += plane->accelBuffer[i].y * dt;
+        plane->objs[i]->zv += plane->accelBuffer[i].z * dt;
 
         plane->objs[i]->pos.x += plane->objs[i]->xv * dt;
         plane->objs[i]->pos.y += plane->objs[i]->yv * dt;
@@ -201,7 +204,7 @@ double invSqrt(double n) {
     }
 
     for (int j = 0; j < n; ++j) {
-        int i = mergeTarget[j];
+        int i = plane->mergeTargetBuffer[j];
         if (i < 0 || plane->objs[i]->mass <= 0 || plane->objs[j]->mass <= 0) continue;
 
         double totalMass = plane->objs[i]->mass + plane->objs[j]->mass;
