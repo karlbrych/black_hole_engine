@@ -86,9 +86,13 @@ void load_from_binary(Plane* plane, const std::string& filename) {
     std::cout << "Data loaded from " << filename << std::endl;
 }
 
-void Plane::draw(const shader &shader) const {
+void Plane::draw(const shader &shader, const class shader& lightShader, glm::mat4 projection, glm::mat4 view) const {
   for (const auto &obj : objs) {
-    obj->draw(shader);
+	if(obj->isLightSource) {
+    	obj->draw(lightShader, projection, view);
+		continue;
+	}
+	obj->draw(shader, projection, view);
   }
 }
 void Plane::rotate(float time) 
@@ -98,7 +102,11 @@ void Plane::rotate(float time)
 	}
 }
 
-void Object::draw(const shader &shader) const {
+void Object::draw(const shader &shader, glm::mat4 projection, glm::mat4 view) const {
+  shader.use();
+  shader.setMat4("projection", projection);
+  shader.setMat4("view", view);
+  shader.setInt("diffuseTexture", 0);
   Texture::BindTexture(textureId, 0);
   shader.setMat4("model", modelMatrix);
   glBindVertexArray(VAO);

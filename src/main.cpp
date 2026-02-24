@@ -190,6 +190,7 @@ int main()
   glfwSetCursorPosCallback(window, cursor_position_callback);
   glfwSetMouseButtonCallback(window, mouse_button_callback);
   shader Shader("shaders/vertex.glsl", "shaders/fragment.glsl");
+  shader LightSourceShader("shaders/vertex.glsl", "shaders/fragment.glsl");
   shader skyboxShader("shaders/skybox_vertex.glsl", "shaders/skybox_fragment.glsl");
   sphere sphereMesh = createSphere(1.0f, 64, 32);
   GLuint texture1 = Texture::LoadTexture("assets/planet.jpg");
@@ -417,14 +418,9 @@ plane.objs.push_back(neptune);
       skybox.setRotationSpeed(0.13f); // degrees per second
       skybox.render(camera.view, camera.projection, tmp);
 
-      Shader.use();
-      Shader.setMat4("projection", camera.projection);
-      Shader.setMat4("view", camera.view);
-      Shader.setInt("diffuseTexture", 0);
       plane.rotate(tmp);
-      plane.draw(Shader);
+      plane.draw(Shader, LightSourceShader, camera.projection, camera.view);
       DoGravity(&plane, plane.G, plane.dt);
-      PrintObjects(plane);
     }
     else
     {

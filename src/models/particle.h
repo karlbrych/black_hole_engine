@@ -9,6 +9,7 @@
 #include <string.h>
 #include <fstream>
 #include <memory>
+
 struct Object{
   glm::mat4 modelMatrix;
   double xv,yv,zv;
@@ -16,11 +17,12 @@ struct Object{
   GLuint VAO,VBO,EBO;
   double mass;  
   size_t indexCount;
-  void draw (const shader& shader)const;
+  void draw (const shader& shader, glm::mat4 projection, glm::mat4 view)const;
   void rotate (float time);
   float radius;
   GLuint textureId;
   bool IsBlackHole;
+  bool isLightSource = false;
     bool deserialize(std::istream& in) {
         // Read modelMatrix
         in.read(reinterpret_cast<char*>(&modelMatrix), sizeof(modelMatrix));
@@ -87,7 +89,7 @@ struct Plane{
     double G = 0.00675;
     double dt = 0.01;
     const size_t version = 1;
-    void draw(const shader &shader)const;
+    void draw(const shader &shader, const class shader& lightShader, glm::mat4 projection, glm::mat4 view)const;
 	void rotate(float time);
     std::vector<Object*> objs;
 };
