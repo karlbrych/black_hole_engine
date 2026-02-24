@@ -190,7 +190,7 @@ int main()
   glfwSetCursorPosCallback(window, cursor_position_callback);
   glfwSetMouseButtonCallback(window, mouse_button_callback);
   shader Shader("shaders/vertex.glsl", "shaders/fragment.glsl");
-  shader LightSourceShader("shaders/vertex.glsl", "shaders/fragment.glsl");
+  shader LightSourceShader("shaders/vertex.glsl", "shaders/light_source_fragment.glsl");
   shader skyboxShader("shaders/skybox_vertex.glsl", "shaders/skybox_fragment.glsl");
   sphere sphereMesh = createSphere(1.0f, 64, 32);
   GLuint texture1 = Texture::LoadTexture("assets/planet.jpg");
@@ -251,7 +251,8 @@ Object* venus = new Object(
     sphereMesh.indexCount,
     0.02f * SCALE,
     texture1,
-    false
+    false,
+	true
 );
 
 // Earth
@@ -364,6 +365,8 @@ plane.objs.push_back(neptune);
   // Initialize start menu
   StartMenu startMenu;
   startMenu.init(window, "#version 330");
+
+
 
   // main loop
   while (!glfwWindowShouldClose(window))

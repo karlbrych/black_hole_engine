@@ -88,7 +88,7 @@ void load_from_binary(Plane* plane, const std::string& filename) {
 
 void Plane::draw(const shader &shader, const class shader& lightShader, glm::mat4 projection, glm::mat4 view) const {
   for (const auto &obj : objs) {
-	if(obj->isLightSource) {
+	if(obj->IsLightSource) {
     	obj->draw(lightShader, projection, view);
 		continue;
 	}

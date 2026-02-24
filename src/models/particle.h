@@ -22,8 +22,9 @@ struct Object{
   float radius;
   GLuint textureId;
   bool IsBlackHole;
-  bool isLightSource = false;
-    bool deserialize(std::istream& in) {
+  bool IsLightSource = false;
+
+  bool deserialize(std::istream& in) {
         // Read modelMatrix
         in.read(reinterpret_cast<char*>(&modelMatrix), sizeof(modelMatrix));
         if (!in) return false;
@@ -47,10 +48,12 @@ struct Object{
         in.read(reinterpret_cast<char*>(&radius), sizeof(radius));
         in.read(reinterpret_cast<char*>(&textureId), sizeof(textureId));
         in.read(reinterpret_cast<char*>(&IsBlackHole), sizeof(IsBlackHole));
+        in.read(reinterpret_cast<char*>(&IsLightSource), sizeof(IsLightSource));
 	modelMatrix = glm::translate(glm::mat4(1.0f), pos);
         return in.good(); // If everything is good, return true
     }
-      void serialize(std::ofstream &out) const {
+
+  void serialize(std::ofstream &out) const {
         out.write(reinterpret_cast<const char*>(&modelMatrix), sizeof(modelMatrix));
         out.write(reinterpret_cast<const char*>(&xv), sizeof(xv));
         out.write(reinterpret_cast<const char*>(&yv), sizeof(yv));
@@ -64,14 +67,16 @@ struct Object{
         out.write(reinterpret_cast<const char*>(&radius), sizeof(radius));
         out.write(reinterpret_cast<const char*>(&textureId), sizeof(textureId));
         out.write(reinterpret_cast<const char*>(&IsBlackHole), sizeof(IsBlackHole));
+        out.write(reinterpret_cast<const char*>(&IsLightSource), sizeof(IsLightSource));
     }
-         Object(double xv_ = 0, double yv_ = 0, double zv_ = 0,
+
+  Object(double xv_ = 0, double yv_ = 0, double zv_ = 0,
            glm::vec3 pos_ = glm::vec3(0.0f),
            unsigned int VAO_ = 0, unsigned int VBO_ = 0, unsigned int EBO_ = 0,
            double mass_ = 1, int indexCount_ = 0,
-           float radius_ = 1.0f, unsigned int textureId_ = 0, bool IsBlackHole_ = false)
+           float radius_ = 1.0f, unsigned int textureId_ = 0, bool IsBlackHole_ = false, bool IsLightSource = false)
         : xv(xv_), yv(yv_), zv(zv_), pos(pos_), VAO(VAO_), VBO(VBO_), EBO(EBO_),
-          mass(mass_), indexCount(indexCount_), radius(radius_), textureId(textureId_), IsBlackHole(IsBlackHole_)
+          mass(mass_), indexCount(indexCount_), radius(radius_), textureId(textureId_), IsBlackHole(IsBlackHole_), IsLightSource(IsLightSource)
     {
         modelMatrix = glm::translate(glm::mat4(1.0f), pos);
     }
