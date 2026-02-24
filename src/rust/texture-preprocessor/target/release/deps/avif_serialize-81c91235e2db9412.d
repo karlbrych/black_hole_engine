@@ -1,0 +1,10 @@
+/home/maran/Documents/skola/T3/black_hole/black_hole_engine/src/rust/texture-preprocessor/target/release/deps/avif_serialize-81c91235e2db9412.d: /home/maran/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avif-serialize-0.8.8/src/lib.rs /home/maran/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avif-serialize-0.8.8/src/boxes.rs /home/maran/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avif-serialize-0.8.8/src/constants.rs /home/maran/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avif-serialize-0.8.8/src/writer.rs
+
+/home/maran/Documents/skola/T3/black_hole/black_hole_engine/src/rust/texture-preprocessor/target/release/deps/libavif_serialize-81c91235e2db9412.rlib: /home/maran/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avif-serialize-0.8.8/src/lib.rs /home/maran/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avif-serialize-0.8.8/src/boxes.rs /home/maran/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avif-serialize-0.8.8/src/constants.rs /home/maran/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avif-serialize-0.8.8/src/writer.rs
+
+/home/maran/Documents/skola/T3/black_hole/black_hole_engine/src/rust/texture-preprocessor/target/release/deps/libavif_serialize-81c91235e2db9412.rmeta: /home/maran/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avif-serialize-0.8.8/src/lib.rs /home/maran/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avif-serialize-0.8.8/src/boxes.rs /home/maran/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avif-serialize-0.8.8/src/constants.rs /home/maran/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avif-serialize-0.8.8/src/writer.rs
+
+/home/maran/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avif-serialize-0.8.8/src/lib.rs:
+/home/maran/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avif-serialize-0.8.8/src/boxes.rs:
+/home/maran/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avif-serialize-0.8.8/src/constants.rs:
+/home/maran/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avif-serialize-0.8.8/src/writer.rs:

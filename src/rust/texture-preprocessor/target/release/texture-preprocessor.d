@@ -1,1 +1,1 @@
-/home/kajabrych/PRG/black_hole_engine/src/rust/texture-preprocessor/target/release/texture-preprocessor: /home/kajabrych/PRG/black_hole_engine/src/rust/texture-preprocessor/src/main.rs
+/home/maran/Documents/skola/T3/black_hole/black_hole_engine/src/rust/texture-preprocessor/target/release/texture-preprocessor: /home/maran/Documents/skola/T3/black_hole/black_hole_engine/src/rust/texture-preprocessor/src/main.rs
