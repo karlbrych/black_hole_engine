@@ -35,6 +35,39 @@ file(GLOB SHADER_SOURCES "src/shader/*.cpp")
 list(APPEND SOURCES ${SHADER_SOURCES})
 file(COPY ${CMAKE_SOURCE_DIR}/src/assets DESTINATION ${CMAKE_BINARY_DIR})
 file(COPY ${CMAKE_SOURCE_DIR}/src/shaders DESTINATION ${CMAKE_BINARY_DIR})
+
+# ---------- Texture preprocessing via Rust CLI ----------
+# Paths for source and build asset directories
+set(SRC_ASSETS_DIR   ${CMAKE_SOURCE_DIR}/src/assets)
+set(BUILD_ASSETS_DIR ${CMAKE_BINARY_DIR}/assets)
+
+# List all 2D textures you want to preprocess
+set(TEX_SOURCES
+    ${SRC_ASSETS_DIR}/planet.png
+    ${SRC_ASSETS_DIR}/poop-texture.jpg
+    ${SRC_ASSETS_DIR}/sun-texture.jpg
+)
+
+set(TEX_OUTPUTS)    
+
+foreach(tex ${TEX_SOURCES})
+    get_filename_component(name_we ${tex} NAME_WE)
+    set(out ${BUILD_ASSETS_DIR}/${name_we}.bhtx)
+    list(APPEND TEX_OUTPUTS ${out})
+
+    add_custom_command(
+        OUTPUT ${out}
+        COMMAND cargo run --release -- ${tex} ${out}
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/src/rust/texture-preprocessor
+        DEPENDS ${tex}
+        COMMENT "Preprocessing texture ${tex} -> ${out}"
+    )
+endforeach()
+
+add_custom_target(PreprocessTextures
+    DEPENDS ${TEX_OUTPUTS}
+)
+
 add_executable(Blackhole ${SOURCES})
 
 # ---------- Includes ----------
@@ -72,3 +105,9 @@ if (WIN32)
     target_link_libraries(Blackhole PRIVATE opengl32)
     target_compile_definitions(Blackhole PRIVATE _CRT_SECURE_NO_WARNINGS)
 endif()
+if (CMAKE_BUILD_TYPE STREQUAL "Release")
+        target_compile_options(Blackhole PRIVATE -O3 -march=native -ffast-math)
+        target_link_options(Blackhole PRIVATE -flto)
+    endif()
+
+add_dependencies(Blackhole PreprocessTextures)

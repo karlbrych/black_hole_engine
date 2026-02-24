@@ -20,8 +20,7 @@
 #include "models/startmenu.h"
 enum class CameraType
 {
-  Perspective,
-  Ortho
+  Perspective
 };
 // CAMERA
 CameraType currentCamera = CameraType::Perspective;
@@ -37,9 +36,9 @@ float lastMouseX, lastMouseY;
 double mouseX = 0.0, mouseY = 0.0;
 glm::vec2 circleOffset(0.0f, 0.0f);
 bool rightPressed = false;
-
-static glm::vec3 camPos(0.0f, 5.0f, 20.0f);
-static glm::vec3 camFront(0.0f, 0.0f, -1.0f);
+//pozice kamery
+static glm::vec3 camPos(300000.0f, 0.0f, 0.0f);
+static glm::vec3 camFront(1.0f, 0.0f, -1.0f);
 static glm::vec3 camUp(0.0f, 1.0f, 0.0f);
 float cameraSpeed = 1000.0f;
 
@@ -48,6 +47,7 @@ float lastFrame;
 bool gameStopped = false;
 bool tabPressedLastFrame = false;
 bool escapePressedLastFrame = false;
+
 void processInput(GLFWwindow *window)
 {
   glm::vec3 right = glm::normalize(glm::cross(camFront, camUp));
@@ -77,7 +77,6 @@ void processInput(GLFWwindow *window)
     camPos += camUp * velocity;
   if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
     camPos -= camUp * velocity;
-  currentCamera = ((glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS) && !tabPressedLastFrame) ? ((currentCamera == CameraType::Perspective) ? CameraType::Ortho : CameraType::Perspective) : currentCamera;
 }
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height)
@@ -136,7 +135,6 @@ void cursor_position_callback(GLFWwindow *window, double xpos, double ypos)
   front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
   front.y = sin(glm::radians(pitch));
   front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-
   camFront = glm::normalize(front);
 }
 
@@ -176,6 +174,7 @@ int main()
     std::cerr << "No monitor detected!\n";
     return -1;
   }
+  //ziskani rozliseni monitoru
   const GLFWvidmode *mode = glfwGetVideoMode(monitor);
   WIDTH = mode->width;
   HEIGHT = mode->height;
@@ -187,6 +186,7 @@ int main()
     std::cerr << "Failed to initialize GLAD\n";
     return -1;
   }
+
   glEnable(GL_DEPTH_TEST);
   glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
   glfwSetCursorPosCallback(window, cursor_position_callback);
@@ -194,7 +194,7 @@ int main()
   shader Shader("shaders/vertex.glsl", "shaders/fragment.glsl");
   shader skyboxShader("shaders/skybox_vertex.glsl", "shaders/skybox_fragment.glsl");
   sphere sphereMesh = createSphere(1.0f, 64, 32);
-  GLuint texture1 = Texture::LoadTexture("assets/planet.jpg");
+  GLuint texture1 = Texture::LoadTexture("assets/planet.png");
   GLuint texture2 = Texture::LoadTexture("assets/poop-texture.jpg");
   GLuint texture3 = Texture::LoadTexture("assets/sun-texture.jpg");
 
@@ -352,7 +352,7 @@ plane.objs.push_back(neptune);
 
 
 
-  camPos.y = 0.0f;
+
   camFront = glm::normalize(glm::vec3(0.0f, 0.0f, -1.0f));
   auto lastTime = std::chrono::high_resolution_clock::now();
   int frameCount = 0;
@@ -361,7 +361,8 @@ plane.objs.push_back(neptune);
   // Initialize start menu
   StartMenu startMenu;
   startMenu.init(window, "#version 330");
-
+  camera.projection = glm::perspective(glm::radians(45.0f),
+  (float)WIDTH / (float)HEIGHT, 10.0f, (float)SCALE*50);
   // main loop
   while (!glfwWindowShouldClose(window))
   {
@@ -384,26 +385,8 @@ plane.objs.push_back(neptune);
       float currentFrame = glfwGetTime();
       deltaTime = currentFrame - lastFrame;
       lastFrame = currentFrame;
-
-      // --- Zpracování vstupu ---
       // std::cout << tabPressedLastFrame << std::endl;
-      // --- Aktualizace projekce ---
-      if (currentCamera == CameraType::Perspective)
-      {
-        camera.projection = glm::perspective(glm::radians(45.0f),
-                                             (float)WIDTH / (float)HEIGHT, 1.0f, (float)SCALE*500);
-      }
-      else
-      {                      // Ortho
-        float scale = 10.0f; // velikost scény
-        camera.projection = glm::ortho(-scale * ((float)WIDTH / (float)HEIGHT),
-                                       scale * ((float)WIDTH / (float)HEIGHT),
-                                       -scale, scale,
-                                       0.1f, 10000.0f);
-      }
-
       camera.view = glm::lookAt(camPos, camPos + camFront, camUp);
-
       // render
 
       glClearColor(0.0f, 0.2f, 0.4f, 1.0f);
@@ -412,7 +395,7 @@ plane.objs.push_back(neptune);
       float tmp = glfwGetTime();
 
       // Render skybox first with slow rotation
-      skybox.setRotationSpeed(0.13f); // degrees per second
+      skybox.setRotationSpeed(0.13f*deltaTime); // degrees per second
       skybox.render(camera.view, camera.projection, tmp);
 
       Shader.use();
