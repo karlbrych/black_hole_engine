@@ -41,11 +41,17 @@ file(COPY ${CMAKE_SOURCE_DIR}/src/shaders DESTINATION ${CMAKE_BINARY_DIR})
 set(SRC_ASSETS_DIR   ${CMAKE_SOURCE_DIR}/src/assets)
 set(BUILD_ASSETS_DIR ${CMAKE_BINARY_DIR}/assets)
 
-# List all 2D textures you want to preprocess
+# List all textures you want to preprocess (2D + skybox faces)
 set(TEX_SOURCES
     ${SRC_ASSETS_DIR}/planet.png
     ${SRC_ASSETS_DIR}/poop-texture.jpg
     ${SRC_ASSETS_DIR}/sun-texture.jpg
+    ${SRC_ASSETS_DIR}/skybox/right.png
+    ${SRC_ASSETS_DIR}/skybox/left.png
+    ${SRC_ASSETS_DIR}/skybox/top.png
+    ${SRC_ASSETS_DIR}/skybox/bottom.png
+    ${SRC_ASSETS_DIR}/skybox/front.png
+    ${SRC_ASSETS_DIR}/skybox/back.png
 )
 
 set(TEX_OUTPUTS)    

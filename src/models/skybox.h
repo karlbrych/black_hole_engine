@@ -3,11 +3,14 @@
 #include <glad/glad.h>
 #include "shader.h"
 #include <glm/glm.hpp>
+#include <filesystem>
+#include <fstream>
 class skybox {
 public:
     skybox();
     ~skybox();
     void loadTextures(const std::vector<std::string>& faces);
+    void loadPreprocessedTextures(const std::vector<std::string>& faces);
     void render(const glm::mat4& view, const glm::mat4& projection, float time);
     void setRotationSpeed(float speed);
 private:

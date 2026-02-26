@@ -9,7 +9,6 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
-#include <thread>
 #include "models/core.h"
 #include "models/shader.h"
 #include "models/sphere.h"
@@ -44,7 +43,7 @@ float cameraSpeed = 1000.0f;
 
 float deltaTime = 0.0f;
 float lastFrame;
-bool gameStopped = false;
+bool gameStopped = true;
 bool tabPressedLastFrame = false;
 bool escapePressedLastFrame = false;
 
@@ -56,7 +55,8 @@ void processInput(GLFWwindow *window)
   {
     if (gameStopped)
     {
-      glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+      glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+      glfwSetInputMode(window,GLFW_RAW_MOUSE_MOTION,GLFW_TRUE);
     }
     else
     {
@@ -201,7 +201,7 @@ int main()
 
   Plane plane;
   skybox skybox;
-  skybox.loadTextures({// loading skybox textures
+  skybox.loadPreprocessedTextures({// loading skybox textures (preprocessed if available)
                        "assets/skybox/right.png",
                        "assets/skybox/left.png",
                        "assets/skybox/top.png",
@@ -226,7 +226,7 @@ Object* sun = new Object(
     0.25f * SCALE,
     texture3,
     false,
-	true
+    true
 );
 
 // Mercury
@@ -377,7 +377,7 @@ plane.objs.push_back(neptune);
     
     // Hide/show cursor based on game state
     if (!gameStopped) {
-      glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+      glfwSetInputMode(window,GLFW_CURSOR,GLFW_CURSOR_DISABLED);
     } 
     else {
       glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
@@ -416,7 +416,7 @@ plane.objs.push_back(neptune);
       if (startMenu.shouldStartGame())
       {
         gameStopped = false;
-        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
         startMenu.reset();
       }
       

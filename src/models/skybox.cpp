@@ -4,6 +4,10 @@
 #include <glm/fwd.hpp>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <filesystem>
+#include <fstream>
+#include <vector>
+#include <cstdint>
 // Skybox vertices - a cube centered at origin
 static float skyboxVertices[] = {
     // positions          
@@ -40,6 +44,7 @@ static float skyboxVertices[] = {
      1.0f,  1.0f,  1.0f,
      1.0f,  1.0f,  1.0f,
     -1.0f,  1.0f,  1.0f,
+    
     -1.0f,  1.0f, -1.0f,
 
     -1.0f, -1.0f, -1.0f,
@@ -77,7 +82,106 @@ skybox::~skybox()
         glDeleteTextures(1, &cubemapTexture);
     }
 }
+void skybox::loadPreprocessedTextures(const std::vector<std::string>& faces)
+{
+    if (faces.size() != 6) {
+        std::cerr << "ERROR: Skybox requires exactly 6 texture faces" << std::endl;
+        return;
+    }
 
+    glGenTextures(1, &cubemapTexture);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+
+    bool headerInitialized = false;
+    uint32_t refWidth = 0, refHeight = 0, refMipLevels = 0;
+    GLenum refFormat = GL_RGB;
+
+    auto failAndFallback = [&]() {
+        std::cerr << "Falling back to non-preprocessed skybox textures.\n";
+        glDeleteTextures(1, &cubemapTexture);
+        cubemapTexture = 0;
+        loadTextures(faces);
+    };
+
+    for (unsigned int i = 0; i < faces.size(); ++i) {
+        std::filesystem::path p(faces[i]);
+        p.replace_extension(".bhtx");
+        std::ifstream in(p.string(), std::ios::binary);
+        if (!in.is_open()) {
+            std::cerr << "ERROR: Failed to open preprocessed skybox face: " << p << "\n";
+            failAndFallback();
+            return;
+        }
+
+        auto readU32 = [&in](uint32_t &v) -> bool {
+            in.read(reinterpret_cast<char*>(&v), sizeof(v));
+            return static_cast<bool>(in);
+        };
+
+        uint32_t magic = 0, version = 0, width = 0, height = 0, channels = 0, mipLevels = 0;
+        if (!readU32(magic) || magic != 0x42585458) {
+            std::cerr << "ERROR: Invalid preprocessed skybox magic in: " << p << "\n";
+            failAndFallback();
+            return;
+        }
+        if (!readU32(version) || !readU32(width) || !readU32(height) ||
+            !readU32(channels) || !readU32(mipLevels)) {
+            std::cerr << "ERROR: Failed to read preprocessed skybox header: " << p << "\n";
+            failAndFallback();
+            return;
+        }
+
+        GLenum format = (channels == 1) ? GL_RED : (channels == 3) ? GL_RGB : GL_RGBA;
+
+        if (!headerInitialized) {
+            refWidth = width;
+            refHeight = height;
+            refMipLevels = mipLevels;
+            refFormat = format;
+            headerInitialized = true;
+        } else {
+            if (width != refWidth || height != refHeight || mipLevels != refMipLevels || format != refFormat) {
+                std::cerr << "ERROR: Inconsistent skybox face dimensions or format in: " << p << "\n";
+                failAndFallback();
+                return;
+            }
+        }
+
+        for (uint32_t level = 0; level < mipLevels; ++level) {
+            uint32_t lw = 0, lh = 0, dataSize = 0;
+            if (!readU32(lw) || !readU32(lh) || !readU32(dataSize)) {
+                std::cerr << "ERROR: Failed to read skybox mip header from: " << p << "\n";
+                failAndFallback();
+                return;
+            }
+
+            std::vector<unsigned char> data(dataSize);
+            in.read(reinterpret_cast<char*>(data.data()), static_cast<std::streamsize>(dataSize));
+            if (!in) {
+                std::cerr << "ERROR: Failed to read skybox mip data from: " << p << "\n";
+                failAndFallback();
+                return;
+            }
+
+            glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
+                         static_cast<GLint>(level),
+                         format,
+                         static_cast<GLsizei>(lw),
+                         static_cast<GLsizei>(lh),
+                         0,
+                         format,
+                         GL_UNSIGNED_BYTE,
+                         data.data());
+        }
+    }
+
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER,
+                    refMipLevels > 1 ? GL_LINEAR_MIPMAP_LINEAR : GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+}
 void skybox::loadTextures(const std::vector<std::string>& faces)
 {
     if (faces.size() != 6) {
