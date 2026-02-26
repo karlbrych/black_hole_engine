@@ -104,8 +104,12 @@ void skybox::loadPreprocessedTextures(const std::vector<std::string>& faces)
     };
 
     for (unsigned int i = 0; i < faces.size(); ++i) {
-        std::filesystem::path p(faces[i]);
-        p.replace_extension(".bhtx");
+        // Derive .bhtx path from the face filename, matching CMake output in build/assets
+        std::filesystem::path facePath(faces[i]);
+        std::filesystem::path bhtxName = facePath.filename();
+        bhtxName.replace_extension(".bhtx");
+        std::filesystem::path p = std::filesystem::path("assets") / bhtxName;
+
         std::ifstream in(p.string(), std::ios::binary);
         if (!in.is_open()) {
             std::cerr << "ERROR: Failed to open preprocessed skybox face: " << p << "\n";
@@ -181,6 +185,7 @@ void skybox::loadPreprocessedTextures(const std::vector<std::string>& faces)
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+    std::cout<<"succesfully loaded preprocessed textures\n";
 }
 void skybox::loadTextures(const std::vector<std::string>& faces)
 {

@@ -3,8 +3,6 @@
 #include <glad/glad.h>
 #include "shader.h"
 #include <glm/glm.hpp>
-#include <filesystem>
-#include <fstream>
 class skybox {
 public:
     skybox();
