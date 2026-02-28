@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include "glm/ext/matrix_transform.hpp"
 #include <glm/gtc/matrix_transform.hpp>
-#include <GLFW/glfw3.h>
-int WIDTH = 1280;
-int HEIGHT = 960;
+inline int WIDTH = 1280;
+inline int HEIGHT = 960;
 struct OrthoCamera {
   glm::mat4 projection = glm::ortho(-WIDTH / 20.0f,  // left
                                     WIDTH / 20.0f,   // right

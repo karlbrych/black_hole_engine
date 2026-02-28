@@ -21,6 +21,7 @@ set(IMGUI_SOURCES
 set(SOURCES
     ${IMGUI_SOURCES}
     src/main.cpp
+    src/game.cpp
     src/glad.c
     src/models/shader.cpp
     "src/models/core.cpp"
