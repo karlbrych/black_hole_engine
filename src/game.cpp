@@ -1,10 +1,7 @@
 #define _USE_MATH_DEFINES
-
 #include "game.h"
-
 #include <cmath>
 #include <iostream>
-
 #include "glad/glad.h"
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -53,7 +50,7 @@ bool Game::initialize()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
+    glfwWindowHint(GLFW_SAMPLES, 4);
     window_ = glfwCreateWindow(WIDTH, HEIGHT, "black_hole_engine:OpenGL", nullptr, nullptr);
     if (!window_) {
         std::cerr << "Failed to create window\n";
@@ -84,7 +81,7 @@ bool Game::initialize()
     }
 
     glEnable(GL_DEPTH_TEST);
-
+    glEnable(GL_MULTISAMPLE);
     instance_ = this;
     glfwSetFramebufferSizeCallback(window_, framebufferSizeCallback);
     glfwSetCursorPosCallback(window_, cursorPositionCallback);
