@@ -6,10 +6,49 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-
+#include <random>
 #include "models/texture.h"
 
 Game* Game::instance_ = nullptr;
+
+void Game::printObjects(const Plane& plane)
+{
+    std::cout << "Plane info:\n";
+    std::cout << "G: " << plane.G << "\n";
+    std::cout << "dt: " << plane.dt << "\n";
+    std::cout << "Object count: " << plane.objs.size() << "\n\n";
+
+    for (size_t i = 0; i < plane.objs.size(); i++)
+    {
+        const Object* obj = plane.objs[i];
+
+        std::cout << "Object #" << i << "\n";
+        std::cout << "Position: "
+                  << obj->pos.x << ", "
+                  << obj->pos.y << ", "
+                  << obj->pos.z << "\n";
+
+        std::cout << "Velocity: "
+                  << obj->xv << ", "
+                  << obj->yv << ", "
+                  << obj->zv << "\n";
+
+        std::cout << "Mass: " << obj->mass << "\n";
+        std::cout << "Radius: " << obj->radius << "\n";
+
+        std::cout << "IsBlackHole: " << obj->IsBlackHole << "\n";
+        std::cout << "IsLightSource: " << obj->IsLightSource << "\n";
+
+        std::cout << "TextureID: " << obj->textureId << "\n";
+        std::cout << "IndexCount: " << obj->indexCount << "\n";
+
+        std::cout << "VAO: " << obj->VAO
+                  << " VBO: " << obj->VBO
+                  << " EBO: " << obj->EBO << "\n";
+
+        std::cout << "-----------------------------\n";
+    }
+}
 
 void Game::framebufferSizeCallback(GLFWwindow* window, int width, int height)
 {
@@ -112,9 +151,7 @@ void Game::initializeScene()
         "assets/skybox/back.png"
     });
 
-    const bool scaleSystem = true;
-    scale_ = scaleSystem ? 100000.0 : 1.0;
-    plane_.G = 4.0 * M_PI * M_PI;
+    plane_.G = 0.00675;
     plane_.dt = 0.0001;
 
     setupSolarSystem();
@@ -123,140 +160,41 @@ void Game::initializeScene()
     glfwSetInputMode(window_, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     startMenu_.init(window_, "#version 330");
-    camera_.projection = glm::perspective(glm::radians(45.0f), static_cast<float>(WIDTH) / static_cast<float>(HEIGHT), 10.0f, static_cast<float>(scale_) * 50.0f);
+    camera_.projection = glm::perspective(glm::radians(45.0f), static_cast<float>(WIDTH) / static_cast<float>(HEIGHT), 0.001f, static_cast<float>(scale_) * 5000.0f);
 }
 
 void Game::setupSolarSystem()
+{	
+std::mt19937 rng(42);
+
+  std::uniform_real_distribution<float> posDist(-100.0f, 100.0f);
+  std::uniform_real_distribution<float> velDist(-5.0f, 5.0f);
+  std::uniform_real_distribution<float> massDist(900000.0f, 1000000.0f);   // <- integer distribution
+  std::uniform_real_distribution<float> radiusDist(0.5f, 5.0f);
+
+for (int i = 0; i < 500; i++)
 {
-    const double massScale = scale_ * scale_ * scale_;
-
-    Object* sun = new Object(
-        0, 0, 0,
-        glm::vec3(0.0, 0.0, 0.0),
+    Object* obj = new Object(
+        velDist(rng),
+        velDist(rng),
+        velDist(rng),
+        glm::vec3(
+            posDist(rng),
+            posDist(rng),
+            posDist(rng)
+        ),
         sphereMesh_.VAO,
         sphereMesh_.VBO,
         sphereMesh_.EBO,
-        1.0 * massScale,
+        massDist(rng),
         sphereMesh_.indexCount,
-        static_cast<float>(0.25 * scale_),
-        texture3_,
-        false,
-        true
-    );
-
-    Object* mercury = new Object(
-        0, 0, std::sqrt(plane_.G / 0.387) * scale_,
-        glm::vec3(0.387 * scale_, 0.0, 0.0),
-        sphereMesh_.VAO,
-        sphereMesh_.VBO,
-        sphereMesh_.EBO,
-        1.65e-7 * massScale,
-        sphereMesh_.indexCount,
-        static_cast<float>(0.01 * scale_),
+        radiusDist(rng),
         texture1_,
         false
     );
 
-    Object* venus = new Object(
-        0, 0, std::sqrt(plane_.G / 0.723) * scale_,
-        glm::vec3(0.723 * scale_, 0.0, 0.0),
-        sphereMesh_.VAO,
-        sphereMesh_.VBO,
-        sphereMesh_.EBO,
-        2.45e-6 * massScale,
-        sphereMesh_.indexCount,
-        static_cast<float>(0.02 * scale_),
-        texture1_,
-        false
-    );
-
-    Object* earth = new Object(
-        0, 0, std::sqrt(plane_.G / 1.0) * scale_,
-        glm::vec3(1.0 * scale_, 0.0, 0.0),
-        sphereMesh_.VAO,
-        sphereMesh_.VBO,
-        sphereMesh_.EBO,
-        3.00e-6 * massScale,
-        sphereMesh_.indexCount,
-        static_cast<float>(0.02 * scale_),
-        texture1_,
-        false
-    );
-
-    Object* mars = new Object(
-        0, 0, std::sqrt(plane_.G / 1.524) * scale_,
-        glm::vec3(1.524 * scale_, 0.0, 0.0),
-        sphereMesh_.VAO,
-        sphereMesh_.VBO,
-        sphereMesh_.EBO,
-        3.23e-7 * massScale,
-        sphereMesh_.indexCount,
-        static_cast<float>(0.015 * scale_),
-        texture1_,
-        false
-    );
-
-    Object* jupiter = new Object(
-        0, 0, std::sqrt(plane_.G / 5.203) * scale_,
-        glm::vec3(5.203 * scale_, 0.0, 0.0),
-        sphereMesh_.VAO,
-        sphereMesh_.VBO,
-        sphereMesh_.EBO,
-        9.54e-4 * massScale,
-        sphereMesh_.indexCount,
-        static_cast<float>(0.08 * scale_),
-        texture1_,
-        false
-    );
-
-    Object* saturn = new Object(
-        0, 0, std::sqrt(plane_.G / 9.537) * scale_,
-        glm::vec3(9.537 * scale_, 0.0, 0.0),
-        sphereMesh_.VAO,
-        sphereMesh_.VBO,
-        sphereMesh_.EBO,
-        2.86e-4 * massScale,
-        sphereMesh_.indexCount,
-        static_cast<float>(0.07 * scale_),
-        texture1_,
-        false
-    );
-
-    Object* uranus = new Object(
-        0, 0, std::sqrt(plane_.G / 19.191) * scale_,
-        glm::vec3(19.191 * scale_, 0.0, 0.0),
-        sphereMesh_.VAO,
-        sphereMesh_.VBO,
-        sphereMesh_.EBO,
-        4.37e-5 * massScale,
-        sphereMesh_.indexCount,
-        static_cast<float>(0.05 * scale_),
-        texture1_,
-        false
-    );
-
-    Object* neptune = new Object(
-        0, 0, std::sqrt(plane_.G / 30.07) * scale_,
-        glm::vec3(30.07 * scale_, 0.0, 0.0),
-        sphereMesh_.VAO,
-        sphereMesh_.VBO,
-        sphereMesh_.EBO,
-        5.15e-5 * massScale,
-        sphereMesh_.indexCount,
-        static_cast<float>(0.05 * scale_),
-        texture1_,
-        false
-    );
-
-    plane_.objs.push_back(sun);
-    plane_.objs.push_back(mercury);
-    plane_.objs.push_back(venus);
-    plane_.objs.push_back(earth);
-    plane_.objs.push_back(mars);
-    plane_.objs.push_back(jupiter);
-    plane_.objs.push_back(saturn);
-    plane_.objs.push_back(uranus);
-    plane_.objs.push_back(neptune);
+    plane_.objs.push_back(obj);
+}
 }
 
 void Game::processInput()
@@ -398,7 +336,7 @@ int Game::run()
         } else {
             renderMenuFrame();
         }
-
+	//printObjects(plane_);
         startMenu_.endFrame();
         glfwSwapBuffers(window_);
         glfwPollEvents();

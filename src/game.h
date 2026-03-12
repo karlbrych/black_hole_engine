@@ -8,7 +8,6 @@
 #include "models/skybox.h"
 #include "models/sphere.h"
 #include "models/startmenu.h"
-
 struct GLFWwindow;
 
 class Game {
@@ -32,6 +31,7 @@ private:
     static void framebufferSizeCallback(GLFWwindow* window, int width, int height);
     static void cursorPositionCallback(GLFWwindow* window, double xpos, double ypos);
     static void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
+    static void printObjects(const Plane& plane);
 
     GLFWwindow* window_ = nullptr;
 
@@ -47,11 +47,11 @@ private:
 
     bool rightPressed_ = false;
 
-    glm::vec3 camPos_ = glm::vec3(300000.0f, 0.0f, 0.0f);
+    glm::vec3 camPos_ = glm::vec3(0.0f, 0.0f, 0.0f);
     glm::vec3 camFront_ = glm::vec3(1.0f, 0.0f, -1.0f);
     glm::vec3 camUp_ = glm::vec3(0.0f, 1.0f, 0.0f);
 
-    float cameraSpeed_ = 1000.0f;
+    float cameraSpeed_ = 30.0f;
     float deltaTime_ = 0.0f;
     float lastFrame_ = 0.0f;
 

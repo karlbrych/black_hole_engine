@@ -165,7 +165,6 @@ double invSqrt(double n) {
     int n = plane->objs.size();
     // Reuse buffers stored on Plane to avoid per-frame allocations
     plane->accelBuffer.assign(n, glm::vec3(0.0f));
-    plane->mergeTargetBuffer.assign(n, -1);
 
     for (int i = 0; i < n; ++i) {
         if (plane->objs[i]->mass <= 0) continue;
@@ -177,17 +176,12 @@ double invSqrt(double n) {
             double dy = plane->objs[j]->pos.y - plane->objs[i]->pos.y;
             double dz = plane->objs[j]->pos.z - plane->objs[i]->pos.z;
 
-           double r2 = dx*dx + dy*dy + dz*dz;
+            double r2 = dx*dx + dy*dy + dz*dz;
             double radiusSum = plane->objs[i]->radius + plane->objs[j]->radius;
-
-            // Merge if colliding
-            if (r2 < radiusSum * radiusSum*0.99) {
-                plane->mergeTargetBuffer[j] = i; // merge j into i
-            }
+	    double distanceDelta = sqrt(r2) - radiusSum;
 
             // Gravity calculation
-           double inv_r = invSqrt(r2+0.05*0.05);
-       
+            double inv_r = invSqrt(r2+0.05*0.05);
             double factor = G * inv_r * inv_r * inv_r;
 
             plane->accelBuffer[i].x += factor * plane->objs[j]->mass * dx;
@@ -197,6 +191,62 @@ double invSqrt(double n) {
             plane->accelBuffer[j].x -= factor * plane->objs[i]->mass * dx;
             plane->accelBuffer[j].y -= factor * plane->objs[i]->mass * dy;
             plane->accelBuffer[j].z -= factor * plane->objs[i]->mass * dz;
+
+
+       if (distanceDelta < -0.05) {
+
+    Object* bigger = plane->objs[i]->radius > plane->objs[j]->radius ? plane->objs[i] : plane->objs[j];
+    Object* smaller = bigger == plane->objs[i] ? plane->objs[j] : plane->objs[i];
+
+    // if tiny, eat whole object
+    if (smaller->radius < 1.0) {
+
+        double smallVolume =
+            (4.0/3.0) * M_PI * smaller->radius * smaller->radius * smaller->radius;
+
+        double bigVolume =
+            (4.0/3.0) * M_PI * bigger->radius * bigger->radius * bigger->radius;
+
+        bigVolume += smallVolume;
+
+        bigger->radius = cbrt((3.0 * bigVolume) / (4.0 * M_PI));
+        bigger->mass += smaller->mass;
+
+        smaller->radius = 0;
+        smaller->mass = 0;
+
+        return;
+    }
+
+    double negDistance = -distanceDelta;
+    double absorbThickness = negDistance * 0.5 + negDistance * 0.2;
+
+    if (absorbThickness > smaller->radius)
+        absorbThickness = smaller->radius;
+
+    double r0 = smaller->radius;
+    double r1 = r0 - absorbThickness;
+
+    double absorbedVolume =
+        (4.0/3.0) * M_PI * (r0*r0*r0 - r1*r1*r1);
+
+    double density = smaller->mass /
+        ((4.0/3.0) * M_PI * r0*r0*r0);
+
+    double absorbedMass = absorbedVolume * density;
+
+    smaller->radius = r1;
+    smaller->mass -= absorbedMass;
+
+    double bigVolume =
+        (4.0/3.0) * M_PI * bigger->radius * bigger->radius * bigger->radius;
+
+    bigVolume += absorbedVolume;
+
+    bigger->radius = cbrt((3.0 * bigVolume) / (4.0 * M_PI));
+    bigger->mass += absorbedMass;
+}
+       
         }
     }
 
@@ -212,35 +262,6 @@ double invSqrt(double n) {
         plane->objs[i]->pos.z += plane->objs[i]->zv * dt;
     }
 
-    for (int j = 0; j < n; ++j) {
-        int i = plane->mergeTargetBuffer[j];
-        if (i < 0 || plane->objs[i]->mass <= 0 || plane->objs[j]->mass <= 0) continue;
-
-        double totalMass = plane->objs[i]->mass + plane->objs[j]->mass;
-
-        // Center-of-mass position
-        plane->objs[i]->pos = (plane->objs[i]->pos * (float)plane->objs[i]->mass +
-                             plane->objs[j]->pos * (float)plane->objs[j]->mass) / (float)totalMass;
-
-        // Momentum conservation
-        plane->objs[i]->xv = (plane->objs[i]->xv * plane->objs[i]->mass + plane->objs[j]->xv * plane->objs[j]->mass) / totalMass;
-        plane->objs[i]->yv = (plane->objs[i]->yv * plane->objs[i]->mass + plane->objs[j]->yv * plane->objs[j]->mass) / totalMass;
-        plane->objs[i]->zv = (plane->objs[i]->zv * plane->objs[i]->mass + plane->objs[j]->zv * plane->objs[j]->mass) / totalMass;
-
-        plane->objs[i]->mass = totalMass;
-
-        // Fast approximate radius scaling: radius ~ cube root of mass
-        plane->objs[i]->radius = cbrt(totalMass);
-
-        // Mark merged object as inactie
-        plane->objs[j]->mass = 0;
-    }
-
-    plane->objs.erase(
-        std::remove_if(plane->objs.begin(), plane->objs.end(),
-                       [](const Object *o){ return o->mass <= 0; }),
-        plane->objs.end()
-    );
 	  // Update modelMatrix from pos so rendering follows simulation
   for (auto &o : plane->objs) {
 		glm::mat4 model = glm::mat4(1.0f);

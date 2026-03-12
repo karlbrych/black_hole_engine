@@ -91,7 +91,6 @@ struct Plane{
     double dt = 0.01;
     const size_t version = 1;
     std::vector<glm::vec3> accelBuffer;
-    std::vector<int> mergeTargetBuffer;
      void draw(const class shader &shader, const class shader &lightShader, glm::mat4 projection, glm::mat4 view)const;
 	void rotate(float time);
     std::vector<Object*> objs;
