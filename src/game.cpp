@@ -351,7 +351,7 @@ void Game::renderRunningFrame()
     }
 
     plane_.rotate(time);
-    plane_.draw(*objectShader_, *lightSourceShader_, camera_.projection, camera_.view);
+    plane_.draw(*objectShader_, *lightSourceShader_, camera_.projection, camera_.view, camPos_);
     DoGravity(&plane_, plane_.G, plane_.dt);
 }
 

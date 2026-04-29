@@ -87,17 +87,23 @@ void load_from_binary(Plane* plane, const std::string& filename) {
     std::cout << "Data loaded from " << filename << std::endl;
 }
 
-void Plane::draw(const shader &shader, const class shader &lightShader, glm::mat4 projection, glm::mat4 view) const {
-  for (const auto &obj : objs) {
-	if(obj->IsLightSource)
-	{
-		shader.use();
-		shader.setVec3("lightPos", obj->pos.x, obj->pos.y, obj->pos.z);
-		obj->draw(lightShader, projection, view);
-		continue;
-	}
-    obj->draw(shader, projection, view);
-  }
+void Plane::draw(const shader &shader, const class shader &lightShader, glm::mat4 projection, glm::mat4 view, glm::vec3 cameraPos) const {
+    for (const auto &obj : objs) {
+        if (obj->IsLightSource) {
+            shader.use();
+            shader.setVec3("lightPos", obj->pos.x, obj->pos.y, obj->pos.z);
+            shader.setVec3("cameraPos", cameraPos.x, cameraPos.y, cameraPos.z);
+            continue;  
+		}
+    }
+
+    for (const auto &obj : objs) {
+        if (obj->IsLightSource) {
+            obj->draw(lightShader, projection, view);
+        } else {
+            obj->draw(shader, projection, view);
+        }
+    }
 }
 void Plane::rotate(float time) 
 {
