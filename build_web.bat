@@ -49,3 +49,4 @@ echo Run local server:
 echo    cd web
 echo    python -m http.server 8000
 endlocal
+@echo on
