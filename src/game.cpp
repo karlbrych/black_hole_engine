@@ -8,6 +8,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "models/texture.h"
+#include "imgui.h"
 
 Game* Game::instance_ = nullptr;
 
@@ -92,16 +93,16 @@ bool Game::initialize()
 }
 
 void Game::initializeScene()
-{
+    {
     skybox_ = std::make_unique<skybox>();
 
     objectShader_ = std::make_unique<shader>("shaders/vertex.glsl", "shaders/fragment.glsl");
     lightSourceShader_ = std::make_unique<shader>("shaders/vertex.glsl", "shaders/light_source_fragment.glsl");
 
     sphereMesh_ = createSphere(1.0f, 64, 32);
-    texture1_ = Texture::LoadTexture("assets/planet.png");
-    texture2_ = Texture::LoadTexture("assets/poop-texture.jpg");
-    texture3_ = Texture::LoadTexture("assets/sun-texture.jpg");
+    textures.push_back(Texture::LoadTexture("assets/planet.png"));
+    textures.push_back(Texture::LoadTexture("assets/poop-texture.jpg"));
+    textures.push_back(Texture::LoadTexture("assets/sun-texture.jpg"));
 
     skybox_->loadPreprocessedTextures({
         "assets/skybox/right.png",
@@ -139,7 +140,7 @@ void Game::setupSolarSystem()
         1.0 * massScale,
         sphereMesh_.indexCount,
         static_cast<float>(0.25 * scale_),
-        texture3_,
+        textures[2],
         false,
         true
     );
@@ -153,7 +154,7 @@ void Game::setupSolarSystem()
         1.65e-7 * massScale,
         sphereMesh_.indexCount,
         static_cast<float>(0.01 * scale_),
-        texture1_,
+        textures[0],
         false
     );
 
@@ -166,7 +167,7 @@ void Game::setupSolarSystem()
         2.45e-6 * massScale,
         sphereMesh_.indexCount,
         static_cast<float>(0.02 * scale_),
-        texture1_,
+        textures[0],
         false
     );
 
@@ -179,7 +180,7 @@ void Game::setupSolarSystem()
         3.00e-6 * massScale,
         sphereMesh_.indexCount,
         static_cast<float>(0.02 * scale_),
-        texture1_,
+        textures[0],
         false
     );
 
@@ -192,7 +193,7 @@ void Game::setupSolarSystem()
         3.23e-7 * massScale,
         sphereMesh_.indexCount,
         static_cast<float>(0.015 * scale_),
-        texture1_,
+        textures[0],
         false
     );
 
@@ -205,7 +206,7 @@ void Game::setupSolarSystem()
         9.54e-4 * massScale,
         sphereMesh_.indexCount,
         static_cast<float>(0.08 * scale_),
-        texture1_,
+        textures[0],
         false
     );
 
@@ -218,7 +219,7 @@ void Game::setupSolarSystem()
         2.86e-4 * massScale,
         sphereMesh_.indexCount,
         static_cast<float>(0.07 * scale_),
-        texture1_,
+        textures[0],
         false
     );
 
@@ -231,7 +232,7 @@ void Game::setupSolarSystem()
         4.37e-5 * massScale,
         sphereMesh_.indexCount,
         static_cast<float>(0.05 * scale_),
-        texture1_,
+        textures[0],
         false
     );
 
@@ -244,7 +245,7 @@ void Game::setupSolarSystem()
         5.15e-5 * massScale,
         sphereMesh_.indexCount,
         static_cast<float>(0.05 * scale_),
-        texture1_,
+        textures[2],
         false
     );
 
@@ -274,6 +275,29 @@ void Game::processInput()
         gameStopped_ = !gameStopped_;
     }
 
+    if (!gameStopped_ && glfwGetKey(window_, GLFW_KEY_TAB) == GLFW_PRESS && !tabPressedLastFrame_) {
+        if (!objectEditor_.isOpen()) {
+            double cursorX = 0.0;
+            double cursorY = 0.0;
+            glfwGetCursorPos(window_, &cursorX, &cursorY);
+            editorMouseX_ = static_cast<float>(cursorX);
+            editorMouseY_ = static_cast<float>(cursorY);
+            objectEditor_.toggleOpen();
+            firstMouse_ = true;
+        } else {
+            objectEditor_.toggleOpen();
+            firstMouse_ = true;
+            glfwSetCursorPos(window_, static_cast<double>(editorMouseX_), static_cast<double>(editorMouseY_));
+        }
+    }
+    if (!gameStopped_) {
+        glfwSetInputMode(window_, GLFW_CURSOR, objectEditor_.isOpen() ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
+        glfwSetInputMode(window_, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+    }
+    if (gameStopped_) {
+        return;
+    }
+
     if (glfwGetKey(window_, GLFW_KEY_W) == GLFW_PRESS) {
         camPos_ += camFront_ * velocity;
     }
@@ -296,6 +320,10 @@ void Game::processInput()
 
 void Game::updateCameraFromMouse(double xpos, double ypos)
 {
+    if (objectEditor_.isOpen()) {
+        return;
+    }
+
     if (firstMouse_) {
         lastMouseX_ = static_cast<float>(xpos);
         lastMouseY_ = static_cast<float>(ypos);
@@ -350,9 +378,18 @@ void Game::renderRunningFrame()
         skybox_->render(camera_.view, camera_.projection, time);
     }
 
-    plane_.rotate(time);
+    if (!objectEditor_.isOpen()) {
+        plane_.rotate(time);
+    }
     plane_.draw(*objectShader_, *lightSourceShader_, camera_.projection, camera_.view);
-    DoGravity(&plane_, plane_.G, plane_.dt);
+    if (!objectEditor_.isOpen()) {
+        DoGravity(&plane_, plane_.G, plane_.dt);
+    }
+
+    if (objectEditor_.isOpen()) {
+        objectEditor_.render(WIDTH+10, HEIGHT+10, &plane_, sphereMesh_, textures[0], textures[1], textures[2], &camPos_, &firstMouse_);
+        objectEditor_.drawPreview(*objectShader_, camera_.projection, camera_.view);
+    }
 }
 
 void Game::renderMenuFrame()
@@ -388,7 +425,7 @@ int Game::run()
         startMenu_.beginFrame();
 
         if (!gameStopped_) {
-            glfwSetInputMode(window_, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+            glfwSetInputMode(window_, GLFW_CURSOR, objectEditor_.isOpen() ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
         } else {
             glfwSetInputMode(window_, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         }
@@ -424,14 +461,8 @@ void Game::cleanup()
     if (sphereMesh_.EBO != 0) {
         glDeleteBuffers(1, &sphereMesh_.EBO);
     }
-    if (texture1_ != 0) {
-        glDeleteBuffers(1, &texture1_);
-    }
-    if (texture2_ != 0) {
-        glDeleteBuffers(1, &texture2_);
-    }
-    if (texture3_ != 0) {
-        glDeleteBuffers(1, &texture3_);
+    if (!textures.empty()) {
+        glDeleteBuffers(1, &textures[0]);
     }
 
     for (Object* obj : plane_.objs) {

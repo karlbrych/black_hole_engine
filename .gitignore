@@ -6,3 +6,5 @@ build
 .idea
 out
 .vs
+src/rust/texture-preprocessor/target
+src/rust/texture-preprocessor/Cargo.lock

@@ -22,6 +22,7 @@ struct Object{
   GLuint textureId;
   bool IsBlackHole;
   bool IsLightSource = false;
+    bool IsPreview = false;
     bool deserialize(std::istream& in) {
         // Read modelMatrix
         in.read(reinterpret_cast<char*>(&modelMatrix), sizeof(modelMatrix));

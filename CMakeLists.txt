@@ -30,6 +30,7 @@ set(SOURCES
     src/models/texture.cpp
     src/models/skybox.cpp
     src/models/startmenu.cpp
+    src/models/object_editor.cpp
 )
 
 file(GLOB SHADER_SOURCES "src/shader/*.cpp")
