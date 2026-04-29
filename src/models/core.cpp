@@ -162,15 +162,19 @@ double invSqrt(double n) {
 #endif
 }
   void DoGravity(Plane *plane, double G, double dt) {
+    
     int n = plane->objs.size();
+
     // Reuse buffers stored on Plane to avoid per-frame allocations
     plane->accelBuffer.assign(n, glm::vec3(0.0f));
     plane->mergeTargetBuffer.assign(n, -1);
 
     for (int i = 0; i < n; ++i) {
+        if(plane->objs[i]->IsBlackHole) continue;
         if (plane->objs[i]->mass <= 0) continue;
 
         for (int j = i + 1; j < n; ++j) {
+	    if(plane->objs[i]->IsBlackHole) continue;
             if (plane->objs[j]->mass <= 0) continue;
 
             double dx = plane->objs[j]->pos.x - plane->objs[i]->pos.x;
@@ -201,6 +205,7 @@ double invSqrt(double n) {
     }
 
     for (int i = 0; i < n; ++i) {
+	if(plane->objs[i]->IsBlackHole) continue;
         if (plane->objs[i]->mass <= 0) continue;
 
         plane->objs[i]->xv += plane->accelBuffer[i].x * dt;
@@ -213,6 +218,10 @@ double invSqrt(double n) {
     }
 
     for (int j = 0; j < n; ++j) {
+if(plane->objs[j]->IsBlackHole) continue;
+
+
+
         int i = plane->mergeTargetBuffer[j];
         if (i < 0 || plane->objs[i]->mass <= 0 || plane->objs[j]->mass <= 0) continue;
 

@@ -51,7 +51,7 @@ private:
     glm::vec3 camFront_ = glm::vec3(1.0f, 0.0f, -1.0f);
     glm::vec3 camUp_ = glm::vec3(0.0f, 1.0f, 0.0f);
 
-    float cameraSpeed_ = 1000.0f;
+    float cameraSpeed_ = 15000.0f;
     float deltaTime_ = 0.0f;
     float lastFrame_ = 0.0f;
 
@@ -69,6 +69,7 @@ private:
     std::unique_ptr<shader> objectShader_;
     std::unique_ptr<shader> lightSourceShader_;
 
+    GLuint texture0_ = 0;
     GLuint texture1_ = 0;
     GLuint texture2_ = 0;
     GLuint texture3_ = 0;

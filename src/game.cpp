@@ -99,6 +99,7 @@ void Game::initializeScene()
     lightSourceShader_ = std::make_unique<shader>("shaders/vertex.glsl", "shaders/light_source_fragment.glsl");
 
     sphereMesh_ = createSphere(1.0f, 64, 32);
+    texture0_ = Texture::LoadTexture("assets/pie.png");
     texture1_ = Texture::LoadTexture("assets/planet.png");
     texture2_ = Texture::LoadTexture("assets/poop-texture.jpg");
     texture3_ = Texture::LoadTexture("assets/sun-texture.jpg");
@@ -129,6 +130,20 @@ void Game::initializeScene()
 void Game::setupSolarSystem()
 {
     const double massScale = scale_ * scale_ * scale_;
+    Object* pie = new Object(
+      0, std::sqrt(plane_.G / 67) * scale_, 0,
+      glm::vec3(0.0,0.0,0.0),
+      sphereMesh_.VAO,
+      sphereMesh_.VBO,
+      sphereMesh_.EBO,
+      67 * massScale,
+      sphereMesh_.indexCount,
+      static_cast<float>(0.67 * scale_),
+      texture0_,
+      true,
+      true
+      );
+
 
     Object* sun = new Object(
         0, 0, 0,
@@ -139,7 +154,7 @@ void Game::setupSolarSystem()
         1.0 * massScale,
         sphereMesh_.indexCount,
         static_cast<float>(0.25 * scale_),
-        texture3_,
+        texture0_,
         false,
         true
     );
@@ -247,7 +262,7 @@ void Game::setupSolarSystem()
         texture1_,
         false
     );
-
+    plane_.objs.push_back(pie);
     plane_.objs.push_back(sun);
     plane_.objs.push_back(mercury);
     plane_.objs.push_back(venus);
@@ -423,6 +438,9 @@ void Game::cleanup()
     }
     if (sphereMesh_.EBO != 0) {
         glDeleteBuffers(1, &sphereMesh_.EBO);
+    }
+    if (texture0_ != 0) {
+    	glDeleteBuffers(1, &texture0_);
     }
     if (texture1_ != 0) {
         glDeleteBuffers(1, &texture1_);
