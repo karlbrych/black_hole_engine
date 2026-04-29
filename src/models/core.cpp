@@ -91,6 +91,8 @@ void Plane::draw(const shader &shader, const class shader &lightShader, glm::mat
   for (const auto &obj : objs) {
 	if(obj->IsLightSource)
 	{
+		shader.use();
+		shader.setVec3("lightPos", obj->pos.x, obj->pos.y, obj->pos.z);
 		obj->draw(lightShader, projection, view);
 		continue;
 	}
