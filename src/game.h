@@ -4,6 +4,7 @@
 
 #include "models/camera.h"
 #include "models/core.h"
+#include "models/object_editor.h"
 #include "models/shader.h"
 #include "models/skybox.h"
 #include "models/sphere.h"
@@ -44,6 +45,8 @@ private:
     float mouseSensitivity_ = 0.1f;
     float lastMouseX_ = 0.0f;
     float lastMouseY_ = 0.0f;
+    float editorMouseX_ = 0.0f;
+    float editorMouseY_ = 0.0f;
 
     bool rightPressed_ = false;
 
@@ -65,13 +68,12 @@ private:
     std::unique_ptr<skybox> skybox_;
     sphere sphereMesh_{};
     StartMenu startMenu_;
+    Object_Editor objectEditor_;
 
     std::unique_ptr<shader> objectShader_;
     std::unique_ptr<shader> lightSourceShader_;
 
-    GLuint texture1_ = 0;
-    GLuint texture2_ = 0;
-    GLuint texture3_ = 0;
+    std::vector<GLuint> textures = {};
 
     static Game* instance_;
 };

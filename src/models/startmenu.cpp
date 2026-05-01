@@ -82,7 +82,11 @@ bool StartMenu::render(int windowWidth, int windowHeight, Plane* plane)
             load_from_binary(plane, "saves/save.dat");
         }
     }
-
+    for (size_t i = 0; i < 6; i++)
+    {
+        ImGui::Spacing();
+    }
+    ImGui::Text("Use WASD to move, mouse to look around. Press TAB to open the object editor.");
     ImGui::End();
     
     return startGameRequested || exitGameRequested;
