@@ -86,15 +86,28 @@ void load_from_binary(Plane* plane, const std::string& filename) {
     std::cout << "Data loaded from " << filename << std::endl;
 }
 
-void Plane::draw(const shader &shader, const class shader &lightShader, glm::mat4 projection, glm::mat4 view) const {
-  for (const auto &obj : objs) {
-	if(obj->IsLightSource)
-	{
-		obj->draw(lightShader, projection, view);
-		continue;
-	}
-    obj->draw(shader, projection, view);
-  }
+void Plane::draw(const shader &shader, const class shader &lightShader, glm::mat4 projection, glm::mat4 view, glm::vec3 cameraPos) const {
+    for (const auto &obj : objs) {
+        if (obj == nullptr || obj->IsPreview || obj->radius <= 0.0f || obj->mass <= 0.0) {
+            continue;
+        }
+        if (obj->IsLightSource) {
+            shader.use();
+            shader.setVec3("lightPos", obj->pos.x, obj->pos.y, obj->pos.z);
+            shader.setVec3("cameraPos", cameraPos.x, cameraPos.y, cameraPos.z);
+        }
+    }
+
+    for (const auto &obj : objs) {
+        if (obj == nullptr || obj->IsPreview || obj->radius <= 0.0f || obj->mass <= 0.0) {
+            continue;
+        }
+        if (obj->IsLightSource) {
+            obj->draw(lightShader, projection, view);
+        } else {
+            obj->draw(shader, projection, view);
+        }
+    }
 }
 void Plane::rotate(float time) 
 {
@@ -178,11 +191,13 @@ double invSqrt(double n) {
 
     for (int i = 0; i < n; ++i) {
         if (plane->objs[i] == nullptr || plane->objs[i]->IsPreview) continue;
+        if(plane->objs[i]->IsBlackHole) continue;
         if (plane->objs[i]->mass <= 0) continue;
 
         for (int j = i + 1; j < n; ++j) {
             if (plane->objs[j] == nullptr || plane->objs[j]->IsPreview) continue;
             if (plane->objs[j]->mass <= 0) continue;
+            if(plane->objs[i]->IsBlackHole) continue;
 
             double dx = plane->objs[j]->pos.x - plane->objs[i]->pos.x;
             double dy = plane->objs[j]->pos.y - plane->objs[i]->pos.y;
@@ -264,6 +279,7 @@ double invSqrt(double n) {
 
     for (int i = 0; i < n; ++i) {
         if (plane->objs[i] == nullptr || plane->objs[i]->IsPreview) continue;
+        if(plane->objs[i]->IsBlackHole) continue;
         if (plane->objs[i]->mass <= 0) continue;
 
         plane->objs[i]->xv += plane->accelBuffer[i].x * dt;

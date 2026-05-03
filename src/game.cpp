@@ -118,7 +118,7 @@ void Game::initializeScene()
     plane_.G = 4.0 * M_PI * M_PI;
     plane_.dt = 0.0001;
 
-    setupSolarSystem();
+    //setupSolarSystem();
 
     camFront_ = glm::normalize(glm::vec3(0.0f, 0.0f, -1.0f));
     glfwSetInputMode(window_, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -245,7 +245,7 @@ void Game::setupSolarSystem()
         5.15e-5 * massScale,
         sphereMesh_.indexCount,
         static_cast<float>(0.05 * scale_),
-        textures[2],
+        textures[0],
         false
     );
 
@@ -381,7 +381,7 @@ void Game::renderRunningFrame()
     if (!objectEditor_.isOpen()) {
         plane_.rotate(time);
     }
-    plane_.draw(*objectShader_, *lightSourceShader_, camera_.projection, camera_.view);
+    plane_.draw(*objectShader_, *lightSourceShader_, camera_.projection, camera_.view,camPos_);
     if (!objectEditor_.isOpen()) {
         DoGravity(&plane_, plane_.G, plane_.dt);
     }
