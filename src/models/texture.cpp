@@ -145,3 +145,12 @@ Bind(textureID, slot);
 bool Texture::isLoaded(const std::string& path){
     return textureCache.find(path) != textureCache.end();
 }
+
+void Texture::CleanupAll() {
+    for (auto& [path, id] : textureCache) {
+        if (id != 0) {
+            glDeleteTextures(1, &id);
+        }
+    }
+    textureCache.clear();
+}

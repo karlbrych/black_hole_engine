@@ -89,6 +89,10 @@ void skybox::loadPreprocessedTextures(const std::vector<std::string>& faces)
         return;
     }
 
+    if (cubemapTexture != 0) {
+        glDeleteTextures(1, &cubemapTexture);
+        cubemapTexture = 0;
+    }
     glGenTextures(1, &cubemapTexture);
     glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
 

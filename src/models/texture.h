@@ -12,6 +12,7 @@ class Texture{
 		  static GLuint LoadPreprocessedTexture(const std::string& path);
 		  static void BindTexture(GLuint textureId,unsigned int slot = 0);
 		  static bool isLoaded(const std::string& path);
+		  static void CleanupAll();
 		  static void Bind(GLuint textureId,unsigned int slot);
 		  static std::unordered_map<std::string, GLuint> textureCache;
 };

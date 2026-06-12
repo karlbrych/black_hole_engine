@@ -301,4 +301,15 @@ double invSqrt(double n) {
 		model = glm::scale(model, glm::vec3(o->radius));
 		o->modelMatrix = model;
   }
+
+  // Remove consumed (dead) objects to prevent memory leaks
+  auto it = std::remove_if(plane->objs.begin(), plane->objs.end(),
+      [](Object* o) {
+          if (o != nullptr && !o->IsPreview && o->mass <= 0.0 && o->radius <= 0.0f) {
+              delete o;
+              return true;
+          }
+          return false;
+      });
+  plane->objs.erase(it, plane->objs.end());
 }

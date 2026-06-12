@@ -8,8 +8,24 @@
 class shader
 {
 public:
-	GLuint ID;
+	GLuint ID = 0;
 	shader(const char *vertexPath,const char *fragmentPath);
+	~shader();
+
+	// Non-copyable — each instance owns a unique GL program
+	shader(const shader&) = delete;
+	shader& operator=(const shader&) = delete;
+
+	// Movable
+	shader(shader&& other) noexcept : ID(other.ID) { other.ID = 0; }
+	shader& operator=(shader&& other) noexcept {
+		if (this != &other) {
+			if (ID != 0) glDeleteProgram(ID);
+			ID = other.ID;
+			other.ID = 0;
+		}
+		return *this;
+	}
 	void use() const;
 	void setBool(const std::string& name, bool value) const;
 	void setFloat(const std::string& name, float value)const;
