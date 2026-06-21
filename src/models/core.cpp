@@ -242,7 +242,7 @@ double invSqrt(double n) {
         smaller->radius = 0;
         smaller->mass = 0;
 
-        return;
+        continue;
     }
 
     double negDistance = -distanceDelta;

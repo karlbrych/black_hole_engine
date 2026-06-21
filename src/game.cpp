@@ -114,7 +114,7 @@ void Game::initializeScene() {
   plane_.G = 4.0 * M_PI * M_PI;
   plane_.dt = 0.0001;
 
-  // setupSolarSystem();
+  setupSolarSystem();
 
   camFront_ = glm::normalize(glm::vec3(0.0f, 0.0f, -1.0f));
   glfwSetInputMode(window_, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -387,6 +387,7 @@ int Game::run() {
 
 void Game::cleanup() {
   if (window_ != nullptr) {
+    objectEditor_.shutdown();
     startMenu_.shutdown();
   }
 
@@ -399,10 +400,7 @@ void Game::cleanup() {
   if (sphereMesh_.EBO != 0) {
     glDeleteBuffers(1, &sphereMesh_.EBO);
   }
-  if (!textures.empty()) {
-    glDeleteTextures(static_cast<GLsizei>(textures.size()), textures.data());
-    textures.clear();
-  }
+  textures.clear();
   Texture::CleanupAll();
 
   for (Object *obj : plane_.objs) {

@@ -110,7 +110,7 @@ Object_Editor::Object_Editor()
 }
 Object_Editor::~Object_Editor()
 {
-    
+    clearPreview();
 }
 
 void Object_Editor::init(GLFWwindow* window, const char* glsl_version)
